@@ -13,7 +13,7 @@
 <h1>Interface CheckoutController</h1></div>
 <div class="tsd-signature"><span class="tsd-signature-keyword">interface</span> <span class="tsd-kind-interface">CheckoutController</span> <span class="tsd-signature-symbol">{</span><br/>    <a class="tsd-kind-property" href="#state">state</a><span class="tsd-signature-symbol">:</span> <a href="../types/_inttegro_js.CheckoutState.html" class="tsd-signature-type tsd-kind-type-alias">CheckoutState</a><span class="tsd-signature-symbol">;</span><br/>    <a class="tsd-kind-call-signature" href="#destroy-1">destroy</a><span class="tsd-signature-symbol">()</span><span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">void</span><span class="tsd-signature-symbol">;</span><br/>    <a class="tsd-kind-call-signature" href="#focus-1">focus</a><span class="tsd-signature-symbol">()</span><span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">void</span><span class="tsd-signature-symbol">;</span><br/>    <a class="tsd-kind-call-signature" href="#mount-1">mount</a><span class="tsd-signature-symbol">(</span><span class="tsd-kind-parameter">target</span><span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">string</span> <span class="tsd-signature-symbol">|</span> <span class="tsd-signature-type">HTMLElement</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">void</span><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol">;</span><br/>    <a class="tsd-kind-call-signature" href="#on-1">on</a><span class="tsd-signature-symbol">&lt;</span><br/>        <a class="tsd-signature-type tsd-kind-type-parameter" href="#ontype">Type</a> <span class="tsd-signature-keyword">extends</span><br/>            <span class="tsd-signature-symbol">|</span> <span class="tsd-signature-type">&quot;ready&quot;</span><br/>            <span class="tsd-signature-symbol">|</span> <span class="tsd-signature-type">&quot;change&quot;</span><br/>            <span class="tsd-signature-symbol">|</span> <span class="tsd-signature-type">&quot;paymentAttempt&quot;</span><br/>            <span class="tsd-signature-symbol">|</span> <span class="tsd-signature-type">&quot;confirmationRequired&quot;</span><br/>            <span class="tsd-signature-symbol">|</span> <span class="tsd-signature-type">&quot;paymentAttemptFailed&quot;</span><br/>            <span class="tsd-signature-symbol">|</span> <span class="tsd-signature-type">&quot;completed&quot;</span><br/>            <span class="tsd-signature-symbol">|</span> <span class="tsd-signature-type">&quot;canceled&quot;</span><br/>            <span class="tsd-signature-symbol">|</span> <span class="tsd-signature-type">&quot;error&quot;</span><span class="tsd-signature-symbol">,</span><br/>    <span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol">(</span><br/>        <span class="tsd-kind-parameter">type</span><span class="tsd-signature-symbol">:</span> <a class="tsd-signature-type tsd-kind-type-parameter" href="#ontype">Type</a><span class="tsd-signature-symbol">,</span><br/>        <span class="tsd-kind-parameter">handler</span><span class="tsd-signature-symbol">:</span> <a href="../types/_inttegro_js.CheckoutEventHandler.html" class="tsd-signature-type tsd-kind-type-alias">CheckoutEventHandler</a><span class="tsd-signature-symbol">&lt;</span><a class="tsd-signature-type tsd-kind-type-parameter" href="#ontype">Type</a><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol">,</span><br/>    <span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">:</span> <span class="tsd-signature-symbol">()</span> <span class="tsd-signature-symbol">=&gt;</span> <span class="tsd-signature-type">void</span><span class="tsd-signature-symbol">;</span><br/>    <a class="tsd-kind-call-signature" href="#onevent-1">onEvent</a><span class="tsd-signature-symbol">(</span><span class="tsd-kind-parameter">handler</span><span class="tsd-signature-symbol">:</span> <span class="tsd-signature-symbol">(</span><span class="tsd-kind-parameter">event</span><span class="tsd-signature-symbol">:</span> <a href="../types/_inttegro_js.CheckoutEvent.html" class="tsd-signature-type tsd-kind-type-alias">CheckoutEvent</a><span class="tsd-signature-symbol">)</span> <span class="tsd-signature-symbol">=&gt;</span> <span class="tsd-signature-type">void</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">:</span> <span class="tsd-signature-symbol">()</span> <span class="tsd-signature-symbol">=&gt;</span> <span class="tsd-signature-type">void</span><span class="tsd-signature-symbol">;</span><br/>    <a class="tsd-kind-call-signature" href="#unmount-1">unmount</a><span class="tsd-signature-symbol">()</span><span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">void</span><span class="tsd-signature-symbol">;</span><br/>    <a class="tsd-kind-call-signature" href="#update-1">update</a><span class="tsd-signature-symbol">(</span><span class="tsd-kind-parameter">options</span><span class="tsd-signature-symbol">:</span> <a href="_inttegro_js.CheckoutUpdateOptions.html" class="tsd-signature-type tsd-kind-interface">CheckoutUpdateOptions</a><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">void</span><span class="tsd-signature-symbol">;</span><br/><span class="tsd-signature-symbol">}</span></div><aside class="tsd-sources">
 <ul>
-<li>Defined in <a href="https://github.com/zebodotdev/js/blob/25eae6054b7744a5a0292b12b9bebc47b9882e0a/packages/js/src/types.ts#L109">packages/js/src/types.ts:109</a></li></ul></aside>
+<li>Defined in <a href="https://github.com/zebodotdev/js/blob/f9dcedb541873f17cde2dff41e2982a42cd42853/packages/js/src/types.ts#L109">packages/js/src/types.ts:109</a></li></ul></aside>
 <section class="tsd-panel-group tsd-index-group">
 <section class="tsd-panel tsd-index-panel">
 <details class="tsd-index-content tsd-accordion" open><summary class="tsd-accordion-summary tsd-index-summary"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" aria-hidden="true"><use href="../assets/icons.svg#icon-chevronDown"></use></svg>
@@ -40,7 +40,7 @@
 <h3 class="tsd-anchor-link" id="state"><code class="tsd-tag">Readonly</code><span>state</span><a href="#state" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="../assets/icons.svg#icon-anchor"></use></svg></a></h3>
 <div class="tsd-signature"><span class="tsd-kind-property">state</span><span class="tsd-signature-symbol">:</span> <a href="../types/_inttegro_js.CheckoutState.html" class="tsd-signature-type tsd-kind-type-alias">CheckoutState</a></div><aside class="tsd-sources">
 <ul>
-<li>Defined in <a href="https://github.com/zebodotdev/js/blob/25eae6054b7744a5a0292b12b9bebc47b9882e0a/packages/js/src/types.ts#L110">packages/js/src/types.ts:110</a></li></ul></aside></section></section></details>
+<li>Defined in <a href="https://github.com/zebodotdev/js/blob/f9dcedb541873f17cde2dff41e2982a42cd42853/packages/js/src/types.ts#L110">packages/js/src/types.ts:110</a></li></ul></aside></section></section></details>
 <details class="tsd-panel-group tsd-member-group tsd-accordion" open><summary class="tsd-accordion-summary" data-key="section-Methods"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" aria-hidden="true"><use href="../assets/icons.svg#icon-chevronDown"></use></svg>
 <h2 class="tsd-anchor-link" id="methods-1">Methods<a href="#methods-1" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="../assets/icons.svg#icon-anchor"></use></svg></a></h2></summary>
 <section>
@@ -52,7 +52,7 @@
 <div class="tsd-description">
 <h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">void</span></h4><aside class="tsd-sources">
 <ul>
-<li>Defined in <a href="https://github.com/zebodotdev/js/blob/25eae6054b7744a5a0292b12b9bebc47b9882e0a/packages/js/src/types.ts#L113">packages/js/src/types.ts:113</a></li></ul></aside></div></li></ul></section>
+<li>Defined in <a href="https://github.com/zebodotdev/js/blob/f9dcedb541873f17cde2dff41e2982a42cd42853/packages/js/src/types.ts#L113">packages/js/src/types.ts:113</a></li></ul></aside></div></li></ul></section>
 <section class="tsd-panel tsd-member">
 <h3 class="tsd-anchor-link" id="focus"><span>focus</span><a href="#focus" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="../assets/icons.svg#icon-anchor"></use></svg></a></h3>
 <ul class="tsd-signatures">
@@ -61,7 +61,7 @@
 <div class="tsd-description">
 <h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">void</span></h4><aside class="tsd-sources">
 <ul>
-<li>Defined in <a href="https://github.com/zebodotdev/js/blob/25eae6054b7744a5a0292b12b9bebc47b9882e0a/packages/js/src/types.ts#L114">packages/js/src/types.ts:114</a></li></ul></aside></div></li></ul></section>
+<li>Defined in <a href="https://github.com/zebodotdev/js/blob/f9dcedb541873f17cde2dff41e2982a42cd42853/packages/js/src/types.ts#L114">packages/js/src/types.ts:114</a></li></ul></aside></div></li></ul></section>
 <section class="tsd-panel tsd-member">
 <h3 class="tsd-anchor-link" id="mount"><span>mount</span><a href="#mount" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="../assets/icons.svg#icon-anchor"></use></svg></a></h3>
 <ul class="tsd-signatures">
@@ -74,7 +74,7 @@
 <li><span><span class="tsd-kind-parameter">target</span>: <span class="tsd-signature-type">string</span> <span class="tsd-signature-symbol">|</span> <span class="tsd-signature-type">HTMLElement</span></span></li></ul></div>
 <h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">void</span><span class="tsd-signature-symbol">&gt;</span></h4><aside class="tsd-sources">
 <ul>
-<li>Defined in <a href="https://github.com/zebodotdev/js/blob/25eae6054b7744a5a0292b12b9bebc47b9882e0a/packages/js/src/types.ts#L111">packages/js/src/types.ts:111</a></li></ul></aside></div></li></ul></section>
+<li>Defined in <a href="https://github.com/zebodotdev/js/blob/f9dcedb541873f17cde2dff41e2982a42cd42853/packages/js/src/types.ts#L111">packages/js/src/types.ts:111</a></li></ul></aside></div></li></ul></section>
 <section class="tsd-panel tsd-member">
 <h3 class="tsd-anchor-link" id="on"><span>on</span><a href="#on" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="../assets/icons.svg#icon-anchor"></use></svg></a></h3>
 <ul class="tsd-signatures">
@@ -92,7 +92,7 @@
 <li><span><span class="tsd-kind-parameter">handler</span>: <a href="../types/_inttegro_js.CheckoutEventHandler.html" class="tsd-signature-type tsd-kind-type-alias">CheckoutEventHandler</a><span class="tsd-signature-symbol">&lt;</span><a class="tsd-signature-type tsd-kind-type-parameter" href="#ontype">Type</a><span class="tsd-signature-symbol">&gt;</span></span></li></ul></div>
 <h4 class="tsd-returns-title">Returns <span class="tsd-signature-symbol">()</span> <span class="tsd-signature-symbol">=&gt;</span> <span class="tsd-signature-type">void</span></h4><aside class="tsd-sources">
 <ul>
-<li>Defined in <a href="https://github.com/zebodotdev/js/blob/25eae6054b7744a5a0292b12b9bebc47b9882e0a/packages/js/src/types.ts#L117">packages/js/src/types.ts:117</a></li></ul></aside></div></li></ul></section>
+<li>Defined in <a href="https://github.com/zebodotdev/js/blob/f9dcedb541873f17cde2dff41e2982a42cd42853/packages/js/src/types.ts#L117">packages/js/src/types.ts:117</a></li></ul></aside></div></li></ul></section>
 <section class="tsd-panel tsd-member">
 <h3 class="tsd-anchor-link" id="onevent"><span>on<wbr/>Event</span><a href="#onevent" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="../assets/icons.svg#icon-anchor"></use></svg></a></h3>
 <ul class="tsd-signatures">
@@ -105,7 +105,7 @@
 <li><span><span class="tsd-kind-parameter">handler</span>: <span class="tsd-signature-symbol">(</span><span class="tsd-kind-parameter">event</span><span class="tsd-signature-symbol">:</span> <a href="../types/_inttegro_js.CheckoutEvent.html" class="tsd-signature-type tsd-kind-type-alias">CheckoutEvent</a><span class="tsd-signature-symbol">)</span> <span class="tsd-signature-symbol">=&gt;</span> <span class="tsd-signature-type">void</span></span></li></ul></div>
 <h4 class="tsd-returns-title">Returns <span class="tsd-signature-symbol">()</span> <span class="tsd-signature-symbol">=&gt;</span> <span class="tsd-signature-type">void</span></h4><aside class="tsd-sources">
 <ul>
-<li>Defined in <a href="https://github.com/zebodotdev/js/blob/25eae6054b7744a5a0292b12b9bebc47b9882e0a/packages/js/src/types.ts#L116">packages/js/src/types.ts:116</a></li></ul></aside></div></li></ul></section>
+<li>Defined in <a href="https://github.com/zebodotdev/js/blob/f9dcedb541873f17cde2dff41e2982a42cd42853/packages/js/src/types.ts#L116">packages/js/src/types.ts:116</a></li></ul></aside></div></li></ul></section>
 <section class="tsd-panel tsd-member">
 <h3 class="tsd-anchor-link" id="unmount"><span>unmount</span><a href="#unmount" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="../assets/icons.svg#icon-anchor"></use></svg></a></h3>
 <ul class="tsd-signatures">
@@ -114,7 +114,7 @@
 <div class="tsd-description">
 <h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">void</span></h4><aside class="tsd-sources">
 <ul>
-<li>Defined in <a href="https://github.com/zebodotdev/js/blob/25eae6054b7744a5a0292b12b9bebc47b9882e0a/packages/js/src/types.ts#L112">packages/js/src/types.ts:112</a></li></ul></aside></div></li></ul></section>
+<li>Defined in <a href="https://github.com/zebodotdev/js/blob/f9dcedb541873f17cde2dff41e2982a42cd42853/packages/js/src/types.ts#L112">packages/js/src/types.ts:112</a></li></ul></aside></div></li></ul></section>
 <section class="tsd-panel tsd-member">
 <h3 class="tsd-anchor-link" id="update"><span>update</span><a href="#update" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="../assets/icons.svg#icon-anchor"></use></svg></a></h3>
 <ul class="tsd-signatures">
@@ -127,7 +127,7 @@
 <li><span><span class="tsd-kind-parameter">options</span>: <a href="_inttegro_js.CheckoutUpdateOptions.html" class="tsd-signature-type tsd-kind-interface">CheckoutUpdateOptions</a></span></li></ul></div>
 <h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">void</span></h4><aside class="tsd-sources">
 <ul>
-<li>Defined in <a href="https://github.com/zebodotdev/js/blob/25eae6054b7744a5a0292b12b9bebc47b9882e0a/packages/js/src/types.ts#L115">packages/js/src/types.ts:115</a></li></ul></aside></div></li></ul></section></section></details></div>
+<li>Defined in <a href="https://github.com/zebodotdev/js/blob/f9dcedb541873f17cde2dff41e2982a42cd42853/packages/js/src/types.ts#L115">packages/js/src/types.ts:115</a></li></ul></aside></div></li></ul></section></section></details></div>
 <div class="col-sidebar">
 <div class="page-menu">
 <div class="tsd-navigation settings">
