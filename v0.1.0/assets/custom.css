@@ -110,14 +110,15 @@ h3[id] {
   scroll-margin-block-start: 4rem;
 }
 
-.inttegro-heading-logos,
 .inttegro-nav-logos {
   display: inline-flex;
   flex: 0 0 auto;
   align-items: center;
-  gap: 0.3em;
-  margin-inline-end: 0.48em;
-  vertical-align: -0.12em;
+  gap: 0.18rem;
+  inline-size: 1.75rem;
+  justify-content: flex-end;
+  margin-inline-end: 0.45rem;
+  vertical-align: -0.08em;
 }
 
 .inttegro-logo {
@@ -130,69 +131,57 @@ h3[id] {
 }
 
 .inttegro-nav-logos {
-  gap: 0.2em;
-  margin-inline-end: 0.4em;
-  font-size: 0.9em;
+  font-size: 0.75em;
 }
 
 .inttegro-install-tabs {
-  margin-block: 1.25rem 2rem;
-  overflow: hidden;
-  border: 1px solid var(--color-accent);
-  border-radius: 12px;
-  background: var(--color-background);
+  margin-block: 1.5rem 2rem;
 }
 
 .inttegro-install-tablist {
   display: flex;
   gap: 0.25rem;
-  padding: 0.35rem;
+  margin: 0;
+  padding: 0;
   overflow-x: auto;
   border-block-end: 1px solid var(--color-accent);
-  background: var(--color-background-secondary);
   scrollbar-width: thin;
 }
 
 .inttegro-install-tab {
   display: inline-flex;
-  min-block-size: 2.5rem;
+  min-block-size: 2.75rem;
   flex: 0 0 auto;
   align-items: center;
   gap: 0.5rem;
-  padding: 0.55rem 0.9rem;
+  margin-block-end: -1px;
+  padding: 0.75rem 1rem;
   border: 0;
-  border-radius: 8px;
+  border-block-end: 2px solid transparent;
+  border-radius: 0;
   color: var(--color-text-aside);
   background: transparent;
   font: inherit;
-  font-weight: 600;
+  font-size: 0.875rem;
+  font-weight: 400;
   line-height: 1;
   cursor: pointer;
+  transition:
+    border-color 150ms ease,
+    color 150ms ease;
 }
 
 .inttegro-install-tab:hover {
-  color: var(--color-text);
-  background: var(--color-background-active);
+  color: var(--color-link);
 }
 
 .inttegro-install-tab[aria-selected='true'] {
-  color: var(--color-text);
-  background: var(--color-background);
-  box-shadow: 0 1px 4px rgb(0 0 0 / 12%);
-}
-
-:root[data-theme='dark'] .inttegro-install-tab[aria-selected='true'] {
-  box-shadow: inset 0 0 0 1px var(--color-accent);
-}
-
-@media (prefers-color-scheme: dark) {
-  :root[data-theme='os'] .inttegro-install-tab[aria-selected='true'] {
-    box-shadow: inset 0 0 0 1px var(--color-accent);
-  }
+  border-block-end-color: var(--color-link);
+  color: var(--color-link);
 }
 
 .inttegro-install-panel {
-  padding: 0.4rem 1rem 1rem;
+  padding-block-start: 1.5rem;
 }
 
 .inttegro-install-panel[hidden] {
@@ -203,12 +192,22 @@ h3[id] {
   margin-block-end: 0;
 }
 
+.inttegro-install-panel > pre:first-child {
+  margin-block-start: 0;
+}
+
+.inttegro-docs-home .tsd-page-title {
+  display: none;
+}
+
+.inttegro-docs-home .tsd-panel.tsd-typography > h1:first-child {
+  margin-block-start: 0;
+}
+
 @media (max-width: 560px) {
   .inttegro-install-tab {
-    padding-inline: 0.75rem;
-  }
-
-  .inttegro-install-panel {
-    padding-inline: 0.75rem;
+    flex: 1 0 auto;
+    justify-content: center;
+    padding-inline: 0.625rem;
   }
 }
