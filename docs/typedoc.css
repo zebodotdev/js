@@ -134,6 +134,16 @@ h3[id] {
   font-size: 0.75em;
 }
 
+.inttegro-site-nav-logo {
+  display: inline-flex;
+  inline-size: 20px;
+  block-size: 20px;
+  flex: 0 0 20px;
+  align-items: center;
+  justify-content: center;
+  font-size: 1rem;
+}
+
 .inttegro-install-tabs {
   margin-block: 1.5rem 2rem;
 }

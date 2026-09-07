@@ -80,6 +80,13 @@ if (
   failures.push('missing accessible installer tab behavior')
 }
 
+if (
+  !customJs.includes('documentLogos') ||
+  !customJs.includes('inttegro-site-nav-logo')
+) {
+  failures.push('missing framework logos in document navigation')
+}
+
 if (!generatedHtml.includes('assets/custom.js?v=')) {
   failures.push('generated documentation does not load the UI enhancements')
 }

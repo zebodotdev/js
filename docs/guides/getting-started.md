@@ -143,10 +143,9 @@ Changing `orderId`, `timeout`, or `title` requires a new controller. Framework a
 
 The browser's `completed` event is useful for navigation, confirmation messaging, and telemetry. It is not a fulfillment credential. Browser events can be interrupted, suppressed, or replayed.
 
-After completion, either:
-
-- retrieve the Order from your server and confirm its payable balance and final status; or
-- process Inttegro's signed server webhook and make fulfillment idempotent.
+After completion, retrieve the Order from your server and confirm its payable
+balance and final status. Keep fulfillment idempotent so repeated status checks
+cannot ship, credit, or notify twice.
 
 If the payer closes the page after authorizing a payment but before the browser receives `completed`, server-side reconciliation still gives you the correct outcome.
 

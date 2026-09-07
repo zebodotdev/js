@@ -124,4 +124,8 @@ Use stable error codes for telemetry and coarse recovery decisions. Show calm, p
 
 ## Verify server-side outcomes
 
-No browser signal—including `completed`—is proof that fulfillment should occur. Retrieve the Order with server credentials or consume signed webhooks. Make fulfillment idempotent, account for late confirmation, and retain enough server-side history to reconcile interruptions without collecting sensitive payer input in the browser.
+No browser signal—including `completed`—is proof that fulfillment should occur.
+Retrieve the Order with server credentials and verify its current state. Make
+fulfillment idempotent, account for late confirmation, and retain enough
+server-side history to reconcile interruptions without collecting sensitive
+payer input in the browser.

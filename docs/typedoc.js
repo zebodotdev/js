@@ -68,11 +68,24 @@
   const headingLogos = {
     'inttegro-javascript-sdks': ['inttegro', 'javascript'],
     'javascript-and-typescript': ['javascript', 'typescript'],
+    'integrate-checkout-with-angular': ['angular'],
+    'integrate-checkout-with-inertia': ['inertia'],
+    'integrate-checkout-with-react': ['react'],
+    'integrate-checkout-with-svelte': ['svelte'],
+    'integrate-checkout-with-vue': ['vue'],
     react: ['react'],
     vue: ['vue'],
     svelte: ['svelte'],
     angular: ['angular'],
     inertia: ['inertia'],
+  }
+
+  const documentLogos = {
+    'Angular.html': 'angular',
+    'Inertia.html': 'inertia',
+    'React.html': 'react',
+    'Svelte.html': 'svelte',
+    'Vue.html': 'vue',
   }
 
   function createLogo(name) {
@@ -107,6 +120,16 @@
           link.prepend(createLogoGroup(names, 'inttegro-nav-logos'))
         }
       }
+    }
+
+    for (const link of document.querySelectorAll('.site-menu a')) {
+      const documentName = link.getAttribute('href')?.split('/').at(-1)
+      const logoName = documentLogos[documentName]
+      if (!logoName || link.querySelector('.inttegro-site-nav-logo')) continue
+
+      const documentIcon = link.querySelector(':scope > .tsd-kind-icon')
+      const logo = createLogoGroup([logoName], 'inttegro-site-nav-logo')
+      documentIcon?.replaceWith(logo)
     }
   }
 
@@ -244,6 +267,17 @@
     markLandingPage()
     createInstallerTabs()
     decorateTechnologyNavigation()
+    window.addEventListener('load', decorateTechnologyNavigation, {
+      once: true,
+    })
+
+    const navigationObserver = new MutationObserver(
+      decorateTechnologyNavigation,
+    )
+    navigationObserver.observe(document.body, {
+      childList: true,
+      subtree: true,
+    })
   }
 
   if (document.readyState === 'loading') {

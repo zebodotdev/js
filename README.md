@@ -143,106 +143,21 @@ await checkout.mount('#checkout')
 `loadInttegro()` returns `null` during server-side rendering. Initialize and
 mount Checkout only in browser code.
 
-## React
+## Framework adapters
 
-```tsx
-import { Checkout } from '@inttegro/react'
+The official adapters map Checkout onto each framework's component lifecycle,
+reactivity model, events, and cleanup conventions. Start with the adapter
+overview, then follow the guide for your application:
 
-export function CheckoutPage({ orderId }: { orderId: string }) {
-  return (
-    <Checkout
-      appearance={{ theme: 'system' }}
-      orderId={orderId}
-      onCompleted={() => window.location.assign('/orders/complete')}
-      onError={(error) => console.error(error)}
-    />
-  )
-}
-```
+- [Framework adapter overview](./docs/guides/framework-adapters.md)
+- [React](./docs/guides/react.md)
+- [Vue](./docs/guides/vue.md)
+- [Svelte](./docs/guides/svelte.md)
+- [Angular](./docs/guides/angular.md)
+- [Inertia](./docs/guides/inertia.md)
 
-## Vue
-
-```vue
-<script setup lang="ts">
-import { Checkout } from '@inttegro/vue'
-
-defineProps<{ orderId: string }>()
-
-function handleCompleted() {
-  window.location.assign('/orders/complete')
-}
-</script>
-
-<template>
-  <Checkout
-    :appearance="{ theme: 'system' }"
-    :order-id="orderId"
-    @completed="handleCompleted"
-  />
-</template>
-```
-
-## Svelte
-
-```svelte
-<script lang="ts">
-  import { Checkout } from '@inttegro/svelte'
-
-  let { orderId }: { orderId: string } = $props()
-
-  function handleCompleted() {
-    window.location.assign('/orders/complete')
-  }
-</script>
-
-<Checkout
-  appearance={{ theme: 'system' }}
-  {orderId}
-  onCompleted={handleCompleted}
-/>
-```
-
-## Angular
-
-`CheckoutComponent` is standalone, so add it directly to the component that
-hosts Checkout:
-
-```ts
-import { Component, Input } from '@angular/core'
-import { CheckoutComponent } from '@inttegro/angular'
-
-@Component({
-  selector: 'app-checkout-page',
-  standalone: true,
-  imports: [CheckoutComponent],
-  template: `
-    <inttegro-checkout
-      [appearance]="{ theme: 'system' }"
-      [orderId]="orderId"
-      (completed)="handleCompleted()"
-    />
-  `,
-})
-export class CheckoutPageComponent {
-  @Input({ required: true }) orderId = ''
-
-  handleCompleted(): void {
-    window.location.assign('/orders/complete')
-  }
-}
-```
-
-## Inertia
-
-Use the adapter for the frontend framework configured in your Inertia
-application:
-
-- React applications use `@inttegro/react`.
-- Vue applications use `@inttegro/vue`.
-- Svelte applications use `@inttegro/svelte`.
-
-The Order ID can be returned as an Inertia page prop and passed directly to the
-`Checkout` component.
+Inertia uses the official adapter for its configured client framework; it does
+not require a separate Inttegro package.
 
 ## Checkout options
 

@@ -139,7 +139,9 @@ checkout.on('completed', async () => {
 
 The browser endpoint in this example calls Inttegro from your server. It must authorize access using your application's own session and must not send an Inttegro secret key to the browser.
 
-For asynchronous fulfillment, prefer a signed Inttegro webhook. Record the Inttegro event identifier and make the fulfillment operation idempotent so retries cannot ship, credit, or notify twice.
+For asynchronous fulfillment, retrieve the Order from your server until it
+reaches a terminal payment state. Make the fulfillment operation idempotent so
+repeated status checks cannot ship, credit, or notify twice.
 
 ## Handle interruption and return visits
 
