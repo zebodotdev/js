@@ -95,11 +95,10 @@
     return group
   }
 
-  function decorateTechnologyHeadings() {
+  function decorateTechnologyNavigation() {
     for (const [id, names] of Object.entries(headingLogos)) {
       const heading = document.getElementById(id)
-      if (!heading || heading.querySelector('.inttegro-heading-logos')) continue
-      heading.prepend(createLogoGroup(names, 'inttegro-heading-logos'))
+      if (!heading) continue
 
       for (const link of document.querySelectorAll(
         `.page-menu a[href="#${id}"]`,
@@ -108,6 +107,12 @@
           link.prepend(createLogoGroup(names, 'inttegro-nav-logos'))
         }
       }
+    }
+  }
+
+  function markLandingPage() {
+    if (document.getElementById('inttegro-javascript-sdks')) {
+      document.body.classList.add('inttegro-docs-home')
     }
   }
 
@@ -236,8 +241,9 @@
   }
 
   function enhanceDocumentation() {
+    markLandingPage()
     createInstallerTabs()
-    decorateTechnologyHeadings()
+    decorateTechnologyNavigation()
   }
 
   if (document.readyState === 'loading') {

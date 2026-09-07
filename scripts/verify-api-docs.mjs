@@ -80,8 +80,19 @@ if (
   failures.push('missing accessible installer tab behavior')
 }
 
-if (!generatedHtml.includes('assets/custom.js')) {
+if (!generatedHtml.includes('assets/custom.js?v=')) {
   failures.push('generated documentation does not load the UI enhancements')
+}
+
+if (!generatedHtml.includes('assets/custom.css?v=')) {
+  failures.push('generated documentation does not load the branded theme')
+}
+
+if (
+  generatedHtml.includes('assets/custom.js"') ||
+  generatedHtml.includes('assets/custom.css"')
+) {
+  failures.push('custom documentation assets are not cache fingerprinted')
 }
 
 if (failures.length > 0) {
@@ -91,5 +102,5 @@ if (failures.length > 0) {
 }
 
 console.log(
-  `Verified ${htmlFiles.length} generated documentation pages, source permalinks, guides, branded installer tabs, and light/dark themes.`,
+  `Verified ${htmlFiles.length} generated documentation pages, source permalinks, guides, branded installer tabs, cache-safe assets, and light/dark themes.`,
 )
