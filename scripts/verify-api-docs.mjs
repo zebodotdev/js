@@ -110,7 +110,10 @@ if (
   !customJs.includes('organizeSiteNavigation') ||
   !customJs.includes("label: 'Guides'") ||
   !customJs.includes("label: 'Framework adapters'") ||
-  !customJs.includes("replaceChildren('API reference')")
+  !customJs.includes("replaceChildren('API reference')") ||
+  !customJs.includes(
+    "apiDetails.open = Boolean(apiDetails.querySelector('a.current'))",
+  )
 ) {
   failures.push('missing grouped documentation navigation')
 }

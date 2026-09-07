@@ -250,6 +250,11 @@
     )
     if (!moduleList) return
 
+    if (apiDetails.dataset.inttegroOrganized !== 'true') {
+      apiDetails.open = Boolean(apiDetails.querySelector('a.current'))
+      apiDetails.dataset.inttegroOrganized = 'true'
+    }
+
     const moduleItems = new Map()
     for (const item of moduleList.children) {
       const link = item.querySelector('a[href*="/modules/_inttegro_"]')
