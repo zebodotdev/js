@@ -1,0 +1,105 @@
+/* Inttegro API reference colors. TypeDoc's theme selector still controls
+   system, light, and dark modes; these variables define each palette. */
+:root {
+  --light-color-background: #ffffff;
+  --light-color-background-secondary: #f6f7f6;
+  --light-color-background-active: #e9eeec;
+  --light-color-accent: #d5ddda;
+  --light-color-active-menu-item: #e9eeec;
+  --light-color-text: #171a19;
+  --light-color-contrast-text: #050706;
+  --light-color-text-aside: #5e6663;
+  --light-color-icon-background: #f6f7f6;
+  --light-color-icon-text: #171a19;
+  --light-color-comment-tag: #edf5f2;
+  --light-color-comment-tag-text: #174f40;
+  --light-color-link: #006b50;
+  --light-color-focus-outline: #007f5f;
+
+  --dark-color-background: #000000;
+  --dark-color-background-secondary: #090a0a;
+  --dark-color-background-active: #171a19;
+  --dark-color-accent: #292d2b;
+  --dark-color-active-menu-item: #151b18;
+  --dark-color-text: #f4f7f6;
+  --dark-color-contrast-text: #ffffff;
+  --dark-color-text-aside: #a3aaa7;
+  --dark-color-icon-background: #0d0f0e;
+  --dark-color-icon-text: #f4f7f6;
+  --dark-color-comment-tag: #10201a;
+  --dark-color-comment-tag-text: #b9ead9;
+  --dark-color-link: #6ee7bd;
+  --dark-color-focus-outline: #6ee7bd;
+}
+
+:root[data-theme='dark'] {
+  color-scheme: dark;
+}
+
+:root[data-theme='light'] {
+  color-scheme: light;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root[data-theme='os'] {
+    color-scheme: dark;
+  }
+}
+
+@media (prefers-color-scheme: light) {
+  :root[data-theme='os'] {
+    color-scheme: light;
+  }
+}
+
+.tsd-page-toolbar,
+.site-menu,
+.page-menu {
+  backdrop-filter: blur(18px);
+}
+
+:root[data-theme='dark'] .tsd-page-toolbar,
+:root[data-theme='dark'] .site-menu,
+:root[data-theme='dark'] .page-menu {
+  background-color: rgb(0 0 0 / 88%);
+}
+
+@media (prefers-color-scheme: dark) {
+  :root[data-theme='os'] .tsd-page-toolbar,
+  :root[data-theme='os'] .site-menu,
+  :root[data-theme='os'] .page-menu {
+    background-color: rgb(0 0 0 / 88%);
+  }
+}
+
+:root[data-theme='light'] .tsd-page-toolbar,
+:root[data-theme='light'] .site-menu,
+:root[data-theme='light'] .page-menu {
+  background-color: rgb(255 255 255 / 92%);
+}
+
+@media (prefers-color-scheme: light) {
+  :root[data-theme='os'] .tsd-page-toolbar,
+  :root[data-theme='os'] .site-menu,
+  :root[data-theme='os'] .page-menu {
+    background-color: rgb(255 255 255 / 92%);
+  }
+}
+
+pre,
+.tsd-signature {
+  border: 1px solid var(--color-accent);
+  border-radius: 10px;
+}
+
+a {
+  text-underline-offset: 0.18em;
+}
+
+a:focus-visible,
+button:focus-visible,
+select:focus-visible,
+input:focus-visible {
+  outline: 2px solid var(--color-focus-outline);
+  outline-offset: 3px;
+}

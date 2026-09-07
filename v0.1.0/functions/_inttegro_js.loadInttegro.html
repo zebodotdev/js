@@ -1,4 +1,4 @@
-<!DOCTYPE html><html class="default" lang="en" data-base="../"><head><meta charset="utf-8"/><meta http-equiv="x-ua-compatible" content="IE=edge"/><title>loadInttegro | Inttegro Web SDKs - v0.1.0</title><meta name="description" content="Documentation for Inttegro Web SDKs"/><meta name="viewport" content="width=device-width, initial-scale=1"/><link rel="stylesheet" href="../assets/style.css"/><link rel="stylesheet" href="../assets/highlight.css"/><script defer src="../assets/main.js"></script><script async src="../assets/icons.js" id="tsd-icons-script"></script><script async src="../assets/search.js" id="tsd-search-script"></script><script async src="../assets/navigation.js" id="tsd-nav-script"></script></head><body><script>document.documentElement.dataset.theme = localStorage.getItem("tsd-theme") || "os";document.body.style.display="none";setTimeout(() => window.app?app.showPage():document.body.style.removeProperty("display"),500)</script><header class="tsd-page-toolbar">
+<!DOCTYPE html><html class="default" lang="en" data-base="../"><head><meta charset="utf-8"/><meta http-equiv="x-ua-compatible" content="IE=edge"/><title>loadInttegro | Inttegro Web SDKs - v0.1.0</title><meta name="description" content="Documentation for Inttegro Web SDKs"/><meta name="viewport" content="width=device-width, initial-scale=1"/><link rel="stylesheet" href="../assets/style.css"/><link rel="stylesheet" href="../assets/highlight.css"/><link rel="stylesheet" href="../assets/custom.css"/><script defer src="../assets/main.js"></script><script async src="../assets/icons.js" id="tsd-icons-script"></script><script async src="../assets/search.js" id="tsd-search-script"></script><script async src="../assets/navigation.js" id="tsd-nav-script"></script></head><body><script>document.documentElement.dataset.theme = localStorage.getItem("tsd-theme") || "os";document.body.style.display="none";setTimeout(() => window.app?app.showPage():document.body.style.removeProperty("display"),500)</script><header class="tsd-page-toolbar">
 <div class="tsd-toolbar-contents container"><a href="../index.html" class="title">Inttegro Web SDKs - v0.1.0</a>
 <div id="tsd-toolbar-links"><a href="https://studio.inttegro.com/web">Studio</a><a href="https://github.com/zebodotdev/js">GitHub</a></div><button id="tsd-search-trigger" class="tsd-widget" aria-label="Search"><svg width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true"><use href="../assets/icons.svg#icon-search"></use></svg></button><dialog id="tsd-search" aria-label="Search"><input role="combobox" id="tsd-search-input" aria-controls="tsd-search-results" aria-autocomplete="list" aria-expanded="true" autocapitalize="off" autocomplete="off" placeholder="Search the docs" maxLength="100"/>
 <ul role="listbox" id="tsd-search-results"></ul>
@@ -16,13 +16,41 @@
 <li class="">
 <div class="tsd-signature tsd-anchor-link" id="loadinttegro"><span class="tsd-kind-call-signature">loadInttegro</span><span class="tsd-signature-symbol">(</span><span class="tsd-kind-parameter">options</span><span class="tsd-signature-symbol">?:</span> <a href="../interfaces/_inttegro_js.InttegroLoadOptions.html" class="tsd-signature-type tsd-kind-interface">InttegroLoadOptions</a><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><a href="../interfaces/_inttegro_js.InttegroRuntime.html" class="tsd-signature-type tsd-kind-interface">InttegroRuntime</a> <span class="tsd-signature-symbol">|</span> <span class="tsd-signature-type">null</span><span class="tsd-signature-symbol">&gt;</span><a href="#loadinttegro" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="../assets/icons.svg#icon-anchor"></use></svg></a></div>
 <div class="tsd-description">
+<div class="tsd-comment tsd-typography"><p>Loads and validates the Inttegro-hosted Checkout runtime.</p>
+<p>In a browser, the first call appends one asynchronous script from
+<a href="../variables/_inttegro_js.INTTEGRO_JS_URL.html" class="tsd-kind-variable">INTTEGRO_JS_URL</a>. Concurrent and subsequent calls share the same
+promise so a page never initializes competing runtimes. If loading fails,
+the loader removes the script it created and clears the cached promise so a
+later user-initiated retry can try again.</p>
+<p>During server-side rendering, the function resolves to <code>null</code> without
+touching the DOM. Call it from a browser lifecycle hook or explicitly guard
+the result before creating Checkout.</p>
+<p>The loader accepts a pre-existing script only when its exact <code>src</code> matches
+<a href="../variables/_inttegro_js.INTTEGRO_JS_URL.html" class="tsd-kind-variable">INTTEGRO_JS_URL</a>; a compatible-looking <code>window.Inttegro</code> global on its
+own is rejected. This protects the controlled-origin boundary, but does not
+replace your own CSP, dependency review, or server-side Order authorization.</p>
+</div>
 <div class="tsd-parameters">
 <h4 class="tsd-parameters-title">Parameters</h4>
 <ul class="tsd-parameter-list">
-<li><span><span class="tsd-kind-parameter">options</span>: <a href="../interfaces/_inttegro_js.InttegroLoadOptions.html" class="tsd-signature-type tsd-kind-interface">InttegroLoadOptions</a><span class="tsd-signature-symbol"> = {}</span></span></li></ul></div>
-<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><a href="../interfaces/_inttegro_js.InttegroRuntime.html" class="tsd-signature-type tsd-kind-interface">InttegroRuntime</a> <span class="tsd-signature-symbol">|</span> <span class="tsd-signature-type">null</span><span class="tsd-signature-symbol">&gt;</span></h4><aside class="tsd-sources">
+<li><span><span class="tsd-kind-parameter">options</span>: <a href="../interfaces/_inttegro_js.InttegroLoadOptions.html" class="tsd-signature-type tsd-kind-interface">InttegroLoadOptions</a><span class="tsd-signature-symbol"> = {}</span></span>
+<div class="tsd-comment tsd-typography"><p>Browser loading options. The nonce is used only when this
+call creates the shared runtime script.</p>
+</div></li></ul></div>
+<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><a href="../interfaces/_inttegro_js.InttegroRuntime.html" class="tsd-signature-type tsd-kind-interface">InttegroRuntime</a> <span class="tsd-signature-symbol">|</span> <span class="tsd-signature-type">null</span><span class="tsd-signature-symbol">&gt;</span></h4><p>The validated runtime in a browser, or <code>null</code> during SSR.</p>
+
+<div class="tsd-comment tsd-typography">
+<div class="tsd-tag-throws">
+<h4 class="tsd-anchor-link" id="throws">Throws<a href="#throws" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="../assets/icons.svg#icon-anchor"></use></svg></a></h4><p><a href="../classes/_inttegro_js.InttegroCheckoutError.html" class="tsd-kind-class">InttegroCheckoutError</a> by rejecting with
+<code>invalid_runtime</code>, <code>runtime_load_failed</code>, or <code>runtime_load_timeout</code>.</p>
+</div>
+<div class="tsd-tag-example">
+<h4 class="tsd-anchor-link" id="example-load-once-in-browser-code-and-mount-an-order">Example: Load once in browser code and mount an Order<a href="#example-load-once-in-browser-code-and-mount-an-order" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="../assets/icons.svg#icon-anchor"></use></svg></a></h4><pre><code class="ts"><span class="hl-10">const</span><span class="hl-2"> </span><span class="hl-11">inttegro</span><span class="hl-2"> = </span><span class="hl-4">await</span><span class="hl-2"> </span><span class="hl-1">loadInttegro</span><span class="hl-2">({ </span><span class="hl-5">nonce:</span><span class="hl-2"> </span><span class="hl-5">window</span><span class="hl-2">.</span><span class="hl-5">__cspNonce</span><span class="hl-2"> })</span><br/><span class="hl-4">if</span><span class="hl-2"> (!</span><span class="hl-5">inttegro</span><span class="hl-2">) </span><span class="hl-4">return</span><span class="hl-2"> </span><span class="hl-0">// Server-side render</span><br/><br/><span class="hl-10">const</span><span class="hl-2"> </span><span class="hl-11">checkout</span><span class="hl-2"> = </span><span class="hl-5">inttegro</span><span class="hl-2">.</span><span class="hl-1">createCheckout</span><span class="hl-2">({ </span><span class="hl-5">orderId</span><span class="hl-2"> })</span><br/><span class="hl-5">checkout</span><span class="hl-2">.</span><span class="hl-1">on</span><span class="hl-2">(</span><span class="hl-3">&#39;completed&#39;</span><span class="hl-2">, () </span><span class="hl-10">=&gt;</span><span class="hl-2"> </span><span class="hl-5">location</span><span class="hl-2">.</span><span class="hl-1">assign</span><span class="hl-2">(</span><span class="hl-3">&#39;/orders/complete&#39;</span><span class="hl-2">))</span><br/><span class="hl-4">await</span><span class="hl-2"> </span><span class="hl-5">checkout</span><span class="hl-2">.</span><span class="hl-1">mount</span><span class="hl-2">(</span><span class="hl-3">&#39;#checkout&#39;</span><span class="hl-2">)</span>
+</code><button type="button">Copy</button></pre>
+
+</div></div><aside class="tsd-sources">
 <ul>
-<li>Defined in <a href="https://github.com/zebodotdev/js/blob/c6128972f1dfe920e994cff9e1ad52c2191fd0f9/packages/js/src/loader.ts#L10">packages/js/src/loader.ts:10</a></li></ul></aside></div></li></ul></section></div>
+<li>Defined in <a href="https://github.com/zebodotdev/js/blob/13398aa4e8e505f7ce751aa33f91da2556556cf4/packages/js/src/loader.ts#L56">packages/js/src/loader.ts:56</a></li></ul></aside></div></li></ul></section></div>
 <div class="col-sidebar">
 <div class="page-menu">
 <div class="tsd-navigation settings">

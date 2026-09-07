@@ -1,4 +1,4 @@
-<!DOCTYPE html><html class="default" lang="en" data-base="../"><head><meta charset="utf-8"/><meta http-equiv="x-ua-compatible" content="IE=edge"/><title>CheckoutComponent | Inttegro Web SDKs - v0.1.0</title><meta name="description" content="Documentation for Inttegro Web SDKs"/><meta name="viewport" content="width=device-width, initial-scale=1"/><link rel="stylesheet" href="../assets/style.css"/><link rel="stylesheet" href="../assets/highlight.css"/><script defer src="../assets/main.js"></script><script async src="../assets/icons.js" id="tsd-icons-script"></script><script async src="../assets/search.js" id="tsd-search-script"></script><script async src="../assets/navigation.js" id="tsd-nav-script"></script></head><body><script>document.documentElement.dataset.theme = localStorage.getItem("tsd-theme") || "os";document.body.style.display="none";setTimeout(() => window.app?app.showPage():document.body.style.removeProperty("display"),500)</script><header class="tsd-page-toolbar">
+<!DOCTYPE html><html class="default" lang="en" data-base="../"><head><meta charset="utf-8"/><meta http-equiv="x-ua-compatible" content="IE=edge"/><title>CheckoutComponent | Inttegro Web SDKs - v0.1.0</title><meta name="description" content="Documentation for Inttegro Web SDKs"/><meta name="viewport" content="width=device-width, initial-scale=1"/><link rel="stylesheet" href="../assets/style.css"/><link rel="stylesheet" href="../assets/highlight.css"/><link rel="stylesheet" href="../assets/custom.css"/><script defer src="../assets/main.js"></script><script async src="../assets/icons.js" id="tsd-icons-script"></script><script async src="../assets/search.js" id="tsd-search-script"></script><script async src="../assets/navigation.js" id="tsd-nav-script"></script></head><body><script>document.documentElement.dataset.theme = localStorage.getItem("tsd-theme") || "os";document.body.style.display="none";setTimeout(() => window.app?app.showPage():document.body.style.removeProperty("display"),500)</script><header class="tsd-page-toolbar">
 <div class="tsd-toolbar-contents container"><a href="../index.html" class="title">Inttegro Web SDKs - v0.1.0</a>
 <div id="tsd-toolbar-links"><a href="https://studio.inttegro.com/web">Studio</a><a href="https://github.com/zebodotdev/js">GitHub</a></div><button id="tsd-search-trigger" class="tsd-widget" aria-label="Search"><svg width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true"><use href="../assets/icons.svg#icon-search"></use></svg></button><dialog id="tsd-search" aria-label="Search"><input role="combobox" id="tsd-search-input" aria-controls="tsd-search-results" aria-autocomplete="list" aria-expanded="true" autocapitalize="off" autocomplete="off" placeholder="Search the docs" maxLength="100"/>
 <ul role="listbox" id="tsd-search-results"></ul>
@@ -11,6 +11,23 @@
 <li><a href="../modules/_inttegro_angular.html">@inttegro/angular</a></li>
 <li><a href="" aria-current="page">CheckoutComponent</a></li></ul>
 <h1>Class CheckoutComponent</h1></div>
+<section class="tsd-panel tsd-comment">
+<div class="tsd-comment tsd-typography"><p>Standalone Angular component that embeds Inttegro-hosted Checkout.</p>
+<p>Add the component to a host component's <code>imports</code> array. It loads the hosted
+runtime after its view initializes, creates one controller, and destroys that
+controller with the Angular view. Changing <code>orderId</code>, <code>timeout</code>, or <code>title</code>
+replaces the controller; changing <code>appearance</code> or <code>locale</code> updates it in
+place.</p>
+<p>Keep this component mounted while a payment attempt or confirmation is
+pending. The successful <code>completed</code> output is suitable for navigation, but
+fulfillment must use server-retrieved Order state or a signed webhook.</p>
+</div>
+<div class="tsd-comment tsd-typography">
+<div class="tsd-tag-example">
+<h4 class="tsd-anchor-link" id="example">Example<a href="#example" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="../assets/icons.svg#icon-anchor"></use></svg></a></h4><pre><code class="ts"><span class="hl-2">@</span><span class="hl-1">Component</span><span class="hl-2">({</span><br/><span class="hl-2">  </span><span class="hl-5">standalone:</span><span class="hl-2"> </span><span class="hl-10">true</span><span class="hl-2">,</span><br/><span class="hl-2">  </span><span class="hl-5">imports:</span><span class="hl-2"> [</span><span class="hl-5">CheckoutComponent</span><span class="hl-2">],</span><br/><span class="hl-2">  </span><span class="hl-5">template:</span><span class="hl-2"> </span><span class="hl-3">`</span><br/><span class="hl-3">    &lt;inttegro-checkout</span><br/><span class="hl-3">      [orderId]=&quot;orderId&quot;</span><br/><span class="hl-3">      [appearance]=&quot;{ theme: &#39;system&#39; }&quot;</span><br/><span class="hl-3">      (completed)=&quot;onCompleted()&quot;</span><br/><span class="hl-3">      (error)=&quot;onError($event)&quot;</span><br/><span class="hl-3">    /&gt;</span><br/><span class="hl-3">  `</span><span class="hl-2">,</span><br/><span class="hl-2">})</span><br/><span class="hl-4">export</span><span class="hl-2"> </span><span class="hl-10">class</span><span class="hl-2"> </span><span class="hl-12">PaymentPage</span><span class="hl-2"> {</span><br/><span class="hl-2">  </span><span class="hl-5">orderId</span><span class="hl-2"> = </span><span class="hl-5">input</span><span class="hl-2">.</span><span class="hl-1">required</span><span class="hl-2">&lt;</span><span class="hl-12">string</span><span class="hl-2">&gt;()</span><br/><span class="hl-2">  </span><span class="hl-1">onCompleted</span><span class="hl-2">(): </span><span class="hl-12">void</span><span class="hl-2"> { </span><span class="hl-5">location</span><span class="hl-2">.</span><span class="hl-1">assign</span><span class="hl-2">(</span><span class="hl-3">&#39;/orders/complete&#39;</span><span class="hl-2">) }</span><br/><span class="hl-2">  </span><span class="hl-1">onError</span><span class="hl-2">(</span><span class="hl-5">error</span><span class="hl-2">: </span><span class="hl-12">CheckoutErrorEvent</span><span class="hl-2"> | </span><span class="hl-12">Error</span><span class="hl-2">): </span><span class="hl-12">void</span><span class="hl-2"> {</span><br/><span class="hl-2">    </span><span class="hl-1">reportCheckoutError</span><span class="hl-2">(</span><span class="hl-5">error</span><span class="hl-2">)</span><br/><span class="hl-2">  }</span><br/><span class="hl-2">}</span>
+</code><button type="button">Copy</button></pre>
+
+</div></div></section>
 <section class="tsd-panel">
 <h4>Implements</h4>
 <ul class="tsd-hierarchy">
@@ -18,7 +35,7 @@
 <li><span class="tsd-signature-type">OnChanges</span></li>
 <li><span class="tsd-signature-type">OnDestroy</span></li></ul></section><aside class="tsd-sources">
 <ul>
-<li>Defined in <a href="https://github.com/zebodotdev/js/blob/c6128972f1dfe920e994cff9e1ad52c2191fd0f9/packages/angular/src/lib/checkout.component.ts#L29">angular/src/lib/checkout.component.ts:29</a></li></ul></aside>
+<li>Defined in <a href="https://github.com/zebodotdev/js/blob/13398aa4e8e505f7ce751aa33f91da2556556cf4/packages/angular/src/lib/checkout.component.ts#L67">angular/src/lib/checkout.component.ts:67</a></li></ul></aside>
 <section class="tsd-panel-group tsd-index-group">
 <section class="tsd-panel tsd-index-panel">
 <details class="tsd-index-content tsd-accordion" open><summary class="tsd-accordion-summary tsd-index-summary"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" aria-hidden="true"><use href="../assets/icons.svg#icon-chevronDown"></use></svg>
@@ -63,49 +80,67 @@
 <section>
 <section class="tsd-panel tsd-member">
 <h3 class="tsd-anchor-link" id="appearance"><code class="tsd-tag">Optional</code><span>appearance</span><a href="#appearance" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="../assets/icons.svg#icon-anchor"></use></svg></a></h3>
-<div class="tsd-signature"><span class="tsd-kind-property">appearance</span><span class="tsd-signature-symbol">?:</span> <a href="../interfaces/_inttegro_angular.CheckoutAppearance.html" class="tsd-signature-type tsd-kind-interface">CheckoutAppearance</a></div><aside class="tsd-sources">
+<div class="tsd-signature"><span class="tsd-kind-property">appearance</span><span class="tsd-signature-symbol">?:</span> <a href="../interfaces/_inttegro_angular.CheckoutAppearance.html" class="tsd-signature-type tsd-kind-interface">CheckoutAppearance</a></div>
+<div class="tsd-comment tsd-typography"><p>Initial and reactive theme preference for hosted Checkout.</p>
+</div><aside class="tsd-sources">
 <ul>
-<li>Defined in <a href="https://github.com/zebodotdev/js/blob/c6128972f1dfe920e994cff9e1ad52c2191fd0f9/packages/angular/src/lib/checkout.component.ts#L30">angular/src/lib/checkout.component.ts:30</a></li></ul></aside></section>
+<li>Defined in <a href="https://github.com/zebodotdev/js/blob/13398aa4e8e505f7ce751aa33f91da2556556cf4/packages/angular/src/lib/checkout.component.ts#L69">angular/src/lib/checkout.component.ts:69</a></li></ul></aside></section>
 <section class="tsd-panel tsd-member">
 <h3 class="tsd-anchor-link" id="completed"><code class="tsd-tag">Readonly</code><span>completed</span><a href="#completed" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="../assets/icons.svg#icon-anchor"></use></svg></a></h3>
-<div class="tsd-signature"><span class="tsd-kind-property">completed</span><span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">EventEmitter</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">CheckoutCompletedEvent</span><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol"> = ...</span></div><aside class="tsd-sources">
+<div class="tsd-signature"><span class="tsd-kind-property">completed</span><span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">EventEmitter</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">CheckoutCompletedEvent</span><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol"> = ...</span></div>
+<div class="tsd-comment tsd-typography"><p>Emitted after Checkout reports its successful terminal state.</p>
+</div><aside class="tsd-sources">
 <ul>
-<li>Defined in <a href="https://github.com/zebodotdev/js/blob/c6128972f1dfe920e994cff9e1ad52c2191fd0f9/packages/angular/src/lib/checkout.component.ts#L36">angular/src/lib/checkout.component.ts:36</a></li></ul></aside></section>
+<li>Defined in <a href="https://github.com/zebodotdev/js/blob/13398aa4e8e505f7ce751aa33f91da2556556cf4/packages/angular/src/lib/checkout.component.ts#L80">angular/src/lib/checkout.component.ts:80</a></li></ul></aside></section>
 <section class="tsd-panel tsd-member">
 <h3 class="tsd-anchor-link" id="error"><code class="tsd-tag">Readonly</code><span>error</span><a href="#error" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="../assets/icons.svg#icon-anchor"></use></svg></a></h3>
-<div class="tsd-signature"><span class="tsd-kind-property">error</span><span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">EventEmitter</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">Error</span> <span class="tsd-signature-symbol">|</span> <a href="../interfaces/_inttegro_angular.CheckoutErrorEvent.html" class="tsd-signature-type tsd-kind-interface">CheckoutErrorEvent</a><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol"> = ...</span></div><aside class="tsd-sources">
+<div class="tsd-signature"><span class="tsd-kind-property">error</span><span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">EventEmitter</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">Error</span> <span class="tsd-signature-symbol">|</span> <a href="../interfaces/_inttegro_angular.CheckoutErrorEvent.html" class="tsd-signature-type tsd-kind-interface">CheckoutErrorEvent</a><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol"> = ...</span></div>
+<div class="tsd-comment tsd-typography"><p>Emitted for loader/mount failures and sanitized hosted errors.</p>
+</div><aside class="tsd-sources">
 <ul>
-<li>Defined in <a href="https://github.com/zebodotdev/js/blob/c6128972f1dfe920e994cff9e1ad52c2191fd0f9/packages/angular/src/lib/checkout.component.ts#L39">angular/src/lib/checkout.component.ts:39</a></li></ul></aside></section>
+<li>Defined in <a href="https://github.com/zebodotdev/js/blob/13398aa4e8e505f7ce751aa33f91da2556556cf4/packages/angular/src/lib/checkout.component.ts#L84">angular/src/lib/checkout.component.ts:84</a></li></ul></aside></section>
 <section class="tsd-panel tsd-member">
 <h3 class="tsd-anchor-link" id="event"><code class="tsd-tag">Readonly</code><span>event</span><a href="#event" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="../assets/icons.svg#icon-anchor"></use></svg></a></h3>
-<div class="tsd-signature"><span class="tsd-kind-property">event</span><span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">EventEmitter</span><span class="tsd-signature-symbol">&lt;</span><a href="../types/_inttegro_angular.CheckoutEvent.html" class="tsd-signature-type tsd-kind-type-alias">CheckoutEvent</a><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol"> = ...</span></div><aside class="tsd-sources">
+<div class="tsd-signature"><span class="tsd-kind-property">event</span><span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">EventEmitter</span><span class="tsd-signature-symbol">&lt;</span><a href="../types/_inttegro_angular.CheckoutEvent.html" class="tsd-signature-type tsd-kind-type-alias">CheckoutEvent</a><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol"> = ...</span></div>
+<div class="tsd-comment tsd-typography"><p>Emitted for every sanitized hosted Checkout lifecycle event.</p>
+</div><aside class="tsd-sources">
 <ul>
-<li>Defined in <a href="https://github.com/zebodotdev/js/blob/c6128972f1dfe920e994cff9e1ad52c2191fd0f9/packages/angular/src/lib/checkout.component.ts#L40">angular/src/lib/checkout.component.ts:40</a></li></ul></aside></section>
+<li>Defined in <a href="https://github.com/zebodotdev/js/blob/13398aa4e8e505f7ce751aa33f91da2556556cf4/packages/angular/src/lib/checkout.component.ts#L86">angular/src/lib/checkout.component.ts:86</a></li></ul></aside></section>
 <section class="tsd-panel tsd-member">
 <h3 class="tsd-anchor-link" id="locale"><code class="tsd-tag">Optional</code><span>locale</span><a href="#locale" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="../assets/icons.svg#icon-anchor"></use></svg></a></h3>
-<div class="tsd-signature"><span class="tsd-kind-property">locale</span><span class="tsd-signature-symbol">?:</span> <span class="tsd-signature-type">string</span></div><aside class="tsd-sources">
+<div class="tsd-signature"><span class="tsd-kind-property">locale</span><span class="tsd-signature-symbol">?:</span> <span class="tsd-signature-type">string</span></div>
+<div class="tsd-comment tsd-typography"><p>Initial and reactive BCP 47 locale preference.</p>
+</div><aside class="tsd-sources">
 <ul>
-<li>Defined in <a href="https://github.com/zebodotdev/js/blob/c6128972f1dfe920e994cff9e1ad52c2191fd0f9/packages/angular/src/lib/checkout.component.ts#L31">angular/src/lib/checkout.component.ts:31</a></li></ul></aside></section>
+<li>Defined in <a href="https://github.com/zebodotdev/js/blob/13398aa4e8e505f7ce751aa33f91da2556556cf4/packages/angular/src/lib/checkout.component.ts#L71">angular/src/lib/checkout.component.ts:71</a></li></ul></aside></section>
 <section class="tsd-panel tsd-member">
 <h3 class="tsd-anchor-link" id="orderid"><span>order<wbr/>Id</span><a href="#orderid" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="../assets/icons.svg#icon-anchor"></use></svg></a></h3>
-<div class="tsd-signature"><span class="tsd-kind-property">orderId</span><span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">string</span><span class="tsd-signature-symbol"> = &#39;&#39;</span></div><aside class="tsd-sources">
+<div class="tsd-signature"><span class="tsd-kind-property">orderId</span><span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">string</span><span class="tsd-signature-symbol"> = &#39;&#39;</span></div>
+<div class="tsd-comment tsd-typography"><p>Client-safe reference for the finalized Order being paid.</p>
+</div><aside class="tsd-sources">
 <ul>
-<li>Defined in <a href="https://github.com/zebodotdev/js/blob/c6128972f1dfe920e994cff9e1ad52c2191fd0f9/packages/angular/src/lib/checkout.component.ts#L32">angular/src/lib/checkout.component.ts:32</a></li></ul></aside></section>
+<li>Defined in <a href="https://github.com/zebodotdev/js/blob/13398aa4e8e505f7ce751aa33f91da2556556cf4/packages/angular/src/lib/checkout.component.ts#L73">angular/src/lib/checkout.component.ts:73</a></li></ul></aside></section>
 <section class="tsd-panel tsd-member">
 <h3 class="tsd-anchor-link" id="ready"><code class="tsd-tag">Readonly</code><span>ready</span><a href="#ready" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="../assets/icons.svg#icon-anchor"></use></svg></a></h3>
-<div class="tsd-signature"><span class="tsd-kind-property">ready</span><span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">EventEmitter</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">CheckoutReadyEvent</span><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol"> = ...</span></div><aside class="tsd-sources">
+<div class="tsd-signature"><span class="tsd-kind-property">ready</span><span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">EventEmitter</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">CheckoutReadyEvent</span><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol"> = ...</span></div>
+<div class="tsd-comment tsd-typography"><p>Emitted once the iframe is interactive.</p>
+</div><aside class="tsd-sources">
 <ul>
-<li>Defined in <a href="https://github.com/zebodotdev/js/blob/c6128972f1dfe920e994cff9e1ad52c2191fd0f9/packages/angular/src/lib/checkout.component.ts#L41">angular/src/lib/checkout.component.ts:41</a></li></ul></aside></section>
+<li>Defined in <a href="https://github.com/zebodotdev/js/blob/13398aa4e8e505f7ce751aa33f91da2556556cf4/packages/angular/src/lib/checkout.component.ts#L88">angular/src/lib/checkout.component.ts:88</a></li></ul></aside></section>
 <section class="tsd-panel tsd-member">
 <h3 class="tsd-anchor-link" id="timeout"><code class="tsd-tag">Optional</code><span>timeout</span><a href="#timeout" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="../assets/icons.svg#icon-anchor"></use></svg></a></h3>
-<div class="tsd-signature"><span class="tsd-kind-property">timeout</span><span class="tsd-signature-symbol">?:</span> <span class="tsd-signature-type">number</span></div><aside class="tsd-sources">
+<div class="tsd-signature"><span class="tsd-kind-property">timeout</span><span class="tsd-signature-symbol">?:</span> <span class="tsd-signature-type">number</span></div>
+<div class="tsd-comment tsd-typography"><p>Mount timeout from 1,000–60,000 ms; defaults to 15,000 ms.</p>
+</div><aside class="tsd-sources">
 <ul>
-<li>Defined in <a href="https://github.com/zebodotdev/js/blob/c6128972f1dfe920e994cff9e1ad52c2191fd0f9/packages/angular/src/lib/checkout.component.ts#L33">angular/src/lib/checkout.component.ts:33</a></li></ul></aside></section>
+<li>Defined in <a href="https://github.com/zebodotdev/js/blob/13398aa4e8e505f7ce751aa33f91da2556556cf4/packages/angular/src/lib/checkout.component.ts#L75">angular/src/lib/checkout.component.ts:75</a></li></ul></aside></section>
 <section class="tsd-panel tsd-member">
 <h3 class="tsd-anchor-link" id="title"><code class="tsd-tag">Optional</code><span>title</span><a href="#title" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="../assets/icons.svg#icon-anchor"></use></svg></a></h3>
-<div class="tsd-signature"><span class="tsd-kind-property">title</span><span class="tsd-signature-symbol">?:</span> <span class="tsd-signature-type">string</span></div><aside class="tsd-sources">
+<div class="tsd-signature"><span class="tsd-kind-property">title</span><span class="tsd-signature-symbol">?:</span> <span class="tsd-signature-type">string</span></div>
+<div class="tsd-comment tsd-typography"><p>Accessible iframe title; defaults to <code>Checkout</code>.</p>
+</div><aside class="tsd-sources">
 <ul>
-<li>Defined in <a href="https://github.com/zebodotdev/js/blob/c6128972f1dfe920e994cff9e1ad52c2191fd0f9/packages/angular/src/lib/checkout.component.ts#L34">angular/src/lib/checkout.component.ts:34</a></li></ul></aside></section></section></details>
+<li>Defined in <a href="https://github.com/zebodotdev/js/blob/13398aa4e8e505f7ce751aa33f91da2556556cf4/packages/angular/src/lib/checkout.component.ts#L77">angular/src/lib/checkout.component.ts:77</a></li></ul></aside></section></section></details>
 <details class="tsd-panel-group tsd-member-group tsd-accordion" open><summary class="tsd-accordion-summary" data-key="section-Methods"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" aria-hidden="true"><use href="../assets/icons.svg#icon-chevronDown"></use></svg>
 <h2 class="tsd-anchor-link" id="methods-1">Methods<a href="#methods-1" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="../assets/icons.svg#icon-anchor"></use></svg></a></h2></summary>
 <section>
@@ -115,9 +150,12 @@
 <li class="">
 <div class="tsd-signature tsd-anchor-link" id="focus-1"><span class="tsd-kind-call-signature">focus</span><span class="tsd-signature-symbol">()</span><span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">void</span><a href="#focus-1" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="../assets/icons.svg#icon-anchor"></use></svg></a></div>
 <div class="tsd-description">
+<div class="tsd-comment tsd-typography"><p>Moves focus into hosted Checkout when its controller is ready.
+Before initialization or after teardown this method safely does nothing.</p>
+</div>
 <h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">void</span></h4><aside class="tsd-sources">
 <ul>
-<li>Defined in <a href="https://github.com/zebodotdev/js/blob/c6128972f1dfe920e994cff9e1ad52c2191fd0f9/packages/angular/src/lib/checkout.component.ts#L77">angular/src/lib/checkout.component.ts:77</a></li></ul></aside></div></li></ul></section>
+<li>Defined in <a href="https://github.com/zebodotdev/js/blob/13398aa4e8e505f7ce751aa33f91da2556556cf4/packages/angular/src/lib/checkout.component.ts#L128">angular/src/lib/checkout.component.ts:128</a></li></ul></aside></div></li></ul></section>
 <section class="tsd-panel tsd-member">
 <h3 class="tsd-anchor-link" id="ngafterviewinit"><span>ng<wbr/>After<wbr/>View<wbr/>Init</span><a href="#ngafterviewinit" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="../assets/icons.svg#icon-anchor"></use></svg></a></h3>
 <ul class="tsd-signatures">
@@ -131,7 +169,7 @@ It is invoked only once when the view is instantiated.</p>
 <h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">void</span></h4><aside class="tsd-sources">
 <p>Implementation of AfterViewInit.ngAfterViewInit</p>
 <ul>
-<li>Defined in <a href="https://github.com/zebodotdev/js/blob/c6128972f1dfe920e994cff9e1ad52c2191fd0f9/packages/angular/src/lib/checkout.component.ts#L53">angular/src/lib/checkout.component.ts:53</a></li></ul></aside></div></li></ul></section>
+<li>Defined in <a href="https://github.com/zebodotdev/js/blob/13398aa4e8e505f7ce751aa33f91da2556556cf4/packages/angular/src/lib/checkout.component.ts#L100">angular/src/lib/checkout.component.ts:100</a></li></ul></aside></div></li></ul></section>
 <section class="tsd-panel tsd-member">
 <h3 class="tsd-anchor-link" id="ngonchanges"><span>ng<wbr/>On<wbr/>Changes</span><a href="#ngonchanges" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="../assets/icons.svg#icon-anchor"></use></svg></a></h3>
 <ul class="tsd-signatures">
@@ -152,7 +190,7 @@ children are checked.</p>
 <h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">void</span></h4><aside class="tsd-sources">
 <p>Implementation of OnChanges.ngOnChanges</p>
 <ul>
-<li>Defined in <a href="https://github.com/zebodotdev/js/blob/c6128972f1dfe920e994cff9e1ad52c2191fd0f9/packages/angular/src/lib/checkout.component.ts#L58">angular/src/lib/checkout.component.ts:58</a></li></ul></aside></div></li></ul></section>
+<li>Defined in <a href="https://github.com/zebodotdev/js/blob/13398aa4e8e505f7ce751aa33f91da2556556cf4/packages/angular/src/lib/checkout.component.ts#L105">angular/src/lib/checkout.component.ts:105</a></li></ul></aside></div></li></ul></section>
 <section class="tsd-panel tsd-member">
 <h3 class="tsd-anchor-link" id="ngondestroy"><span>ng<wbr/>On<wbr/>Destroy</span><a href="#ngondestroy" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="../assets/icons.svg#icon-anchor"></use></svg></a></h3>
 <ul class="tsd-signatures">
@@ -165,20 +203,23 @@ before a directive, pipe, or service instance is destroyed.</p>
 <h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">void</span></h4><aside class="tsd-sources">
 <p>Implementation of OnDestroy.ngOnDestroy</p>
 <ul>
-<li>Defined in <a href="https://github.com/zebodotdev/js/blob/c6128972f1dfe920e994cff9e1ad52c2191fd0f9/packages/angular/src/lib/checkout.component.ts#L73">angular/src/lib/checkout.component.ts:73</a></li></ul></aside></div></li></ul></section>
+<li>Defined in <a href="https://github.com/zebodotdev/js/blob/13398aa4e8e505f7ce751aa33f91da2556556cf4/packages/angular/src/lib/checkout.component.ts#L120">angular/src/lib/checkout.component.ts:120</a></li></ul></aside></div></li></ul></section>
 <section class="tsd-panel tsd-member">
 <h3 class="tsd-anchor-link" id="update"><span>update</span><a href="#update" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="../assets/icons.svg#icon-anchor"></use></svg></a></h3>
 <ul class="tsd-signatures">
 <li class="">
 <div class="tsd-signature tsd-anchor-link" id="update-1"><span class="tsd-kind-call-signature">update</span><span class="tsd-signature-symbol">(</span><span class="tsd-kind-parameter">options</span><span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">CheckoutUpdateOptions</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">void</span><a href="#update-1" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="../assets/icons.svg#icon-anchor"></use></svg></a></div>
 <div class="tsd-description">
+<div class="tsd-comment tsd-typography"><p>Applies a new locale or color scheme when a controller exists.
+Prefer binding <code>appearance</code> and <code>locale</code> for declarative Angular views.</p>
+</div>
 <div class="tsd-parameters">
 <h4 class="tsd-parameters-title">Parameters</h4>
 <ul class="tsd-parameter-list">
 <li><span><span class="tsd-kind-parameter">options</span>: <span class="tsd-signature-type">CheckoutUpdateOptions</span></span></li></ul></div>
 <h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">void</span></h4><aside class="tsd-sources">
 <ul>
-<li>Defined in <a href="https://github.com/zebodotdev/js/blob/c6128972f1dfe920e994cff9e1ad52c2191fd0f9/packages/angular/src/lib/checkout.component.ts#L81">angular/src/lib/checkout.component.ts:81</a></li></ul></aside></div></li></ul></section></section></details></div>
+<li>Defined in <a href="https://github.com/zebodotdev/js/blob/13398aa4e8e505f7ce751aa33f91da2556556cf4/packages/angular/src/lib/checkout.component.ts#L136">angular/src/lib/checkout.component.ts:136</a></li></ul></aside></div></li></ul></section></section></details></div>
 <div class="col-sidebar">
 <div class="page-menu">
 <div class="tsd-navigation settings">

@@ -1,4 +1,4 @@
-<!DOCTYPE html><html class="default" lang="en" data-base="../"><head><meta charset="utf-8"/><meta http-equiv="x-ua-compatible" content="IE=edge"/><title>CheckoutProps | Inttegro Web SDKs - v0.1.0</title><meta name="description" content="Documentation for Inttegro Web SDKs"/><meta name="viewport" content="width=device-width, initial-scale=1"/><link rel="stylesheet" href="../assets/style.css"/><link rel="stylesheet" href="../assets/highlight.css"/><script defer src="../assets/main.js"></script><script async src="../assets/icons.js" id="tsd-icons-script"></script><script async src="../assets/search.js" id="tsd-search-script"></script><script async src="../assets/navigation.js" id="tsd-nav-script"></script></head><body><script>document.documentElement.dataset.theme = localStorage.getItem("tsd-theme") || "os";document.body.style.display="none";setTimeout(() => window.app?app.showPage():document.body.style.removeProperty("display"),500)</script><header class="tsd-page-toolbar">
+<!DOCTYPE html><html class="default" lang="en" data-base="../"><head><meta charset="utf-8"/><meta http-equiv="x-ua-compatible" content="IE=edge"/><title>CheckoutProps | Inttegro Web SDKs - v0.1.0</title><meta name="description" content="Documentation for Inttegro Web SDKs"/><meta name="viewport" content="width=device-width, initial-scale=1"/><link rel="stylesheet" href="../assets/style.css"/><link rel="stylesheet" href="../assets/highlight.css"/><link rel="stylesheet" href="../assets/custom.css"/><script defer src="../assets/main.js"></script><script async src="../assets/icons.js" id="tsd-icons-script"></script><script async src="../assets/search.js" id="tsd-search-script"></script><script async src="../assets/navigation.js" id="tsd-nav-script"></script></head><body><script>document.documentElement.dataset.theme = localStorage.getItem("tsd-theme") || "os";document.body.style.display="none";setTimeout(() => window.app?app.showPage():document.body.style.removeProperty("display"),500)</script><header class="tsd-page-toolbar">
 <div class="tsd-toolbar-contents container"><a href="../index.html" class="title">Inttegro Web SDKs - v0.1.0</a>
 <div id="tsd-toolbar-links"><a href="https://studio.inttegro.com/web">Studio</a><a href="https://github.com/zebodotdev/js">GitHub</a></div><button id="tsd-search-trigger" class="tsd-widget" aria-label="Search"><svg width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true"><use href="../assets/icons.svg#icon-search"></use></svg></button><dialog id="tsd-search" aria-label="Search"><input role="combobox" id="tsd-search-input" aria-controls="tsd-search-results" aria-autocomplete="list" aria-expanded="true" autocapitalize="off" autocomplete="off" placeholder="Search the docs" maxLength="100"/>
 <ul role="listbox" id="tsd-search-results"></ul>
@@ -11,15 +11,21 @@
 <li><a href="../modules/_inttegro_react.html">@inttegro/react</a></li>
 <li><a href="" aria-current="page">CheckoutProps</a></li></ul>
 <h1>Interface CheckoutProps</h1></div>
+<section class="tsd-panel tsd-comment">
+<div class="tsd-comment tsd-typography"><p>Props for <a href="../variables/_inttegro_react.Checkout.html" class="tsd-kind-variable">Checkout</a>.</p>
+<p><code>orderId</code>, <code>timeout</code>, and <code>title</code> identify the embedded experience. Changing
+one replaces the underlying controller. <code>appearance</code> and <code>locale</code> update the
+existing controller without discarding payer progress.</p>
+</div></section>
 <div class="tsd-signature"><span class="tsd-signature-keyword">interface</span> <span class="tsd-kind-interface">CheckoutProps</span> <span class="tsd-signature-symbol">{</span><br/>    <a class="tsd-kind-property" href="#appearance">appearance</a><span class="tsd-signature-symbol">?:</span> <a href="_inttegro_react.CheckoutAppearance.html" class="tsd-signature-type tsd-kind-interface">CheckoutAppearance</a><span class="tsd-signature-symbol">;</span><br/>    <a class="tsd-kind-property" href="#classname">className</a><span class="tsd-signature-symbol">?:</span> <span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">;</span><br/>    <a class="tsd-kind-property" href="#locale">locale</a><span class="tsd-signature-symbol">?:</span> <span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">;</span><br/>    <a class="tsd-kind-property" href="#oncompleted">onCompleted</a><span class="tsd-signature-symbol">?:</span> <span class="tsd-signature-symbol">(</span><span class="tsd-kind-parameter">event</span><span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">CheckoutCompletedEvent</span><span class="tsd-signature-symbol">)</span> <span class="tsd-signature-symbol">=&gt;</span> <span class="tsd-signature-type">void</span><span class="tsd-signature-symbol">;</span><br/>    <a class="tsd-kind-property" href="#onerror">onError</a><span class="tsd-signature-symbol">?:</span> <span class="tsd-signature-symbol">(</span><span class="tsd-kind-parameter">event</span><span class="tsd-signature-symbol">:</span> <a href="_inttegro_react.CheckoutErrorEvent.html" class="tsd-signature-type tsd-kind-interface">CheckoutErrorEvent</a> <span class="tsd-signature-symbol">|</span> <span class="tsd-signature-type">Error</span><span class="tsd-signature-symbol">)</span> <span class="tsd-signature-symbol">=&gt;</span> <span class="tsd-signature-type">void</span><span class="tsd-signature-symbol">;</span><br/>    <a class="tsd-kind-property" href="#onevent">onEvent</a><span class="tsd-signature-symbol">?:</span> <span class="tsd-signature-symbol">(</span><span class="tsd-kind-parameter">event</span><span class="tsd-signature-symbol">:</span> <a href="../types/_inttegro_react.CheckoutEvent.html" class="tsd-signature-type tsd-kind-type-alias">CheckoutEvent</a><span class="tsd-signature-symbol">)</span> <span class="tsd-signature-symbol">=&gt;</span> <span class="tsd-signature-type">void</span><span class="tsd-signature-symbol">;</span><br/>    <a class="tsd-kind-property" href="#onready">onReady</a><span class="tsd-signature-symbol">?:</span> <span class="tsd-signature-symbol">(</span><span class="tsd-kind-parameter">event</span><span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">CheckoutReadyEvent</span><span class="tsd-signature-symbol">)</span> <span class="tsd-signature-symbol">=&gt;</span> <span class="tsd-signature-type">void</span><span class="tsd-signature-symbol">;</span><br/>    <a class="tsd-kind-property" href="#orderid">orderId</a><span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">;</span><br/>    <a class="tsd-kind-property" href="#style">style</a><span class="tsd-signature-symbol">?:</span> <span class="tsd-signature-type">CSSProperties</span><span class="tsd-signature-symbol">;</span><br/>    <a class="tsd-kind-property" href="#timeout">timeout</a><span class="tsd-signature-symbol">?:</span> <span class="tsd-signature-type">number</span><span class="tsd-signature-symbol">;</span><br/>    <a class="tsd-kind-property" href="#title">title</a><span class="tsd-signature-symbol">?:</span> <span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">;</span><br/><span class="tsd-signature-symbol">}</span></div>
-<section class="tsd-panel tsd-hierarchy" data-refl="409">
+<section class="tsd-panel tsd-hierarchy" data-refl="444">
 <h4>Hierarchy</h4>
 <ul class="tsd-hierarchy">
 <li class="tsd-hierarchy-item"><span class="tsd-signature-type">CheckoutOptions</span>
 <ul class="tsd-hierarchy">
 <li class="tsd-hierarchy-item"><span class="tsd-hierarchy-target">CheckoutProps</span></li></ul></li></ul></section><aside class="tsd-sources">
 <ul>
-<li>Defined in <a href="https://github.com/zebodotdev/js/blob/c6128972f1dfe920e994cff9e1ad52c2191fd0f9/packages/react/src/Checkout.tsx#L16">react/src/Checkout.tsx:16</a></li></ul></aside>
+<li>Defined in <a href="https://github.com/zebodotdev/js/blob/13398aa4e8e505f7ce751aa33f91da2556556cf4/packages/react/src/Checkout.tsx#L25">react/src/Checkout.tsx:25</a></li></ul></aside>
 <section class="tsd-panel-group tsd-index-group">
 <section class="tsd-panel tsd-index-panel">
 <details class="tsd-index-content tsd-accordion" open><summary class="tsd-accordion-summary tsd-index-summary"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" aria-hidden="true"><use href="../assets/icons.svg#icon-chevronDown"></use></svg>
@@ -45,73 +51,98 @@
 <section class="tsd-panel tsd-member tsd-is-inherited">
 <h3 class="tsd-anchor-link" id="appearance"><code class="tsd-tag">Optional</code><span>appearance</span><a href="#appearance" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="../assets/icons.svg#icon-anchor"></use></svg></a></h3>
 <div class="tsd-signature"><span class="tsd-kind-property">appearance</span><span class="tsd-signature-symbol">?:</span> <a href="_inttegro_react.CheckoutAppearance.html" class="tsd-signature-type tsd-kind-interface">CheckoutAppearance</a></div>
-<div class="tsd-comment tsd-typography"><p>Appearance preferences applied within the hosted checkout.</p>
+<div class="tsd-comment tsd-typography"><p>Initial color-scheme preferences for the hosted experience.</p>
 </div><aside class="tsd-sources">
 <p>Inherited from CheckoutOptions.appearance</p>
 <ul>
-<li>Defined in js/dist/index.d.ts:15</li></ul></aside></section>
+<li>Defined in js/dist/index.d.ts:121</li></ul></aside></section>
 <section class="tsd-panel tsd-member">
 <h3 class="tsd-anchor-link" id="classname"><code class="tsd-tag">Optional</code><span>class<wbr/>Name</span><a href="#classname" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="../assets/icons.svg#icon-anchor"></use></svg></a></h3>
-<div class="tsd-signature"><span class="tsd-kind-property">className</span><span class="tsd-signature-symbol">?:</span> <span class="tsd-signature-type">string</span></div><aside class="tsd-sources">
+<div class="tsd-signature"><span class="tsd-kind-property">className</span><span class="tsd-signature-symbol">?:</span> <span class="tsd-signature-type">string</span></div>
+<div class="tsd-comment tsd-typography"><p>CSS class applied to the outer container owned by your React application.</p>
+</div><aside class="tsd-sources">
 <ul>
-<li>Defined in <a href="https://github.com/zebodotdev/js/blob/c6128972f1dfe920e994cff9e1ad52c2191fd0f9/packages/react/src/Checkout.tsx#L17">react/src/Checkout.tsx:17</a></li></ul></aside></section>
+<li>Defined in <a href="https://github.com/zebodotdev/js/blob/13398aa4e8e505f7ce751aa33f91da2556556cf4/packages/react/src/Checkout.tsx#L27">react/src/Checkout.tsx:27</a></li></ul></aside></section>
 <section class="tsd-panel tsd-member tsd-is-inherited">
 <h3 class="tsd-anchor-link" id="locale"><code class="tsd-tag">Optional</code><span>locale</span><a href="#locale" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="../assets/icons.svg#icon-anchor"></use></svg></a></h3>
 <div class="tsd-signature"><span class="tsd-kind-property">locale</span><span class="tsd-signature-symbol">?:</span> <span class="tsd-signature-type">string</span></div>
-<div class="tsd-comment tsd-typography"><p>BCP 47 locale preference, such as <code>en-GH</code>.</p>
+<div class="tsd-comment tsd-typography"><p>BCP 47 locale preference, such as <code>en-GH</code>. Unsupported translations may
+fall back to an Inttegro-supported locale.</p>
 </div><aside class="tsd-sources">
 <p>Inherited from CheckoutOptions.locale</p>
 <ul>
-<li>Defined in js/dist/index.d.ts:17</li></ul></aside></section>
+<li>Defined in js/dist/index.d.ts:126</li></ul></aside></section>
 <section class="tsd-panel tsd-member">
 <h3 class="tsd-anchor-link" id="oncompleted"><code class="tsd-tag">Optional</code><span>on<wbr/>Completed</span><a href="#oncompleted" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="../assets/icons.svg#icon-anchor"></use></svg></a></h3>
-<div class="tsd-signature"><span class="tsd-kind-property">onCompleted</span><span class="tsd-signature-symbol">?:</span> <span class="tsd-signature-symbol">(</span><span class="tsd-kind-parameter">event</span><span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">CheckoutCompletedEvent</span><span class="tsd-signature-symbol">)</span> <span class="tsd-signature-symbol">=&gt;</span> <span class="tsd-signature-type">void</span></div><aside class="tsd-sources">
+<div class="tsd-signature"><span class="tsd-kind-property">onCompleted</span><span class="tsd-signature-symbol">?:</span> <span class="tsd-signature-symbol">(</span><span class="tsd-kind-parameter">event</span><span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">CheckoutCompletedEvent</span><span class="tsd-signature-symbol">)</span> <span class="tsd-signature-symbol">=&gt;</span> <span class="tsd-signature-type">void</span></div>
+<div class="tsd-comment tsd-typography"><p>Called after Checkout reports its successful terminal state.
+Use this to navigate or refresh server-owned Order state, not as the sole
+signal for fulfillment.</p>
+</div><aside class="tsd-sources">
 <ul>
-<li>Defined in <a href="https://github.com/zebodotdev/js/blob/c6128972f1dfe920e994cff9e1ad52c2191fd0f9/packages/react/src/Checkout.tsx#L19">react/src/Checkout.tsx:19</a></li></ul></aside></section>
+<li>Defined in <a href="https://github.com/zebodotdev/js/blob/13398aa4e8e505f7ce751aa33f91da2556556cf4/packages/react/src/Checkout.tsx#L35">react/src/Checkout.tsx:35</a></li></ul></aside></section>
 <section class="tsd-panel tsd-member">
 <h3 class="tsd-anchor-link" id="onerror"><code class="tsd-tag">Optional</code><span>on<wbr/>Error</span><a href="#onerror" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="../assets/icons.svg#icon-anchor"></use></svg></a></h3>
-<div class="tsd-signature"><span class="tsd-kind-property">onError</span><span class="tsd-signature-symbol">?:</span> <span class="tsd-signature-symbol">(</span><span class="tsd-kind-parameter">event</span><span class="tsd-signature-symbol">:</span> <a href="_inttegro_react.CheckoutErrorEvent.html" class="tsd-signature-type tsd-kind-interface">CheckoutErrorEvent</a> <span class="tsd-signature-symbol">|</span> <span class="tsd-signature-type">Error</span><span class="tsd-signature-symbol">)</span> <span class="tsd-signature-symbol">=&gt;</span> <span class="tsd-signature-type">void</span></div><aside class="tsd-sources">
+<div class="tsd-signature"><span class="tsd-kind-property">onError</span><span class="tsd-signature-symbol">?:</span> <span class="tsd-signature-symbol">(</span><span class="tsd-kind-parameter">event</span><span class="tsd-signature-symbol">:</span> <a href="_inttegro_react.CheckoutErrorEvent.html" class="tsd-signature-type tsd-kind-interface">CheckoutErrorEvent</a> <span class="tsd-signature-symbol">|</span> <span class="tsd-signature-type">Error</span><span class="tsd-signature-symbol">)</span> <span class="tsd-signature-symbol">=&gt;</span> <span class="tsd-signature-type">void</span></div>
+<div class="tsd-comment tsd-typography"><p>Called for loader/mount errors and sanitized hosted errors.
+Use <code>error instanceof InttegroCheckoutError</code> or check for an event <code>type</code>
+before reading framework-independent details.</p>
+</div><aside class="tsd-sources">
 <ul>
-<li>Defined in <a href="https://github.com/zebodotdev/js/blob/c6128972f1dfe920e994cff9e1ad52c2191fd0f9/packages/react/src/Checkout.tsx#L20">react/src/Checkout.tsx:20</a></li></ul></aside></section>
+<li>Defined in <a href="https://github.com/zebodotdev/js/blob/13398aa4e8e505f7ce751aa33f91da2556556cf4/packages/react/src/Checkout.tsx#L41">react/src/Checkout.tsx:41</a></li></ul></aside></section>
 <section class="tsd-panel tsd-member">
 <h3 class="tsd-anchor-link" id="onevent"><code class="tsd-tag">Optional</code><span>on<wbr/>Event</span><a href="#onevent" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="../assets/icons.svg#icon-anchor"></use></svg></a></h3>
-<div class="tsd-signature"><span class="tsd-kind-property">onEvent</span><span class="tsd-signature-symbol">?:</span> <span class="tsd-signature-symbol">(</span><span class="tsd-kind-parameter">event</span><span class="tsd-signature-symbol">:</span> <a href="../types/_inttegro_react.CheckoutEvent.html" class="tsd-signature-type tsd-kind-type-alias">CheckoutEvent</a><span class="tsd-signature-symbol">)</span> <span class="tsd-signature-symbol">=&gt;</span> <span class="tsd-signature-type">void</span></div><aside class="tsd-sources">
+<div class="tsd-signature"><span class="tsd-kind-property">onEvent</span><span class="tsd-signature-symbol">?:</span> <span class="tsd-signature-symbol">(</span><span class="tsd-kind-parameter">event</span><span class="tsd-signature-symbol">:</span> <a href="../types/_inttegro_react.CheckoutEvent.html" class="tsd-signature-type tsd-kind-type-alias">CheckoutEvent</a><span class="tsd-signature-symbol">)</span> <span class="tsd-signature-symbol">=&gt;</span> <span class="tsd-signature-type">void</span></div>
+<div class="tsd-comment tsd-typography"><p>Called for every sanitized lifecycle event, including events above.</p>
+</div><aside class="tsd-sources">
 <ul>
-<li>Defined in <a href="https://github.com/zebodotdev/js/blob/c6128972f1dfe920e994cff9e1ad52c2191fd0f9/packages/react/src/Checkout.tsx#L21">react/src/Checkout.tsx:21</a></li></ul></aside></section>
+<li>Defined in <a href="https://github.com/zebodotdev/js/blob/13398aa4e8e505f7ce751aa33f91da2556556cf4/packages/react/src/Checkout.tsx#L43">react/src/Checkout.tsx:43</a></li></ul></aside></section>
 <section class="tsd-panel tsd-member">
 <h3 class="tsd-anchor-link" id="onready"><code class="tsd-tag">Optional</code><span>on<wbr/>Ready</span><a href="#onready" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="../assets/icons.svg#icon-anchor"></use></svg></a></h3>
-<div class="tsd-signature"><span class="tsd-kind-property">onReady</span><span class="tsd-signature-symbol">?:</span> <span class="tsd-signature-symbol">(</span><span class="tsd-kind-parameter">event</span><span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">CheckoutReadyEvent</span><span class="tsd-signature-symbol">)</span> <span class="tsd-signature-symbol">=&gt;</span> <span class="tsd-signature-type">void</span></div><aside class="tsd-sources">
+<div class="tsd-signature"><span class="tsd-kind-property">onReady</span><span class="tsd-signature-symbol">?:</span> <span class="tsd-signature-symbol">(</span><span class="tsd-kind-parameter">event</span><span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">CheckoutReadyEvent</span><span class="tsd-signature-symbol">)</span> <span class="tsd-signature-symbol">=&gt;</span> <span class="tsd-signature-type">void</span></div>
+<div class="tsd-comment tsd-typography"><p>Called once the iframe is interactive and its mount promise has resolved.</p>
+</div><aside class="tsd-sources">
 <ul>
-<li>Defined in <a href="https://github.com/zebodotdev/js/blob/c6128972f1dfe920e994cff9e1ad52c2191fd0f9/packages/react/src/Checkout.tsx#L22">react/src/Checkout.tsx:22</a></li></ul></aside></section>
+<li>Defined in <a href="https://github.com/zebodotdev/js/blob/13398aa4e8e505f7ce751aa33f91da2556556cf4/packages/react/src/Checkout.tsx#L45">react/src/Checkout.tsx:45</a></li></ul></aside></section>
 <section class="tsd-panel tsd-member tsd-is-inherited">
 <h3 class="tsd-anchor-link" id="orderid"><span>order<wbr/>Id</span><a href="#orderid" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="../assets/icons.svg#icon-anchor"></use></svg></a></h3>
 <div class="tsd-signature"><span class="tsd-kind-property">orderId</span><span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">string</span></div>
-<div class="tsd-comment tsd-typography"><p>Finalized Inttegro Order reference.</p>
+<div class="tsd-comment tsd-typography"><p>Client-safe reference for the finalized Inttegro Order being paid.</p>
+<p>Create and finalize the Order on your server, then send only this reference
+to the browser. The payer may complete the Order but cannot use Checkout to
+change its commercial terms. Never place an Inttegro secret API key in this
+object or anywhere else in browser code.</p>
 </div><aside class="tsd-sources">
 <p>Inherited from CheckoutOptions.orderId</p>
 <ul>
-<li>Defined in js/dist/index.d.ts:13</li></ul></aside></section>
+<li>Defined in js/dist/index.d.ts:119</li></ul></aside></section>
 <section class="tsd-panel tsd-member">
 <h3 class="tsd-anchor-link" id="style"><code class="tsd-tag">Optional</code><span>style</span><a href="#style" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="../assets/icons.svg#icon-anchor"></use></svg></a></h3>
-<div class="tsd-signature"><span class="tsd-kind-property">style</span><span class="tsd-signature-symbol">?:</span> <span class="tsd-signature-type">CSSProperties</span></div><aside class="tsd-sources">
+<div class="tsd-signature"><span class="tsd-kind-property">style</span><span class="tsd-signature-symbol">?:</span> <span class="tsd-signature-type">CSSProperties</span></div>
+<div class="tsd-comment tsd-typography"><p>Inline styles applied to the outer container, never to controls inside Checkout.</p>
+</div><aside class="tsd-sources">
 <ul>
-<li>Defined in <a href="https://github.com/zebodotdev/js/blob/c6128972f1dfe920e994cff9e1ad52c2191fd0f9/packages/react/src/Checkout.tsx#L18">react/src/Checkout.tsx:18</a></li></ul></aside></section>
+<li>Defined in <a href="https://github.com/zebodotdev/js/blob/13398aa4e8e505f7ce751aa33f91da2556556cf4/packages/react/src/Checkout.tsx#L29">react/src/Checkout.tsx:29</a></li></ul></aside></section>
 <section class="tsd-panel tsd-member tsd-is-inherited">
 <h3 class="tsd-anchor-link" id="timeout"><code class="tsd-tag">Optional</code><span>timeout</span><a href="#timeout" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="../assets/icons.svg#icon-anchor"></use></svg></a></h3>
 <div class="tsd-signature"><span class="tsd-kind-property">timeout</span><span class="tsd-signature-symbol">?:</span> <span class="tsd-signature-type">number</span></div>
-<div class="tsd-comment tsd-typography"><p>Milliseconds to wait for the hosted checkout to become ready.</p>
+<div class="tsd-comment tsd-typography"><p>Milliseconds to wait for the hosted checkout to emit <code>CheckoutReadyEvent</code>.
+Accepts 1,000–60,000 ms and defaults to 15,000 ms. A timeout rejects
+<code>CheckoutController.mount</code> and returns the controller to <code>idle</code>, so a
+deliberate retry can mount it again.</p>
 </div><aside class="tsd-sources">
 <p>Inherited from CheckoutOptions.timeout</p>
 <ul>
-<li>Defined in js/dist/index.d.ts:21</li></ul></aside></section>
+<li>Defined in js/dist/index.d.ts:138</li></ul></aside></section>
 <section class="tsd-panel tsd-member tsd-is-inherited">
 <h3 class="tsd-anchor-link" id="title"><code class="tsd-tag">Optional</code><span>title</span><a href="#title" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="../assets/icons.svg#icon-anchor"></use></svg></a></h3>
 <div class="tsd-signature"><span class="tsd-kind-property">title</span><span class="tsd-signature-symbol">?:</span> <span class="tsd-signature-type">string</span></div>
-<div class="tsd-comment tsd-typography"><p>Accessible title for the hosted checkout frame.</p>
+<div class="tsd-comment tsd-typography"><p>Accessible title assigned to the hosted iframe. Defaults to <code>Checkout</code>.
+Describe the frame's purpose; this value is not visible payment-page copy.</p>
 </div><aside class="tsd-sources">
 <p>Inherited from CheckoutOptions.title</p>
 <ul>
-<li>Defined in js/dist/index.d.ts:19</li></ul></aside></section></section></details></div>
+<li>Defined in js/dist/index.d.ts:131</li></ul></aside></section></section></details></div>
 <div class="col-sidebar">
 <div class="page-menu">
 <div class="tsd-navigation settings">
