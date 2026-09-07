@@ -34,7 +34,7 @@
     "url": "git+https://github.com/zebodotdev/js.git",
     "directory": "packages/vue"
   },
-  "homepage": "https://studio.inttegro.com/sdks/vue",
+  "homepage": "https://studio.inttegro.com/web/vue",
   "author": "Inttegro Eng <engineering@inttegro.com> (https://inttegro.com)",
   "license": "MIT",
   "publishConfig": {

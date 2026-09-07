@@ -37,7 +37,7 @@
     "url": "git+https://github.com/zebodotdev/js.git",
     "directory": "packages/js"
   },
-  "homepage": "https://studio.inttegro.com/sdks/js",
+  "homepage": "https://studio.inttegro.com/web/javascript",
   "author": "Inttegro Eng <engineering@inttegro.com> (https://inttegro.com)",
   "license": "MIT",
   "publishConfig": {

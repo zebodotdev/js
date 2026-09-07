@@ -295,5 +295,6 @@ response.
 
 ## Documentation
 
-Read the integration guides and complete API documentation in
-[Inttegro Studio](https://studio.inttegro.com/sdks/js).
+Read the [integration guides](https://studio.inttegro.com/web) in Inttegro
+Studio and browse the [generated API reference](https://web.inttegro.dev/v0.1.0/)
+for every JavaScript framework package.
