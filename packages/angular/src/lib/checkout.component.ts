@@ -4,12 +4,12 @@ import {
   ElementRef,
   EventEmitter,
   Input,
-  OnChanges,
-  OnDestroy,
   Output,
-  SimpleChanges,
   ViewChild,
   type AfterViewInit,
+  type OnChanges,
+  type OnDestroy,
+  type SimpleChanges,
 } from '@angular/core'
 import {
   loadInttegro,
@@ -45,8 +45,8 @@ export class CheckoutComponent implements AfterViewInit, OnChanges, OnDestroy {
   @ViewChild('container', { static: true })
   private container?: ElementRef<HTMLDivElement>
 
-  private checkout?: CheckoutController
-  private unsubscribe?: () => void
+  private checkout: CheckoutController | undefined
+  private unsubscribe: (() => void) | undefined
   private viewReady = false
   private generation = 0
 
