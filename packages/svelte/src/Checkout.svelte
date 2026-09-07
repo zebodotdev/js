@@ -1,25 +1,11 @@
 <script lang="ts">
   import {
     loadInttegro,
-    type CheckoutAppearance,
     type CheckoutController,
-    type CheckoutErrorEvent,
     type CheckoutEvent,
   } from '@inttegro/js'
   import { untrack } from 'svelte'
-
-  interface Props {
-    appearance?: CheckoutAppearance
-    class?: string
-    locale?: string
-    onCompleted?: (event: Extract<CheckoutEvent, { type: 'completed' }>) => void
-    onError?: (event: CheckoutErrorEvent | Error) => void
-    onEvent?: (event: CheckoutEvent) => void
-    onReady?: (event: Extract<CheckoutEvent, { type: 'ready' }>) => void
-    orderId: string
-    timeout?: number
-    title?: string
-  }
+  import type { CheckoutProps } from './types'
 
   let {
     appearance,
@@ -32,7 +18,7 @@
     orderId,
     timeout,
     title,
-  }: Props = $props()
+  }: CheckoutProps = $props()
 
   let container: HTMLDivElement
   let checkout = $state<CheckoutController>()

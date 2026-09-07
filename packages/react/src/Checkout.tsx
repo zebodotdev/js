@@ -13,20 +13,90 @@ import {
   type CSSProperties,
 } from 'react'
 
+/**
+ * Props for {@link Checkout}.
+ *
+ * `orderId`, `timeout`, and `title` identify the embedded experience. Changing
+ * one replaces the underlying controller. `appearance` and `locale` update the
+ * existing controller without discarding payer progress.
+ *
+ * @category React
+ */
 export interface CheckoutProps extends CheckoutOptions {
+  /** CSS class applied to the outer container owned by your React application. */
   className?: string
+  /** Inline styles applied to the outer container, never to controls inside Checkout. */
   style?: CSSProperties
+  /**
+   * Called after Checkout reports its successful terminal state.
+   * Use this to navigate or refresh server-owned Order state, not as the sole
+   * signal for fulfillment.
+   */
   onCompleted?: (event: Extract<CheckoutEvent, { type: 'completed' }>) => void
+  /**
+   * Called for loader/mount errors and sanitized hosted errors.
+   * Use `error instanceof InttegroCheckoutError` or check for an event `type`
+   * before reading framework-independent details.
+   */
   onError?: (event: CheckoutErrorEvent | Error) => void
+  /** Called for every sanitized lifecycle event, including events above. */
   onEvent?: (event: CheckoutEvent) => void
+  /** Called once the iframe is interactive and its mount promise has resolved. */
   onReady?: (event: Extract<CheckoutEvent, { type: 'ready' }>) => void
 }
 
+/**
+ * Imperative operations exposed by {@link Checkout} through a React ref.
+ *
+ * Prefer props for normal updates. Use the handle for focus management in
+ * dialogs or for updates driven by imperative host integrations.
+ *
+ * @category React
+ */
 export interface CheckoutHandle {
+  /** Moves focus into Checkout when its controller is ready; otherwise does nothing. */
   focus(): void
+  /** Applies a new locale or theme when the controller exists. */
   update(options: Parameters<CheckoutController['update']>[0]): void
 }
 
+/**
+ * Embeds Inttegro-hosted Checkout in a React application.
+ *
+ * The component renders an empty `div`, loads the executable runtime from
+ * Inttegro's fixed origin after mount, creates a controller for `orderId`, and
+ * destroys it during cleanup. Server rendering is safe because no runtime is
+ * loaded until the effect runs in a browser.
+ *
+ * Changing `orderId`, `timeout`, or `title` starts a fresh hosted experience.
+ * Changing `appearance` or `locale` updates the active experience in place.
+ * Keep the component mounted while a payment is pending or confirmation is in
+ * progress.
+ *
+ * @example Handle success, failure, and focus in a dialog
+ * ```tsx
+ * import { useRef } from 'react'
+ * import { Checkout, type CheckoutHandle } from '@inttegro/react'
+ *
+ * function Payment({ orderId }: { orderId: string }) {
+ *   const checkout = useRef<CheckoutHandle>(null)
+ *
+ *   return (
+ *     <dialog open onTransitionEnd={() => checkout.current?.focus()}>
+ *       <Checkout
+ *         ref={checkout}
+ *         orderId={orderId}
+ *         appearance={{ theme: 'system' }}
+ *         onCompleted={() => location.assign(`/orders/${orderId}/complete`)}
+ *         onError={(error) => reportCheckoutError(error)}
+ *       />
+ *     </dialog>
+ *   )
+ * }
+ * ```
+ *
+ * @category React
+ */
 export const Checkout = forwardRef<CheckoutHandle, CheckoutProps>(
   function Checkout(
     {

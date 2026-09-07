@@ -13,7 +13,8 @@
   "scripts": {
     "build": "npm run build -w @inttegro/js && npm run build -w @inttegro/react && npm run build -w @inttegro/vue && npm run build -w @inttegro/svelte && npm run build -w @inttegro/angular && npm run verify:loader",
     "check": "npm run format:check && npm run verify:versions && npm run typecheck && npm test && npm run build && npm run lint:packages",
-    "docs": "npm run build && typedoc",
+    "docs": "npm run build && typedoc && npm run docs:verify",
+    "docs:verify": "node scripts/verify-api-docs.mjs",
     "format": "prettier --write .",
     "format:check": "prettier --check .",
     "lint:packages": "publint packages/js && publint packages/react && publint packages/vue && publint packages/svelte && publint packages/angular/dist",

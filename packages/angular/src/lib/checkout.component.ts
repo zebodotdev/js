@@ -20,6 +20,44 @@ import {
   type CheckoutUpdateOptions,
 } from '@inttegro/js'
 
+/**
+ * Standalone Angular component that embeds Inttegro-hosted Checkout.
+ *
+ * Add the component to a host component's `imports` array. It loads the hosted
+ * runtime after its view initializes, creates one controller, and destroys that
+ * controller with the Angular view. Changing `orderId`, `timeout`, or `title`
+ * replaces the controller; changing `appearance` or `locale` updates it in
+ * place.
+ *
+ * Keep this component mounted while a payment attempt or confirmation is
+ * pending. The successful `completed` output is suitable for navigation, but
+ * fulfillment must use server-retrieved Order state or a signed webhook.
+ *
+ * @example
+ * ```ts
+ * @Component({
+ *   standalone: true,
+ *   imports: [CheckoutComponent],
+ *   template: `
+ *     <inttegro-checkout
+ *       [orderId]="orderId"
+ *       [appearance]="{ theme: 'system' }"
+ *       (completed)="onCompleted()"
+ *       (error)="onError($event)"
+ *     />
+ *   `,
+ * })
+ * export class PaymentPage {
+ *   orderId = input.required<string>()
+ *   onCompleted(): void { location.assign('/orders/complete') }
+ *   onError(error: CheckoutErrorEvent | Error): void {
+ *     reportCheckoutError(error)
+ *   }
+ * }
+ * ```
+ *
+ * @category Angular
+ */
 @Component({
   selector: 'inttegro-checkout',
   standalone: true,
@@ -27,17 +65,26 @@ import {
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class CheckoutComponent implements AfterViewInit, OnChanges, OnDestroy {
+  /** Initial and reactive theme preference for hosted Checkout. */
   @Input() appearance?: CheckoutAppearance
+  /** Initial and reactive BCP 47 locale preference. */
   @Input() locale?: string
+  /** Client-safe reference for the finalized Order being paid. */
   @Input({ required: true }) orderId = ''
+  /** Mount timeout from 1,000–60,000 ms; defaults to 15,000 ms. */
   @Input() timeout?: number
+  /** Accessible iframe title; defaults to `Checkout`. */
   @Input() title?: string
 
+  /** Emitted after Checkout reports its successful terminal state. */
   @Output() readonly completed = new EventEmitter<
     Extract<CheckoutEvent, { type: 'completed' }>
   >()
+  /** Emitted for loader/mount failures and sanitized hosted errors. */
   @Output() readonly error = new EventEmitter<CheckoutErrorEvent | Error>()
+  /** Emitted for every sanitized hosted Checkout lifecycle event. */
   @Output() readonly event = new EventEmitter<CheckoutEvent>()
+  /** Emitted once the iframe is interactive. */
   @Output() readonly ready = new EventEmitter<
     Extract<CheckoutEvent, { type: 'ready' }>
   >()
@@ -74,10 +121,18 @@ export class CheckoutComponent implements AfterViewInit, OnChanges, OnDestroy {
     this.destroyCheckout()
   }
 
+  /**
+   * Moves focus into hosted Checkout when its controller is ready.
+   * Before initialization or after teardown this method safely does nothing.
+   */
   focus(): void {
     this.checkout?.focus()
   }
 
+  /**
+   * Applies a new locale or color scheme when a controller exists.
+   * Prefer binding `appearance` and `locale` for declarative Angular views.
+   */
   update(options: CheckoutUpdateOptions): void {
     this.checkout?.update(options)
   }

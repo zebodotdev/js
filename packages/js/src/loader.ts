@@ -1,12 +1,58 @@
 import { InttegroCheckoutError } from './error'
 import type { InttegroLoadOptions, InttegroRuntime } from './types'
 
+/**
+ * Fixed URL of the executable Checkout runtime hosted by Inttegro.
+ *
+ * The npm package contains the loader, public types, and framework adapters—not
+ * the payment-collection runtime. The URL is intentionally not configurable:
+ * do not download, mirror, proxy, cache as your own asset, or bundle this file.
+ * Allow this origin in `script-src` when your site uses Content Security Policy.
+ *
+ * @category Loading Checkout
+ */
 export const INTTEGRO_JS_URL = 'https://js.inttegro.com/v1/inttegro.js'
 
 const LOAD_TIMEOUT_MS = 15_000
 const SCRIPT_MARKER = 'data-inttegro-js'
 let loadPromise: Promise<InttegroRuntime | null> | undefined
 
+/**
+ * Loads and validates the Inttegro-hosted Checkout runtime.
+ *
+ * In a browser, the first call appends one asynchronous script from
+ * {@link INTTEGRO_JS_URL}. Concurrent and subsequent calls share the same
+ * promise so a page never initializes competing runtimes. If loading fails,
+ * the loader removes the script it created and clears the cached promise so a
+ * later user-initiated retry can try again.
+ *
+ * During server-side rendering, the function resolves to `null` without
+ * touching the DOM. Call it from a browser lifecycle hook or explicitly guard
+ * the result before creating Checkout.
+ *
+ * The loader accepts a pre-existing script only when its exact `src` matches
+ * {@link INTTEGRO_JS_URL}; a compatible-looking `window.Inttegro` global on its
+ * own is rejected. This protects the controlled-origin boundary, but does not
+ * replace your own CSP, dependency review, or server-side Order authorization.
+ *
+ * @param options - Browser loading options. The nonce is used only when this
+ * call creates the shared runtime script.
+ * @returns The validated runtime in a browser, or `null` during SSR.
+ * @throws {@link InttegroCheckoutError} by rejecting with
+ * `invalid_runtime`, `runtime_load_failed`, or `runtime_load_timeout`.
+ *
+ * @example Load once in browser code and mount an Order
+ * ```ts
+ * const inttegro = await loadInttegro({ nonce: window.__cspNonce })
+ * if (!inttegro) return // Server-side render
+ *
+ * const checkout = inttegro.createCheckout({ orderId })
+ * checkout.on('completed', () => location.assign('/orders/complete'))
+ * await checkout.mount('#checkout')
+ * ```
+ *
+ * @category Loading Checkout
+ */
 export function loadInttegro(
   options: InttegroLoadOptions = {},
 ): Promise<InttegroRuntime | null> {
