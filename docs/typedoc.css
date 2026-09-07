@@ -103,3 +103,112 @@ input:focus-visible {
   outline: 2px solid var(--color-focus-outline);
   outline-offset: 3px;
 }
+
+h1[id],
+h2[id],
+h3[id] {
+  scroll-margin-block-start: 4rem;
+}
+
+.inttegro-heading-logos,
+.inttegro-nav-logos {
+  display: inline-flex;
+  flex: 0 0 auto;
+  align-items: center;
+  gap: 0.3em;
+  margin-inline-end: 0.48em;
+  vertical-align: -0.12em;
+}
+
+.inttegro-logo {
+  display: block;
+  inline-size: 1em;
+  block-size: 1em;
+  flex: 0 0 auto;
+  overflow: visible;
+  background: none;
+}
+
+.inttegro-nav-logos {
+  gap: 0.2em;
+  margin-inline-end: 0.4em;
+  font-size: 0.9em;
+}
+
+.inttegro-install-tabs {
+  margin-block: 1.25rem 2rem;
+  overflow: hidden;
+  border: 1px solid var(--color-accent);
+  border-radius: 12px;
+  background: var(--color-background);
+}
+
+.inttegro-install-tablist {
+  display: flex;
+  gap: 0.25rem;
+  padding: 0.35rem;
+  overflow-x: auto;
+  border-block-end: 1px solid var(--color-accent);
+  background: var(--color-background-secondary);
+  scrollbar-width: thin;
+}
+
+.inttegro-install-tab {
+  display: inline-flex;
+  min-block-size: 2.5rem;
+  flex: 0 0 auto;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.55rem 0.9rem;
+  border: 0;
+  border-radius: 8px;
+  color: var(--color-text-aside);
+  background: transparent;
+  font: inherit;
+  font-weight: 600;
+  line-height: 1;
+  cursor: pointer;
+}
+
+.inttegro-install-tab:hover {
+  color: var(--color-text);
+  background: var(--color-background-active);
+}
+
+.inttegro-install-tab[aria-selected='true'] {
+  color: var(--color-text);
+  background: var(--color-background);
+  box-shadow: 0 1px 4px rgb(0 0 0 / 12%);
+}
+
+:root[data-theme='dark'] .inttegro-install-tab[aria-selected='true'] {
+  box-shadow: inset 0 0 0 1px var(--color-accent);
+}
+
+@media (prefers-color-scheme: dark) {
+  :root[data-theme='os'] .inttegro-install-tab[aria-selected='true'] {
+    box-shadow: inset 0 0 0 1px var(--color-accent);
+  }
+}
+
+.inttegro-install-panel {
+  padding: 0.4rem 1rem 1rem;
+}
+
+.inttegro-install-panel[hidden] {
+  display: none;
+}
+
+.inttegro-install-panel > :last-child {
+  margin-block-end: 0;
+}
+
+@media (max-width: 560px) {
+  .inttegro-install-tab {
+    padding-inline: 0.75rem;
+  }
+
+  .inttegro-install-panel {
+    padding-inline: 0.75rem;
+  }
+}

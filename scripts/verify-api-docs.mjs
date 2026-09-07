@@ -25,6 +25,10 @@ const customCss = await readFile(
   join(outputDirectory, 'assets/custom.css'),
   'utf8',
 )
+const customJs = await readFile(
+  join(outputDirectory, 'assets/custom.js'),
+  'utf8',
+)
 
 const requiredDocumentation = [
   'Get started with Checkout',
@@ -62,6 +66,24 @@ if (!customCss.includes('--light-color-background: #ffffff')) {
   failures.push('light theme does not use a white page background')
 }
 
+for (const installer of ['npm', 'yarn', 'bun', 'deno']) {
+  if (!customJs.includes(`${installer}: {`)) {
+    failures.push(`missing ${installer} installer logo`)
+  }
+}
+
+if (
+  !customJs.includes('inttegro-install-tablist') ||
+  !customJs.includes("setAttribute('role', 'tablist')") ||
+  !customJs.includes("setAttribute('aria-selected'")
+) {
+  failures.push('missing accessible installer tab behavior')
+}
+
+if (!generatedHtml.includes('assets/custom.js')) {
+  failures.push('generated documentation does not load the UI enhancements')
+}
+
 if (failures.length > 0) {
   throw new Error(
     `Generated API documentation verification failed:\n- ${failures.join('\n- ')}`,
@@ -69,5 +91,5 @@ if (failures.length > 0) {
 }
 
 console.log(
-  `Verified ${htmlFiles.length} generated documentation pages, source permalinks, guides, and light/dark themes.`,
+  `Verified ${htmlFiles.length} generated documentation pages, source permalinks, guides, branded installer tabs, and light/dark themes.`,
 )
