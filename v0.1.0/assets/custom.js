@@ -88,6 +88,38 @@
     'Vue.html': 'vue',
   }
 
+  const navigationSections = [
+    {
+      key: 'inttegro-guides',
+      label: 'Guides',
+      documents: [
+        ['Get_started_with_Checkout.html'],
+        ['Lifecycle_and_reconciliation.html'],
+        ['Security,_CSP,_and_accessibility.html'],
+      ],
+    },
+    {
+      key: 'inttegro-framework-adapters',
+      label: 'Framework adapters',
+      documents: [
+        ['Framework_adapters.html', 'Overview'],
+        ['React.html'],
+        ['Vue.html'],
+        ['Svelte.html'],
+        ['Angular.html'],
+        ['Inertia.html'],
+      ],
+    },
+  ]
+
+  const apiModules = {
+    '_inttegro_js.html': { label: 'JavaScript', logo: 'javascript' },
+    '_inttegro_react.html': { label: 'React', logo: 'react' },
+    '_inttegro_vue.html': { label: 'Vue', logo: 'vue' },
+    '_inttegro_svelte.html': { label: 'Svelte', logo: 'svelte' },
+    '_inttegro_angular.html': { label: 'Angular', logo: 'angular' },
+  }
+
   function createLogo(name) {
     const logo = logos[name]
     const svg = document.createElementNS(SVG_NAMESPACE, 'svg')
@@ -106,6 +138,147 @@
     group.setAttribute('aria-hidden', 'true')
     for (const name of names) group.append(createLogo(name))
     return group
+  }
+
+  function fileNameForLink(link) {
+    try {
+      return new URL(link.href, window.location.href).pathname.split('/').at(-1)
+    } catch {
+      return undefined
+    }
+  }
+
+  function directNavigationItem(container, documentName) {
+    for (const item of container.children) {
+      const link = item.querySelector(':scope > a')
+      if (link && fileNameForLink(link) === documentName) return item
+    }
+    return undefined
+  }
+
+  function createNavigationSection({ key, label, items }) {
+    const item = document.createElement('li')
+    const details = document.createElement('details')
+    const summary = document.createElement('summary')
+    const chevron = document.createElementNS(SVG_NAMESPACE, 'svg')
+    const chevronUse = document.createElementNS(SVG_NAMESPACE, 'use')
+    const sectionLabel = document.createElement('span')
+    const content = document.createElement('div')
+    const list = document.createElement('ul')
+
+    item.className = 'inttegro-nav-section'
+    details.className = 'tsd-accordion inttegro-nav-section-details'
+    details.open = items.some(({ item: child }) =>
+      Boolean(child.querySelector('a.current')),
+    )
+    summary.className = 'tsd-accordion-summary inttegro-nav-section-summary'
+    summary.dataset.key = key
+    chevron.setAttribute('width', '20')
+    chevron.setAttribute('height', '20')
+    chevron.setAttribute('aria-hidden', 'true')
+    chevronUse.setAttribute('href', '#icon-chevronDown')
+    chevron.append(chevronUse)
+    sectionLabel.className = 'inttegro-nav-section-label'
+    sectionLabel.textContent = label
+    content.className = 'tsd-accordion-details'
+    list.className = 'tsd-nested-navigation'
+
+    for (const { item: child, overrideLabel } of items) {
+      if (overrideLabel) {
+        child
+          .querySelector(':scope > a > span:last-child')
+          ?.replaceChildren(overrideLabel)
+      }
+      list.append(child)
+    }
+
+    summary.append(chevron, sectionLabel)
+    content.append(list)
+    details.append(summary, content)
+    item.append(details)
+    return item
+  }
+
+  function organizeSiteNavigation() {
+    const container = document.querySelector('#tsd-nav-container')
+    if (!container || container.dataset.inttegroOrganized === 'true') return
+
+    const sections = navigationSections.map((section) => ({
+      ...section,
+      items: section.documents.map(([documentName, overrideLabel]) => ({
+        item: directNavigationItem(container, documentName),
+        overrideLabel,
+      })),
+    }))
+
+    if (sections.some((section) => section.items.some(({ item }) => !item))) {
+      return
+    }
+
+    container.prepend(
+      ...sections.map((section) => createNavigationSection(section)),
+    )
+    container.dataset.inttegroOrganized = 'true'
+  }
+
+  function decorateApiNavigation() {
+    const apiSummary = document.querySelector(
+      '#tsd-nav-container > li > details > summary[data-key="@inttegro"]',
+    )
+    if (!apiSummary) return
+
+    const apiLabel = apiSummary.querySelector(':scope > span > span:last-child')
+    if (apiLabel && apiLabel.textContent !== 'API reference') {
+      apiLabel.replaceChildren('API reference')
+    }
+
+    const folderIcon = apiSummary.querySelector(
+      ':scope > span > .tsd-kind-icon',
+    )
+    if (folderIcon) {
+      folderIcon.replaceWith(
+        createLogoGroup(
+          ['inttegro', 'javascript'],
+          'inttegro-site-nav-logo inttegro-api-nav-logo',
+        ),
+      )
+    }
+
+    const apiDetails = apiSummary.closest('details')
+    const moduleList = apiDetails?.querySelector(
+      ':scope > .tsd-accordion-details > ul',
+    )
+    if (!moduleList) return
+
+    const moduleItems = new Map()
+    for (const item of moduleList.children) {
+      const link = item.querySelector('a[href*="/modules/_inttegro_"]')
+      const moduleName = link && fileNameForLink(link)
+      const module = moduleName && apiModules[moduleName]
+      if (!link || !moduleName || !module) continue
+
+      const icon = link.querySelector(':scope > .tsd-kind-icon')
+      if (icon) {
+        icon.replaceWith(
+          createLogoGroup([module.logo], 'inttegro-site-nav-logo'),
+        )
+      }
+      const label = link.querySelector(':scope > span:last-child')
+      if (label && label.textContent !== module.label) {
+        label.replaceChildren(module.label)
+      }
+      moduleItems.set(moduleName, item)
+    }
+
+    const orderedModules = Object.keys(apiModules)
+      .map((moduleName) => moduleItems.get(moduleName))
+      .filter(Boolean)
+    const modulesNeedSorting = orderedModules.some(
+      (moduleItem, index) => moduleList.children[index] !== moduleItem,
+    )
+    if (modulesNeedSorting) {
+      for (const moduleItem of orderedModules) moduleList.append(moduleItem)
+    }
   }
 
   function decorateTechnologyNavigation() {
@@ -131,6 +304,12 @@
       const logo = createLogoGroup([logoName], 'inttegro-site-nav-logo')
       documentIcon?.replaceWith(logo)
     }
+  }
+
+  function enhanceSiteNavigation() {
+    organizeSiteNavigation()
+    decorateTechnologyNavigation()
+    decorateApiNavigation()
   }
 
   function markLandingPage() {
@@ -266,14 +445,12 @@
   function enhanceDocumentation() {
     markLandingPage()
     createInstallerTabs()
-    decorateTechnologyNavigation()
-    window.addEventListener('load', decorateTechnologyNavigation, {
+    enhanceSiteNavigation()
+    window.addEventListener('load', enhanceSiteNavigation, {
       once: true,
     })
 
-    const navigationObserver = new MutationObserver(
-      decorateTechnologyNavigation,
-    )
+    const navigationObserver = new MutationObserver(enhanceSiteNavigation)
     navigationObserver.observe(document.body, {
       childList: true,
       subtree: true,
