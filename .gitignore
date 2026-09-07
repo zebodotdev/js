@@ -3,5 +3,6 @@ dist/
 build/
 .svelte-kit/
 coverage/
+.playwright-cli/
 *.tsbuildinfo
 .DS_Store
