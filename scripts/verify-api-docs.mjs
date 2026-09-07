@@ -43,11 +43,29 @@ const requiredDocumentation = [
   'Standalone Angular component that embeds Inttegro-hosted Checkout',
 ]
 
+const stableDocumentRoutes = [
+  'Angular.html',
+  'Framework_adapters.html',
+  'Get_started_with_Checkout.html',
+  'Inertia.html',
+  'Lifecycle_and_reconciliation.html',
+  'React.html',
+  'Security,_CSP,_and_accessibility.html',
+  'Svelte.html',
+  'Vue.html',
+]
+
 const failures = []
 
 for (const text of requiredDocumentation) {
   if (!generatedHtml.includes(text))
     failures.push(`missing documentation: ${text}`)
+}
+
+for (const route of stableDocumentRoutes) {
+  if (!htmlFiles.some((file) => file.endsWith(join('documents', route)))) {
+    failures.push(`missing stable document route: ${route}`)
+  }
 }
 
 if (
@@ -85,6 +103,16 @@ if (
   !customJs.includes('inttegro-site-nav-logo')
 ) {
   failures.push('missing framework logos in document navigation')
+}
+
+if (
+  !customJs.includes('navigationSections') ||
+  !customJs.includes('organizeSiteNavigation') ||
+  !customJs.includes("label: 'Guides'") ||
+  !customJs.includes("label: 'Framework adapters'") ||
+  !customJs.includes("replaceChildren('API reference')")
+) {
+  failures.push('missing grouped documentation navigation')
 }
 
 if (!generatedHtml.includes('assets/custom.js?v=')) {

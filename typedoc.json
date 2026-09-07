@@ -41,6 +41,13 @@
     "excludeProtected": true,
     "excludeInternal": true
   },
+  "navigation": {
+    "includeGroups": false,
+    "includeCategories": false,
+    "includeFolders": true,
+    "compactFolders": false,
+    "excludeReferences": true
+  },
   "navigationLinks": {
     "Studio": "https://studio.inttegro.com/web",
     "GitHub": "https://github.com/zebodotdev/js"
