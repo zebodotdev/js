@@ -1,6 +1,28 @@
-import { afterEach, describe, expect, it, vi } from 'vitest'
+import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest'
 
 const runtimeUrl = 'https://js.inttegro.com/v1/inttegro.js'
+
+beforeEach(() => {
+  const append = document.head.append.bind(document.head)
+
+  vi.spyOn(document.head, 'append').mockImplementation((...nodes) => {
+    const scripts = nodes.filter(
+      (node): node is HTMLScriptElement => node instanceof HTMLScriptElement,
+    )
+
+    for (const script of scripts) {
+      script.type = 'application/x-inttegro-test'
+    }
+
+    try {
+      append(...nodes)
+    } finally {
+      for (const script of scripts) {
+        script.removeAttribute('type')
+      }
+    }
+  })
+})
 
 afterEach(() => {
   document.head.replaceChildren()
