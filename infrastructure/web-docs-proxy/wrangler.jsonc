@@ -1,0 +1,15 @@
+{
+  "$schema": "https://raw.githubusercontent.com/cloudflare/workers-sdk/main/packages/wrangler/config-schema.json",
+  "name": "inttegro-web-docs",
+  "main": "src/index.ts",
+  "compatibility_date": "2026-09-07",
+  "routes": [
+    {
+      "pattern": "web.inttegro.dev",
+      "custom_domain": true,
+    },
+  ],
+  "observability": {
+    "enabled": true,
+  },
+}
