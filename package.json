@@ -17,7 +17,7 @@
     "format:check": "prettier --check .",
     "lint:packages": "publint packages/js && publint packages/react && publint packages/vue && publint packages/svelte && publint packages/angular/dist",
     "test": "vitest run",
-    "typecheck": "npm run typecheck -w @inttegro/js && npm run typecheck -w @inttegro/react && npm run typecheck -w @inttegro/vue && npm run typecheck -w @inttegro/svelte && npm run typecheck -w @inttegro/angular",
+    "typecheck": "npm run typecheck -w @inttegro/js && npm run build -w @inttegro/js && npm run typecheck -w @inttegro/react && npm run typecheck -w @inttegro/vue && npm run typecheck -w @inttegro/svelte && npm run typecheck -w @inttegro/angular",
     "verify:hosted-runtime": "node scripts/verify-hosted-runtime.mjs",
     "verify:loader": "node scripts/verify-loader-bundle.mjs",
     "verify:versions": "node scripts/verify-versions.mjs"
