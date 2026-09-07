@@ -1,0 +1,51 @@
+{
+  "name": "@inttegro/js",
+  "version": "0.1.0",
+  "description": "Controlled-origin loader and TypeScript types for Inttegro hosted workflows",
+  "type": "module",
+  "main": "./dist/index.cjs",
+  "module": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.js",
+      "require": "./dist/index.cjs"
+    },
+    "./package.json": "./package.json"
+  },
+  "files": [
+    "dist",
+    "README.md",
+    "LICENSE"
+  ],
+  "sideEffects": false,
+  "scripts": {
+    "build": "tsup",
+    "test": "vitest run",
+    "typecheck": "tsc --noEmit"
+  },
+  "keywords": [
+    "inttegro",
+    "checkout",
+    "payments",
+    "browser",
+    "typescript"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/zebodotdev/js.git",
+    "directory": "packages/js"
+  },
+  "homepage": "https://studio.inttegro.com/sdks/js",
+  "author": "Inttegro Eng <engineering@inttegro.com> (https://inttegro.com)",
+  "license": "MIT",
+  "publishConfig": {
+    "access": "public",
+    "provenance": true
+  },
+  "devDependencies": {
+    "tsup": "8.5.1",
+    "typescript": "6.0.3"
+  }
+}

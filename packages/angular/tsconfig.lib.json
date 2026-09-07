@@ -1,0 +1,17 @@
+{
+  "extends": "../../tsconfig.base.json",
+  "compilerOptions": {
+    "declarationMap": true,
+    "experimentalDecorators": true,
+    "inlineSources": true,
+    "outDir": "dist/out-tsc",
+    "types": [],
+    "useDefineForClassFields": false
+  },
+  "angularCompilerOptions": {
+    "compilationMode": "partial",
+    "strictInjectionParameters": true,
+    "strictTemplates": true
+  },
+  "exclude": ["**/*.test.ts"]
+}

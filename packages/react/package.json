@@ -1,0 +1,50 @@
+{
+  "name": "@inttegro/react",
+  "version": "0.1.0",
+  "description": "React components for Inttegro hosted workflows",
+  "type": "module",
+  "main": "./dist/index.cjs",
+  "module": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.js",
+      "require": "./dist/index.cjs"
+    },
+    "./package.json": "./package.json"
+  },
+  "files": [
+    "dist",
+    "README.md"
+  ],
+  "sideEffects": false,
+  "scripts": {
+    "build": "tsup",
+    "typecheck": "tsc --noEmit"
+  },
+  "dependencies": {
+    "@inttegro/js": "0.1.0"
+  },
+  "peerDependencies": {
+    "react": ">=18"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/zebodotdev/js.git",
+    "directory": "packages/react"
+  },
+  "homepage": "https://studio.inttegro.com/sdks/react",
+  "author": "Inttegro Eng <engineering@inttegro.com> (https://inttegro.com)",
+  "license": "MIT",
+  "publishConfig": {
+    "access": "public",
+    "provenance": true
+  },
+  "devDependencies": {
+    "@types/react": "19.2.18",
+    "react": "19.2.8",
+    "tsup": "8.5.1",
+    "typescript": "6.0.3"
+  }
+}

@@ -1,0 +1,55 @@
+{
+  "name": "@inttegro/js-workspace",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "description": "Inttegro hosted workflow SDKs for JavaScript frameworks",
+  "workspaces": [
+    "packages/*"
+  ],
+  "engines": {
+    "node": ">=24.15.0"
+  },
+  "scripts": {
+    "build": "npm run build -w @inttegro/js && npm run build -w @inttegro/react && npm run build -w @inttegro/vue && npm run build -w @inttegro/svelte && npm run build -w @inttegro/angular && npm run verify:loader",
+    "check": "npm run format:check && npm run verify:versions && npm run typecheck && npm test && npm run build && npm run lint:packages",
+    "format": "prettier --write .",
+    "format:check": "prettier --check .",
+    "lint:packages": "publint packages/js && publint packages/react && publint packages/vue && publint packages/svelte && publint packages/angular/dist",
+    "test": "vitest run",
+    "typecheck": "npm run typecheck -w @inttegro/js && npm run typecheck -w @inttegro/react && npm run typecheck -w @inttegro/vue && npm run typecheck -w @inttegro/svelte && npm run typecheck -w @inttegro/angular",
+    "verify:hosted-runtime": "node scripts/verify-hosted-runtime.mjs",
+    "verify:loader": "node scripts/verify-loader-bundle.mjs",
+    "verify:versions": "node scripts/verify-versions.mjs"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/zebodotdev/js.git"
+  },
+  "license": "MIT",
+  "devDependencies": {
+    "@angular/common": "22.1.5",
+    "@angular/compiler": "22.1.5",
+    "@angular/compiler-cli": "22.1.5",
+    "@angular/core": "22.1.5",
+    "@sveltejs/package": "2.5.8",
+    "@types/react": "19.2.18",
+    "@types/react-dom": "19.2.7",
+    "happy-dom": "20.14.0",
+    "ng-packagr": "22.1.1",
+    "prettier": "3.9.6",
+    "prettier-plugin-svelte": "4.1.1",
+    "publint": "0.3.24",
+    "react": "19.2.8",
+    "react-dom": "19.2.8",
+    "rxjs": "7.8.2",
+    "svelte": "5.57.0",
+    "svelte-check": "4.7.6",
+    "tslib": "2.8.1",
+    "tsup": "8.5.1",
+    "typescript": "6.0.3",
+    "vitest": "5.0.0",
+    "vue": "3.5.42",
+    "zone.js": "0.16.3"
+  }
+}

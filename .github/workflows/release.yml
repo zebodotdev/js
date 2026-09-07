@@ -1,0 +1,41 @@
+name: Release npm packages
+
+on:
+  release:
+    types: [published]
+
+permissions:
+  contents: read
+  id-token: write
+
+concurrency:
+  group: npm-release-${{ github.event.release.tag_name }}
+  cancel-in-progress: false
+
+jobs:
+  publish:
+    runs-on: ubuntu-latest
+    environment: npm
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          persist-credentials: false
+      - name: Set up Node.js
+        uses: actions/setup-node@820762786026740c76f36085b0efc47a31fe5020 # v7.0.0
+        with:
+          node-version: '24.20.0'
+          registry-url: https://registry.npmjs.org
+          cache: npm
+      - run: npm ci
+      - run: npm run check
+      - run: npm run verify:versions
+        env:
+          RELEASE_VERSION: ${{ github.event.release.tag_name }}
+      - name: Verify a compatible private runtime is live
+        run: npm run verify:hosted-runtime
+      - run: npm publish --workspace @inttegro/js --access public --provenance
+      - run: npm publish --workspace @inttegro/react --access public --provenance
+      - run: npm publish --workspace @inttegro/vue --access public --provenance
+      - run: npm publish --workspace @inttegro/svelte --access public --provenance
+      - run: npm publish packages/angular/dist --access public --provenance
