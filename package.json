@@ -28,6 +28,9 @@
     "url": "git+https://github.com/zebodotdev/js.git"
   },
   "license": "MIT",
+  "overrides": {
+    "esbuild": "0.28.2"
+  },
   "devDependencies": {
     "@angular/common": "22.1.5",
     "@angular/compiler": "22.1.5",
