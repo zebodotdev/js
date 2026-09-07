@@ -4,6 +4,7 @@
     "declarationMap": true,
     "experimentalDecorators": true,
     "outDir": "dist/out-tsc",
+    "rootDir": "src",
     "types": [],
     "useDefineForClassFields": false
   },
