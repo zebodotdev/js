@@ -41,6 +41,11 @@
     "access": "public",
     "provenance": true
   },
+  "typedocOptions": {
+    "entryPoints": [
+      "src/index.ts"
+    ]
+  },
   "devDependencies": {
     "@types/react": "19.2.18",
     "react": "19.2.8",

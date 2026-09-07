@@ -26,5 +26,10 @@
   "publishConfig": {
     "access": "public",
     "provenance": true
+  },
+  "typedocOptions": {
+    "entryPoints": [
+      "src/public-api.ts"
+    ]
   }
 }

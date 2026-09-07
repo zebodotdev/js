@@ -44,6 +44,11 @@
     "access": "public",
     "provenance": true
   },
+  "typedocOptions": {
+    "entryPoints": [
+      "src/index.ts"
+    ]
+  },
   "devDependencies": {
     "tsup": "8.5.1",
     "typescript": "6.0.3"

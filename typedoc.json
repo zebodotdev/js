@@ -1,0 +1,36 @@
+{
+  "$schema": "https://typedoc.org/schema.json",
+  "entryPoints": [
+    "packages/js",
+    "packages/react",
+    "packages/vue",
+    "packages/svelte",
+    "packages/angular"
+  ],
+  "entryPointStrategy": "packages",
+  "out": "build/api-docs",
+  "name": "Inttegro Web SDKs",
+  "includeVersion": true,
+  "readme": "README.md",
+  "githubPages": true,
+  "highlightLanguages": [
+    "bash",
+    "css",
+    "html",
+    "javascript",
+    "json",
+    "svelte",
+    "tsx",
+    "typescript",
+    "vue"
+  ],
+  "packageOptions": {
+    "excludePrivate": true,
+    "excludeProtected": true,
+    "excludeInternal": true
+  },
+  "navigationLinks": {
+    "Studio": "https://studio.inttegro.com/web",
+    "GitHub": "https://github.com/zebodotdev/js"
+  }
+}

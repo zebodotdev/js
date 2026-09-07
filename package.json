@@ -13,6 +13,7 @@
   "scripts": {
     "build": "npm run build -w @inttegro/js && npm run build -w @inttegro/react && npm run build -w @inttegro/vue && npm run build -w @inttegro/svelte && npm run build -w @inttegro/angular && npm run verify:loader",
     "check": "npm run format:check && npm run verify:versions && npm run typecheck && npm test && npm run build && npm run lint:packages",
+    "docs": "npm run build && typedoc",
     "format": "prettier --write .",
     "format:check": "prettier --check .",
     "lint:packages": "publint packages/js && publint packages/react && publint packages/vue && publint packages/svelte && publint packages/angular/dist",
@@ -47,6 +48,7 @@
     "svelte-check": "4.7.6",
     "tslib": "2.8.1",
     "tsup": "8.5.1",
+    "typedoc": "0.28.20",
     "typescript": "6.0.3",
     "vitest": "5.0.0",
     "vue": "3.5.42",
