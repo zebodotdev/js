@@ -1,57 +1,130 @@
 # Inttegro JavaScript SDKs
 
-TypeScript SDKs for embedding Inttegro-hosted workflows in websites and web
-applications. The npm packages contain a controlled-origin loader, public
-types, and thin framework adapters. The executable checkout runtime is built
-separately and served only by Inttegro.
+Embed Inttegro Checkout in a website or web application. Use `@inttegro/js`
+directly, or choose the adapter for your frontend framework.
 
-| Package             | Purpose                         |
-| ------------------- | ------------------------------- |
-| `@inttegro/js`      | Runtime loader and public types |
-| `@inttegro/react`   | React `Checkout` component      |
-| `@inttegro/vue`     | Vue `Checkout` component        |
-| `@inttegro/svelte`  | Svelte `Checkout` component     |
-| `@inttegro/angular` | Angular `CheckoutComponent`     |
+| Package             | Use it with                   |
+| ------------------- | ----------------------------- |
+| `@inttegro/js`      | Browser JavaScript/TypeScript |
+| `@inttegro/react`   | React                         |
+| `@inttegro/vue`     | Vue                           |
+| `@inttegro/svelte`  | Svelte                        |
+| `@inttegro/angular` | Angular                       |
 
-Inertia applications use the adapter for their frontend renderer. Inertia with
-React uses `@inttegro/react`; Inertia with Vue uses `@inttegro/vue`; and Inertia
-with Svelte uses `@inttegro/svelte`.
+The packages load the sensitive checkout runtime from Inttegro-controlled
+servers. They do not include a copy of that runtime, so payment collection
+always uses the current Inttegro-hosted experience.
 
-## Architecture
+## Before you begin
 
-The merchant server creates and finalizes an Order using an Inttegro server
-SDK. It returns only the client-safe Order reference to the web application.
-The web application mounts `Checkout`. The npm loader first downloads the
-executable runtime from `https://js.inttegro.com/v1/inttegro.js`; that runtime
-then loads the payment experience from Inttegro Pages in a cross-origin iframe.
+Create and finalize an Order on your server using an Inttegro server SDK. Send
+only its client-safe Order ID to your web application. Never expose an Inttegro
+secret API key in browser code.
 
-```text
-Merchant server -> finalized Order -> browser application
-                                         |
-                                         v
-                            npm loader / framework adapter
-                                         |
-                                         v
-                           js.inttegro.com/v1/inttegro.js
-                                         |
-                                         v
-                              Inttegro-hosted Checkout frame
+## Install
+
+Install `@inttegro/js` for a plain JavaScript or TypeScript application. For a
+framework application, install the matching adapter instead; it includes
+`@inttegro/js` as a dependency.
+
+### npm
+
+```bash
+# JavaScript or TypeScript
+npm install @inttegro/js
+
+# Choose one framework adapter
+npm install @inttegro/react
+npm install @inttegro/vue
+npm install @inttegro/svelte
+npm install @inttegro/angular
 ```
 
-Payment fields, confirmation challenges, and Checkout API responses stay in
-the Inttegro-hosted frame. The merchant page receives only typed, privacy-safe
-lifecycle events.
+Import packages by name:
 
-## Browser usage
+```ts
+import { loadInttegro } from '@inttegro/js'
+```
+
+### Yarn
+
+```bash
+# JavaScript or TypeScript
+yarn add @inttegro/js
+
+# Choose one framework adapter
+yarn add @inttegro/react
+yarn add @inttegro/vue
+yarn add @inttegro/svelte
+yarn add @inttegro/angular
+```
+
+Import packages by name:
+
+```ts
+import { loadInttegro } from '@inttegro/js'
+```
+
+### Bun
+
+```bash
+# JavaScript or TypeScript
+bun add @inttegro/js
+
+# Choose one framework adapter
+bun add @inttegro/react
+bun add @inttegro/vue
+bun add @inttegro/svelte
+bun add @inttegro/angular
+```
+
+Import packages by name:
+
+```ts
+import { loadInttegro } from '@inttegro/js'
+```
+
+### Deno
+
+Deno supports the packages through its npm compatibility layer:
+
+```bash
+# JavaScript or TypeScript
+deno add npm:@inttegro/js
+
+# Choose one framework adapter
+deno add npm:@inttegro/react
+deno add npm:@inttegro/vue
+deno add npm:@inttegro/svelte
+deno add npm:@inttegro/angular
+```
+
+Use an `npm:` specifier when importing without a package manifest:
+
+```ts
+import { loadInttegro } from 'npm:@inttegro/js'
+```
+
+## JavaScript and TypeScript
+
+Load Inttegro, create Checkout for an Order, and mount it into an empty
+container:
+
+```html
+<div id="checkout"></div>
+```
 
 ```ts
 import { loadInttegro } from '@inttegro/js'
 
 const inttegro = await loadInttegro()
-if (!inttegro) throw new Error('Checkout requires a browser')
+
+if (!inttegro) {
+  throw new Error('Inttegro Checkout must be initialized in a browser')
+}
 
 const checkout = inttegro.createCheckout({
-  orderId: 'or_...',
+  orderId: 'YOUR_ORDER_ID',
   appearance: { theme: 'system' },
   locale: 'en-GH',
 })
@@ -60,19 +133,17 @@ checkout.on('completed', () => {
   window.location.assign('/orders/complete')
 })
 
-checkout.onEvent((event) => {
-  analytics.track(`inttegro.checkout.${event.type}`)
+checkout.on('error', (event) => {
+  console.error(event.error.message)
 })
 
 await checkout.mount('#checkout')
 ```
 
-The lifecycle stream reports readiness, form state, payment attempts,
-confirmation, recoverable failures, completion, cancellation, and SDK errors.
-It intentionally excludes payment details, customer data, the Order reference,
-and raw provider responses.
+`loadInttegro()` returns `null` during server-side rendering. Initialize and
+mount Checkout only in browser code.
 
-## React usage
+## React
 
 ```tsx
 import { Checkout } from '@inttegro/react'
@@ -80,50 +151,149 @@ import { Checkout } from '@inttegro/react'
 export function CheckoutPage({ orderId }: { orderId: string }) {
   return (
     <Checkout
+      appearance={{ theme: 'system' }}
       orderId={orderId}
       onCompleted={() => window.location.assign('/orders/complete')}
+      onError={(error) => console.error(error)}
     />
   )
 }
 ```
 
-The Vue, Svelte, and Angular packages expose the same workflow using native
-component and event conventions. See each package README and the examples.
+## Vue
 
-## Security boundary
+```vue
+<script setup lang="ts">
+import { Checkout } from '@inttegro/vue'
 
-- Never pass an Inttegro secret API key to these packages.
-- `@inttegro/js` never bundles or exports the executable checkout runtime. It
-  loads the exact versioned URL controlled by Inttegro, and that URL cannot be
-  overridden.
-- Do not copy, mirror, bundle, proxy, cache into a service worker, or self-host
-  `inttegro.js`. Loading it from Inttegro's origin keeps payment-collection code
-  under Inttegro's release and incident-response controls.
-- Treat the Order reference as a payment capability and avoid analytics,
-  exception, or DOM logging that records it.
-- The SDK accepts messages only from the fixed Inttegro Pages origin and the
-  exact iframe it mounted.
-- A restrictive host Content Security Policy must allow at least
-  `script-src https://js.inttegro.com` and
-  `frame-src https://pages.inttegro.com`. Pass the request nonce to
-  `loadInttegro({ nonce })` when the policy uses nonces.
-- The SDK isolates payment fields, but that is not by itself evidence of any
-  merchant or Inttegro compliance certification. This boundary is deliberate
-  even before card data or a formal PCI scope applies.
+defineProps<{ orderId: string }>()
 
-The runtime source, build pipeline, and edge/CDN configuration live in private
-Inttegro infrastructure and are intentionally absent from this repository. An
-npm release is blocked unless a compatible runtime is already live at the fixed
-Inttegro URL.
+function handleCompleted() {
+  window.location.assign('/orders/complete')
+}
+</script>
 
-## Development
-
-Requires Node.js 24.15 or newer.
-
-```bash
-npm install
-npm run check
+<template>
+  <Checkout
+    :appearance="{ theme: 'system' }"
+    :order-id="orderId"
+    @completed="handleCompleted"
+  />
+</template>
 ```
 
-All packages begin at `0.1.0` and are released together while the cross-package
-contract is stabilizing.
+## Svelte
+
+```svelte
+<script lang="ts">
+  import { Checkout } from '@inttegro/svelte'
+
+  let { orderId }: { orderId: string } = $props()
+
+  function handleCompleted() {
+    window.location.assign('/orders/complete')
+  }
+</script>
+
+<Checkout
+  appearance={{ theme: 'system' }}
+  {orderId}
+  onCompleted={handleCompleted}
+/>
+```
+
+## Angular
+
+`CheckoutComponent` is standalone, so add it directly to the component that
+hosts Checkout:
+
+```ts
+import { Component, Input } from '@angular/core'
+import { CheckoutComponent } from '@inttegro/angular'
+
+@Component({
+  selector: 'app-checkout-page',
+  standalone: true,
+  imports: [CheckoutComponent],
+  template: `
+    <inttegro-checkout
+      [appearance]="{ theme: 'system' }"
+      [orderId]="orderId"
+      (completed)="handleCompleted()"
+    />
+  `,
+})
+export class CheckoutPageComponent {
+  @Input({ required: true }) orderId = ''
+
+  handleCompleted(): void {
+    window.location.assign('/orders/complete')
+  }
+}
+```
+
+## Inertia
+
+Use the adapter for the frontend framework configured in your Inertia
+application:
+
+- React applications use `@inttegro/react`.
+- Vue applications use `@inttegro/vue`.
+- Svelte applications use `@inttegro/svelte`.
+
+The Order ID can be returned as an Inertia page prop and passed directly to the
+`Checkout` component.
+
+## Checkout options
+
+All integrations accept these options:
+
+| Option       | Description                                             |
+| ------------ | ------------------------------------------------------- |
+| `appearance` | Sets the `light`, `dark`, or `system` theme.            |
+| `locale`     | Sets a BCP 47 locale preference, such as `en-GH`.       |
+| `orderId`    | Identifies the finalized Order to collect payment for.  |
+| `timeout`    | Sets how long Checkout waits to become ready.           |
+| `title`      | Provides an accessible title for the hosted experience. |
+
+The framework adapters also provide `completed`, `error`, `event`, and `ready`
+callbacks or events using each framework's native conventions.
+
+With `@inttegro/js`, subscribe to a single event with `checkout.on(type,
+handler)`, or observe the full lifecycle with `checkout.onEvent(handler)`. Both
+methods return an unsubscribe function.
+
+## Content Security Policy
+
+If your application uses Content Security Policy, allow Inttegro's script and
+hosted checkout origins:
+
+```text
+script-src https://js.inttegro.com;
+frame-src https://pages.inttegro.com;
+```
+
+When your script policy uses a nonce, pass it to the loader:
+
+```ts
+const inttegro = await loadInttegro({ nonce: requestNonce })
+```
+
+Keep the nonce private to the rendered page and generate a new value for every
+response.
+
+## Security
+
+- Never include an Inttegro secret API key in browser code.
+- Treat an Order ID as a payment capability. Do not record it in analytics,
+  exception reports, or DOM logs.
+- Do not download, copy, mirror, proxy, bundle, or self-host the Inttegro
+  checkout runtime. Load it through these packages from Inttegro-controlled
+  servers.
+- Payment details are collected within the Inttegro-hosted experience and are
+  not included in lifecycle events delivered to your application.
+
+## Documentation
+
+Read the integration guides and complete API documentation in
+[Inttegro Studio](https://studio.inttegro.com/sdks/js).
