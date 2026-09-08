@@ -126,6 +126,12 @@ if (!inttegro) {
 const checkout = inttegro.createCheckout({
   orderId: 'YOUR_ORDER_ID',
   appearance: { theme: 'system' },
+  features: {
+    showLineItems: true,
+    showInvoiceDownload: true,
+    showReceiptDownload: true,
+    allowPaymentMethodChange: false,
+  },
   locale: 'en-GH',
 })
 
@@ -163,13 +169,19 @@ not require a separate Inttegro package.
 
 All integrations accept these options:
 
-| Option       | Description                                             |
-| ------------ | ------------------------------------------------------- |
-| `appearance` | Sets the `light`, `dark`, or `system` theme.            |
-| `locale`     | Sets a BCP 47 locale preference, such as `en-GH`.       |
-| `orderId`    | Identifies the finalized Order to collect payment for.  |
-| `timeout`    | Sets how long Checkout waits to become ready.           |
-| `title`      | Provides an accessible title for the hosted experience. |
+| Option       | Description                                                  |
+| ------------ | ------------------------------------------------------------ |
+| `appearance` | Sets the `light`, `dark`, or `system` theme.                 |
+| `features`   | Controls line items, document downloads, and method changes. |
+| `locale`     | Sets a BCP 47 locale preference, such as `en-GH`.            |
+| `orderId`    | Identifies the finalized Order to collect payment for.       |
+| `timeout`    | Sets how long Checkout waits to become ready.                |
+| `title`      | Provides an accessible title for the hosted experience.      |
+
+Hosted Checkout keeps its existing behavior when `features` is omitted: line
+items are hidden, invoice and receipt actions are offered after successful
+payment, and the payer may replace an attached payment method. A document
+action is rendered only when Checkout returns that document's link.
 
 The framework adapters also provide `completed`, `error`, `event`, and `ready`
 callbacks or events using each framework's native conventions.
