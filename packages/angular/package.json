@@ -3,6 +3,9 @@
   "version": "0.1.0",
   "description": "Angular components for Inttegro hosted workflows",
   "type": "module",
+  "engines": {
+    "node": ">=18"
+  },
   "scripts": {
     "build": "ng-packagr -p ng-package.json -c tsconfig.lib.json",
     "typecheck": "ngc -p tsconfig.lib.json"

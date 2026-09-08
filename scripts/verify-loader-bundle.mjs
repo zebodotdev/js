@@ -1,6 +1,6 @@
 import { access, readdir, readFile } from 'node:fs/promises'
 
-const controlledRuntimeUrl = 'https://js.inttegro.com/v1/inttegro.js'
+const controlledRuntimeUrl = 'https://js.inttegro.com/inttegro.js@0.1.0'
 const forbiddenRuntimeMarkers = [
   '/embed/checkout/',
   'data-inttegro-checkout',
