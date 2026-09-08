@@ -1,0 +1,254 @@
+/* Inttegro API reference colors. TypeDoc's theme selector still controls
+   system, light, and dark modes; these variables define each palette. */
+:root {
+  --light-color-background: #ffffff;
+  --light-color-background-secondary: #f6f7f6;
+  --light-color-background-active: #e9eeec;
+  --light-color-accent: #d5ddda;
+  --light-color-active-menu-item: #e9eeec;
+  --light-color-text: #171a19;
+  --light-color-contrast-text: #050706;
+  --light-color-text-aside: #5e6663;
+  --light-color-icon-background: #f6f7f6;
+  --light-color-icon-text: #171a19;
+  --light-color-comment-tag: #edf5f2;
+  --light-color-comment-tag-text: #174f40;
+  --light-color-link: #006b50;
+  --light-color-focus-outline: #007f5f;
+
+  --dark-color-background: #000000;
+  --dark-color-background-secondary: #090a0a;
+  --dark-color-background-active: #171a19;
+  --dark-color-accent: #292d2b;
+  --dark-color-active-menu-item: #151b18;
+  --dark-color-text: #f4f7f6;
+  --dark-color-contrast-text: #ffffff;
+  --dark-color-text-aside: #a3aaa7;
+  --dark-color-icon-background: #0d0f0e;
+  --dark-color-icon-text: #f4f7f6;
+  --dark-color-comment-tag: #10201a;
+  --dark-color-comment-tag-text: #b9ead9;
+  --dark-color-link: #6ee7bd;
+  --dark-color-focus-outline: #6ee7bd;
+}
+
+:root[data-theme='dark'] {
+  color-scheme: dark;
+}
+
+:root[data-theme='light'] {
+  color-scheme: light;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root[data-theme='os'] {
+    color-scheme: dark;
+  }
+}
+
+@media (prefers-color-scheme: light) {
+  :root[data-theme='os'] {
+    color-scheme: light;
+  }
+}
+
+.tsd-page-toolbar,
+.site-menu,
+.page-menu {
+  backdrop-filter: blur(18px);
+}
+
+:root[data-theme='dark'] .tsd-page-toolbar,
+:root[data-theme='dark'] .site-menu,
+:root[data-theme='dark'] .page-menu {
+  background-color: rgb(0 0 0 / 88%);
+}
+
+@media (prefers-color-scheme: dark) {
+  :root[data-theme='os'] .tsd-page-toolbar,
+  :root[data-theme='os'] .site-menu,
+  :root[data-theme='os'] .page-menu {
+    background-color: rgb(0 0 0 / 88%);
+  }
+}
+
+:root[data-theme='light'] .tsd-page-toolbar,
+:root[data-theme='light'] .site-menu,
+:root[data-theme='light'] .page-menu {
+  background-color: rgb(255 255 255 / 92%);
+}
+
+@media (prefers-color-scheme: light) {
+  :root[data-theme='os'] .tsd-page-toolbar,
+  :root[data-theme='os'] .site-menu,
+  :root[data-theme='os'] .page-menu {
+    background-color: rgb(255 255 255 / 92%);
+  }
+}
+
+pre,
+.tsd-signature {
+  border: 1px solid var(--color-accent);
+  border-radius: 10px;
+}
+
+a {
+  text-underline-offset: 0.18em;
+}
+
+a:focus-visible,
+button:focus-visible,
+select:focus-visible,
+input:focus-visible {
+  outline: 2px solid var(--color-focus-outline);
+  outline-offset: 3px;
+}
+
+h1[id],
+h2[id],
+h3[id] {
+  scroll-margin-block-start: 4rem;
+}
+
+.inttegro-nav-logos {
+  display: inline-flex;
+  flex: 0 0 auto;
+  align-items: center;
+  gap: 0.18rem;
+  inline-size: 1.75rem;
+  justify-content: flex-end;
+  margin-inline-end: 0.45rem;
+  vertical-align: -0.08em;
+}
+
+.inttegro-logo {
+  display: block;
+  inline-size: 1em;
+  block-size: 1em;
+  flex: 0 0 auto;
+  overflow: visible;
+  background: none;
+}
+
+.inttegro-nav-logos {
+  font-size: 0.75em;
+}
+
+.inttegro-site-nav-logo {
+  display: inline-flex;
+  inline-size: 20px;
+  block-size: 20px;
+  flex: 0 0 20px;
+  align-items: center;
+  justify-content: center;
+  margin-inline-end: 0.375rem;
+  font-size: 1rem;
+}
+
+.inttegro-api-nav-logo {
+  inline-size: 2rem;
+  flex-basis: 2rem;
+  gap: 0.125rem;
+  font-size: 0.875rem;
+}
+
+.site-menu > .tsd-navigation:not(#tsd-sidebar-links) > a:first-child {
+  display: none;
+}
+
+.inttegro-nav-section {
+  margin-block: 0.25rem;
+}
+
+.inttegro-nav-section-summary {
+  min-block-size: 2rem;
+  color: var(--color-text);
+}
+
+.inttegro-nav-section-label {
+  font-size: 0.875rem;
+  font-weight: 600;
+  letter-spacing: 0.01em;
+}
+
+.inttegro-nav-section .tsd-nested-navigation {
+  margin-block-end: 0.375rem;
+}
+
+.inttegro-install-tabs {
+  margin-block: 1.5rem 2rem;
+}
+
+.inttegro-install-tablist {
+  display: flex;
+  gap: 0.25rem;
+  margin: 0;
+  padding: 0;
+  overflow-x: auto;
+  border-block-end: 1px solid var(--color-accent);
+  scrollbar-width: thin;
+}
+
+.inttegro-install-tab {
+  display: inline-flex;
+  min-block-size: 2.75rem;
+  flex: 0 0 auto;
+  align-items: center;
+  gap: 0.5rem;
+  margin-block-end: -1px;
+  padding: 0.75rem 1rem;
+  border: 0;
+  border-block-end: 2px solid transparent;
+  border-radius: 0;
+  color: var(--color-text-aside);
+  background: transparent;
+  font: inherit;
+  font-size: 0.875rem;
+  font-weight: 400;
+  line-height: 1;
+  cursor: pointer;
+  transition:
+    border-color 150ms ease,
+    color 150ms ease;
+}
+
+.inttegro-install-tab:hover {
+  color: var(--color-link);
+}
+
+.inttegro-install-tab[aria-selected='true'] {
+  border-block-end-color: var(--color-link);
+  color: var(--color-link);
+}
+
+.inttegro-install-panel {
+  padding-block-start: 1.5rem;
+}
+
+.inttegro-install-panel[hidden] {
+  display: none;
+}
+
+.inttegro-install-panel > :last-child {
+  margin-block-end: 0;
+}
+
+.inttegro-install-panel > pre:first-child {
+  margin-block-start: 0;
+}
+
+.inttegro-docs-home .tsd-page-title {
+  display: none;
+}
+
+.inttegro-docs-home .tsd-panel.tsd-typography > h1:first-child {
+  margin-block-start: 0;
+}
+
+@media (max-width: 560px) {
+  .inttegro-install-tab {
+    flex: 1 0 auto;
+    justify-content: center;
+    padding-inline: 0.625rem;
+  }
+}
