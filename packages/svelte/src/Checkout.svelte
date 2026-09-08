@@ -10,6 +10,7 @@
   let {
     appearance,
     class: className,
+    features,
     locale,
     onCompleted,
     onError,
@@ -24,7 +25,7 @@
   let checkout = $state<CheckoutController>()
 
   $effect(() => {
-    const identity = { orderId, timeout, title }
+    const identity = { features, orderId, timeout, title }
     if (!container) return
 
     let active = true

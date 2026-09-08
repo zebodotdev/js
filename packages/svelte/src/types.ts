@@ -2,6 +2,7 @@ import type {
   CheckoutAppearance,
   CheckoutErrorEvent,
   CheckoutEvent,
+  CheckoutFeatures,
 } from '@inttegro/js'
 
 /**
@@ -16,6 +17,8 @@ import type {
 export interface CheckoutProps {
   /** Initial and reactive theme preference for hosted Checkout. */
   appearance?: CheckoutAppearance | undefined
+  /** Hosted Checkout content and actions. Changing it replaces the controller. */
+  features?: CheckoutFeatures | undefined
   /** CSS class applied to the outer container owned by your Svelte application. */
   class?: string | undefined
   /** Initial and reactive BCP 47 locale preference. */

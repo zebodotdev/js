@@ -17,6 +17,7 @@ import {
   type CheckoutController,
   type CheckoutErrorEvent,
   type CheckoutEvent,
+  type CheckoutFeatures,
   type CheckoutUpdateOptions,
 } from '@inttegro/js'
 
@@ -67,6 +68,8 @@ import {
 export class CheckoutComponent implements AfterViewInit, OnChanges, OnDestroy {
   /** Initial and reactive theme preference for hosted Checkout. */
   @Input() appearance?: CheckoutAppearance
+  /** Hosted Checkout content and actions. Changing it replaces the controller. */
+  @Input() features?: CheckoutFeatures
   /** Initial and reactive BCP 47 locale preference. */
   @Input() locale?: string
   /** Client-safe reference for the finalized Order being paid. */
@@ -105,7 +108,12 @@ export class CheckoutComponent implements AfterViewInit, OnChanges, OnDestroy {
   ngOnChanges(changes: SimpleChanges): void {
     if (!this.viewReady) return
 
-    if (changes['orderId'] || changes['timeout'] || changes['title']) {
+    if (
+      changes['features'] ||
+      changes['orderId'] ||
+      changes['timeout'] ||
+      changes['title']
+    ) {
       void this.mountCheckout()
       return
     }
@@ -149,6 +157,7 @@ export class CheckoutComponent implements AfterViewInit, OnChanges, OnDestroy {
       const checkout = inttegro.createCheckout(
         definedOptions({
           appearance: this.appearance,
+          features: this.features,
           locale: this.locale,
           orderId: this.orderId,
           timeout: this.timeout,

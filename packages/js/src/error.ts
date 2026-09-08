@@ -11,6 +11,7 @@
  * - `destroyed`: an operation attempted to mount a controller after
  *   {@link CheckoutController.destroy} made it permanently unusable.
  * - `invalid_locale`: the supplied locale is not a well-formed BCP 47 tag.
+ * - `invalid_features`: a Checkout feature flag is not a boolean.
  * - `invalid_order_id`: the Order reference is empty, too long, or contains
  *   unsupported characters.
  * - `invalid_runtime`: a global runtime did not come from the required hosted
@@ -32,6 +33,7 @@ export type InttegroCheckoutErrorCode =
   | 'already_mounted'
   | 'destroyed'
   | 'invalid_locale'
+  | 'invalid_features'
   | 'invalid_order_id'
   | 'invalid_runtime'
   | 'invalid_timeout'

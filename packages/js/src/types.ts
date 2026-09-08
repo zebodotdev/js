@@ -26,6 +26,18 @@ export interface CheckoutAppearance {
   theme?: CheckoutTheme | undefined
 }
 
+/** Optional content and actions exposed by hosted Checkout. */
+export interface CheckoutFeatures {
+  /** Shows the finalized Order's line items before payment. Defaults to `false`. */
+  showLineItems?: boolean | undefined
+  /** Offers the invoice after payment succeeds. Defaults to `true`. */
+  showInvoiceDownload?: boolean | undefined
+  /** Offers the receipt after payment succeeds. Defaults to `true`. */
+  showReceiptDownload?: boolean | undefined
+  /** Lets the payer replace an attached payment method. Defaults to `true`. */
+  allowPaymentMethodChange?: boolean | undefined
+}
+
 /**
  * Immutable and initial configuration for one Checkout controller.
  *
@@ -47,6 +59,8 @@ export interface CheckoutOptions {
   orderId: string
   /** Initial color-scheme preferences for the hosted experience. */
   appearance?: CheckoutAppearance | undefined
+  /** Optional hosted Checkout content and actions. */
+  features?: CheckoutFeatures | undefined
   /**
    * BCP 47 locale preference, such as `en-GH`. Unsupported translations may
    * fall back to an Inttegro-supported locale.

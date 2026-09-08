@@ -4,6 +4,7 @@ import {
   type CheckoutController,
   type CheckoutErrorEvent,
   type CheckoutEvent,
+  type CheckoutFeatures,
 } from '@inttegro/js'
 import {
   defineComponent,
@@ -27,6 +28,8 @@ import {
 export interface CheckoutProps {
   /** Initial and reactive theme preference for hosted Checkout. */
   appearance?: CheckoutAppearance | undefined
+  /** Hosted Checkout content and actions. Changing it replaces the controller. */
+  features?: CheckoutFeatures | undefined
   /** Initial and reactive BCP 47 locale preference. */
   locale?: string | undefined
   /** Client-safe reference for the finalized Order being paid. */
@@ -91,6 +94,7 @@ export const Checkout = defineComponent({
   name: 'InttegroCheckout',
   props: {
     appearance: Object as PropType<CheckoutAppearance>,
+    features: Object as PropType<CheckoutFeatures>,
     locale: String,
     orderId: { type: String, required: true },
     timeout: Number,
@@ -127,6 +131,7 @@ export const Checkout = defineComponent({
         const instance = inttegro.createCheckout(
           definedOptions({
             appearance: props.appearance,
+            features: props.features,
             locale: props.locale,
             orderId: props.orderId,
             timeout: props.timeout,
@@ -160,7 +165,7 @@ export const Checkout = defineComponent({
     onBeforeUnmount(destroyCheckout)
 
     watch(
-      () => [props.orderId, props.timeout, props.title],
+      () => [props.features, props.orderId, props.timeout, props.title],
       () => void mountCheckout(),
     )
     watch(

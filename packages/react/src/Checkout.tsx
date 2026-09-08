@@ -102,6 +102,7 @@ export const Checkout = forwardRef<CheckoutHandle, CheckoutProps>(
     {
       appearance,
       className,
+      features,
       locale,
       onCompleted,
       onError,
@@ -144,6 +145,7 @@ export const Checkout = forwardRef<CheckoutHandle, CheckoutProps>(
           const instance = inttegro.createCheckout(
             definedOptions({
               ...updateOptionsRef.current,
+              features,
               orderId,
               timeout,
               title,
@@ -174,7 +176,7 @@ export const Checkout = forwardRef<CheckoutHandle, CheckoutProps>(
         checkout?.destroy()
         if (checkoutRef.current === checkout) checkoutRef.current = null
       }
-    }, [orderId, timeout, title])
+    }, [features, orderId, timeout, title])
 
     useEffect(() => {
       checkoutRef.current?.update(definedOptions({ appearance, locale }))

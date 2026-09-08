@@ -13,6 +13,7 @@ export type {
   CheckoutEventHandler,
   CheckoutEventOfType,
   CheckoutEventType,
+  CheckoutFeatures,
   CheckoutOptions,
   CheckoutPaymentAttemptEvent,
   CheckoutPaymentAttemptFailedEvent,
