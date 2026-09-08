@@ -18,6 +18,9 @@
     "README.md"
   ],
   "sideEffects": false,
+  "engines": {
+    "node": ">=18"
+  },
   "scripts": {
     "build": "svelte-package -i src -o dist",
     "typecheck": "svelte-check --tsconfig ./tsconfig.json"

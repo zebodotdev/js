@@ -1,6 +1,6 @@
 # Checkout frame protocol
 
-The runtime loaded from `https://js.inttegro.com/v1/inttegro.js` and the
+The runtime loaded from `https://js.inttegro.com/inttegro.js@0.1.0` and the
 Inttegro Pages checkout frame communicate through a versioned
 `window.postMessage` protocol. `@inttegro/js` only loads that runtime and
 publishes its TypeScript contract. Every message contains:
