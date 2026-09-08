@@ -1,7 +1,7 @@
 import { readFile } from 'node:fs/promises'
 
 const manifestUrl = 'https://js.inttegro.com/manifest.json'
-const runtimeUrl = 'https://js.inttegro.com/inttegro.js@0.1.0'
+const runtimeUrl = 'https://js.inttegro.com/inttegro.js@0.2.0'
 const response = await fetch(manifestUrl, {
   cache: 'no-store',
   headers: { 'cache-control': 'no-cache' },

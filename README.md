@@ -223,5 +223,5 @@ response.
 ## Documentation
 
 Read the [integration guides](https://studio.inttegro.com/web) in Inttegro
-Studio and browse the [generated API reference](https://web.inttegro.dev/v0.1.0/)
+Studio and browse the [generated API reference](https://web.inttegro.dev/v0.2.0/)
 for every JavaScript framework package.

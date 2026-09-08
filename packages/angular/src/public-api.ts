@@ -8,5 +8,6 @@ export type {
   CheckoutAppearance,
   CheckoutErrorEvent,
   CheckoutEvent,
+  CheckoutFeatures,
   CheckoutTheme,
 } from '@inttegro/js'

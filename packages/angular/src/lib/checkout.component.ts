@@ -26,9 +26,9 @@ import {
  *
  * Add the component to a host component's `imports` array. It loads the hosted
  * runtime after its view initializes, creates one controller, and destroys that
- * controller with the Angular view. Changing `orderId`, `timeout`, or `title`
- * replaces the controller; changing `appearance` or `locale` updates it in
- * place.
+ * controller with the Angular view. Changing `features`, `orderId`, `timeout`,
+ * or `title` replaces the controller; changing `appearance` or `locale`
+ * updates it in place.
  *
  * Keep this component mounted while a payment attempt or confirmation is
  * pending. The successful `completed` output is suitable for navigation, but

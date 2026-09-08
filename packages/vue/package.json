@@ -1,6 +1,6 @@
 {
   "name": "@inttegro/vue",
-  "version": "0.1.0",
+  "version": "0.2.0",
   "description": "Vue components for Inttegro hosted workflows",
   "type": "module",
   "main": "./dist/index.cjs",
@@ -32,7 +32,7 @@
     "typecheck": "tsc --noEmit"
   },
   "dependencies": {
-    "@inttegro/js": "0.1.0"
+    "@inttegro/js": "0.2.0"
   },
   "peerDependencies": {
     "vue": ">=3.4"

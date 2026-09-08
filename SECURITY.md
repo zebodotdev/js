@@ -11,7 +11,7 @@ Inttegro-hosted checkout surface using a client-safe reference.
 ## Controlled-origin runtime
 
 The executable payment-collection runtime must always be downloaded from
-`https://js.inttegro.com/inttegro.js@0.1.0`. The npm packages contain only the
+`https://js.inttegro.com/inttegro.js@0.2.0`. The npm packages contain only the
 loader, public types, and framework adapters. They intentionally provide no
 runtime URL option and no supported path for bundling, mirroring, proxying, or
 self-hosting the runtime.

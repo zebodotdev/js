@@ -19,9 +19,9 @@ import {
 /**
  * Props accepted by the Inttegro {@link Checkout} component.
  *
- * Changing `orderId`, `timeout`, or `title` replaces the hosted controller.
- * Changing `appearance` or `locale` updates it in place, preserving payer
- * progress where the hosted flow permits.
+ * Changing `features`, `orderId`, `timeout`, or `title` replaces the hosted
+ * controller. Changing `appearance` or `locale` updates it in place,
+ * preserving payer progress where the hosted flow permits.
  *
  * @category Vue
  */

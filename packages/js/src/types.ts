@@ -41,9 +41,9 @@ export interface CheckoutFeatures {
 /**
  * Immutable and initial configuration for one Checkout controller.
  *
- * Changing `orderId`, `timeout`, or `title` requires a new controller. Use
- * {@link CheckoutController.update} for locale and theme changes after
- * creation.
+ * Changing `features`, `orderId`, `timeout`, or `title` requires a new
+ * controller. Use {@link CheckoutController.update} for locale and theme
+ * changes after creation.
  *
  * @category Configuration
  */

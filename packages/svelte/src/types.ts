@@ -8,9 +8,9 @@ import type {
 /**
  * Props accepted by the Inttegro {@link Checkout} component.
  *
- * `orderId`, `timeout`, and `title` identify a hosted experience; changing one
- * destroys the current controller and mounts a new one. `appearance` and
- * `locale` update the current controller in place.
+ * `features`, `orderId`, `timeout`, and `title` identify a hosted experience;
+ * changing one destroys the current controller and mounts a new one.
+ * `appearance` and `locale` update the current controller in place.
  *
  * @category Svelte
  */

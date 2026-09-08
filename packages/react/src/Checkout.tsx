@@ -16,9 +16,10 @@ import {
 /**
  * Props for {@link Checkout}.
  *
- * `orderId`, `timeout`, and `title` identify the embedded experience. Changing
- * one replaces the underlying controller. `appearance` and `locale` update the
- * existing controller without discarding payer progress.
+ * `features`, `orderId`, `timeout`, and `title` identify the embedded
+ * experience. Changing one replaces the underlying controller. `appearance`
+ * and `locale` update the existing controller without discarding payer
+ * progress.
  *
  * @category React
  */
@@ -68,10 +69,10 @@ export interface CheckoutHandle {
  * destroys it during cleanup. Server rendering is safe because no runtime is
  * loaded until the effect runs in a browser.
  *
- * Changing `orderId`, `timeout`, or `title` starts a fresh hosted experience.
- * Changing `appearance` or `locale` updates the active experience in place.
- * Keep the component mounted while a payment is pending or confirmation is in
- * progress.
+ * Changing `features`, `orderId`, `timeout`, or `title` starts a fresh hosted
+ * experience. Changing `appearance` or `locale` updates the active experience
+ * in place. Keep the component mounted while a payment is pending or
+ * confirmation is in progress.
  *
  * @example Handle success, failure, and focus in a dialog
  * ```tsx
@@ -119,6 +120,11 @@ export const Checkout = forwardRef<CheckoutHandle, CheckoutProps>(
     const checkoutRef = useRef<CheckoutController | null>(null)
     const callbacksRef = useRef({ onCompleted, onError, onEvent, onReady })
     const updateOptionsRef = useRef({ appearance, locale })
+    const hasFeatureOverrides = features !== undefined
+    const showLineItems = features?.showLineItems
+    const showInvoiceDownload = features?.showInvoiceDownload
+    const showReceiptDownload = features?.showReceiptDownload
+    const allowPaymentMethodChange = features?.allowPaymentMethodChange
     callbacksRef.current = { onCompleted, onError, onEvent, onReady }
     updateOptionsRef.current = { appearance, locale }
 
@@ -145,7 +151,14 @@ export const Checkout = forwardRef<CheckoutHandle, CheckoutProps>(
           const instance = inttegro.createCheckout(
             definedOptions({
               ...updateOptionsRef.current,
-              features,
+              features: hasFeatureOverrides
+                ? definedOptions({
+                    allowPaymentMethodChange,
+                    showInvoiceDownload,
+                    showLineItems,
+                    showReceiptDownload,
+                  })
+                : undefined,
               orderId,
               timeout,
               title,
@@ -176,7 +189,16 @@ export const Checkout = forwardRef<CheckoutHandle, CheckoutProps>(
         checkout?.destroy()
         if (checkoutRef.current === checkout) checkoutRef.current = null
       }
-    }, [features, orderId, timeout, title])
+    }, [
+      allowPaymentMethodChange,
+      hasFeatureOverrides,
+      orderId,
+      showInvoiceDownload,
+      showLineItems,
+      showReceiptDownload,
+      timeout,
+      title,
+    ])
 
     useEffect(() => {
       checkoutRef.current?.update(definedOptions({ appearance, locale }))

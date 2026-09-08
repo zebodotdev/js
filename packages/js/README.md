@@ -3,7 +3,7 @@
 Controlled-origin loader and TypeScript types for mounting an
 Inttegro-hosted `Checkout` experience. This npm package does not contain the
 executable checkout runtime. `loadInttegro()` downloads it from the fixed,
-Inttegro-controlled URL `https://js.inttegro.com/inttegro.js@0.1.0`.
+Inttegro-controlled URL `https://js.inttegro.com/inttegro.js@0.2.0`.
 
 ```ts
 import { loadInttegro } from '@inttegro/js'
