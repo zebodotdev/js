@@ -18,6 +18,7 @@ import {
   type CheckoutErrorEvent,
   type CheckoutEvent,
   type CheckoutFeatures,
+  type CheckoutPresentation,
   type CheckoutUpdateOptions,
 } from '@inttegro/js'
 
@@ -26,9 +27,9 @@ import {
  *
  * Add the component to a host component's `imports` array. It loads the hosted
  * runtime after its view initializes, creates one controller, and destroys that
- * controller with the Angular view. Changing `features`, `orderId`, `timeout`,
- * or `title` replaces the controller; changing `appearance` or `locale`
- * updates it in place.
+ * controller with the Angular view. Changing `features`, `orderId`,
+ * `presentation`, `timeout`, or `title` replaces the controller; changing
+ * `appearance` or `locale` updates it in place.
  *
  * Keep this component mounted while a payment attempt or confirmation is
  * pending. The successful `completed` output is suitable for navigation, but
@@ -42,6 +43,7 @@ import {
  *   template: `
  *     <inttegro-checkout
  *       [orderId]="orderId"
+ *       presentation="modal"
  *       [appearance]="{ theme: 'system' }"
  *       (completed)="onCompleted()"
  *       (error)="onError($event)"
@@ -74,6 +76,8 @@ export class CheckoutComponent implements AfterViewInit, OnChanges, OnDestroy {
   @Input() locale?: string
   /** Client-safe reference for the finalized Order being paid. */
   @Input({ required: true }) orderId = ''
+  /** Displays Checkout inline by default or in an Inttegro-managed modal. */
+  @Input() presentation: CheckoutPresentation = 'embedded'
   /** Mount timeout from 1,000–60,000 ms; defaults to 15,000 ms. */
   @Input() timeout?: number
   /** Accessible iframe title; defaults to `Checkout`. */
@@ -82,6 +86,10 @@ export class CheckoutComponent implements AfterViewInit, OnChanges, OnDestroy {
   /** Emitted after Checkout reports its successful terminal state. */
   @Output() readonly completed = new EventEmitter<
     Extract<CheckoutEvent, { type: 'completed' }>
+  >()
+  /** Emitted when a payer dismisses managed modal Checkout before completion. */
+  @Output() readonly canceled = new EventEmitter<
+    Extract<CheckoutEvent, { type: 'canceled' }>
   >()
   /** Emitted for loader/mount failures and sanitized hosted errors. */
   @Output() readonly error = new EventEmitter<CheckoutErrorEvent | Error>()
@@ -111,6 +119,7 @@ export class CheckoutComponent implements AfterViewInit, OnChanges, OnDestroy {
     if (
       changes['features'] ||
       changes['orderId'] ||
+      changes['presentation'] ||
       changes['timeout'] ||
       changes['title']
     ) {
@@ -137,6 +146,11 @@ export class CheckoutComponent implements AfterViewInit, OnChanges, OnDestroy {
     this.checkout?.focus()
   }
 
+  /** Closes managed modal Checkout when it is open. */
+  dismiss(): void {
+    this.checkout?.dismiss()
+  }
+
   /**
    * Applies a new locale or color scheme when a controller exists.
    * Prefer binding `appearance` and `locale` for declarative Angular views.
@@ -150,6 +164,7 @@ export class CheckoutComponent implements AfterViewInit, OnChanges, OnDestroy {
     this.destroyCheckout()
     const generation = this.generation
     const target = this.container.nativeElement
+    let canceled = false
 
     try {
       const inttegro = await loadInttegro()
@@ -171,13 +186,18 @@ export class CheckoutComponent implements AfterViewInit, OnChanges, OnDestroy {
       this.checkout = checkout
       this.unsubscribe = checkout.onEvent((event) => {
         this.event.emit(event)
+        if (event.type === 'canceled') {
+          canceled = true
+          this.canceled.emit(event)
+        }
         if (event.type === 'ready') this.ready.emit(event)
         if (event.type === 'completed') this.completed.emit(event)
         if (event.type === 'error') this.error.emit(event)
       })
-      await checkout.mount(target)
+      if (this.presentation === 'modal') await checkout.present()
+      else await checkout.mount(target)
     } catch (error) {
-      if (generation !== this.generation) return
+      if (generation !== this.generation || canceled) return
       this.error.emit(
         error instanceof Error ? error : new Error('Checkout failed to load.'),
       )

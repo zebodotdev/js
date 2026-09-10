@@ -5,7 +5,7 @@ group: Framework adapters
 
 # Integrate Checkout with React
 
-React describes UI as a function of props and state, then uses effects to synchronize with systems outside the component tree. `@inttegro/react` follows that model: its {@linkcode @inttegro/react!Checkout:variable | Checkout component} renders a host-owned container while an effect loads and mounts the Inttegro-hosted payment experience inside it.
+React describes UI as a function of props and state, then uses effects to synchronize with systems outside the component tree. `@inttegro/react` follows that model: its {@linkcode @inttegro/react!Checkout:variable | Checkout component} loads the Inttegro-hosted payment experience in an effect, then either mounts it into the component's container or asks the shared runtime to present its managed modal.
 
 Use the official adapter for React 18 or later. It keeps controller ownership aligned with the component tree, survives development lifecycle probes without leaving a stale Checkout behind, and delivers events through ordinary callback props. You avoid recreating a subtle integration layer every time a route or dialog needs to collect payment.
 
@@ -117,31 +117,34 @@ navigation and telemetry, but is not proof that funds moved.
 
 The adapter deliberately separates identity from presentation:
 
-- `orderId`, `timeout`, and `title` are effect dependencies that identify one hosted experience. Changing one runs cleanup, destroys the current controller, and mounts a new one.
+- `orderId`, `presentation`, `timeout`, and `title` are effect dependencies that identify one hosted experience. Changing one runs cleanup, destroys the current controller, and starts a new one.
 - `appearance` and `locale` run through a separate update effect. They call the existing controller's `update()` method and preserve payer progress where the hosted flow permits.
 - Callback props are read through a ref. A newly created callback function does not remount Checkout or resubscribe to the hosted event stream.
 - Effect cleanup unsubscribes from events and destroys the controller. An `active` guard discards a runtime load that completes after React has already removed the component.
 
 These rules also make React Strict Mode's development effect setup-and-cleanup cycle safe: only the currently active effect may create and own the controller. You should still keep the component mounted while a payment attempt or external confirmation is pending. Conditional rendering and route changes intentionally destroy the experience.
 
-The forwarded {@linkcode @inttegro/react!CheckoutHandle:interface | CheckoutHandle} exposes `focus()` and `update()`. Prefer props for ordinary state changes. Use the ref when a dialog has finished opening and needs to move focus into Checkout:
+Set `presentation="modal"` when Checkout should open above the current page. Render the component only while application state considers payment open; Inttegro owns the actual dialog, backdrop, responsive sizing, scrolling, close control, and focus behavior:
 
 ```tsx
-import { useRef } from 'react'
-import { Checkout, type CheckoutHandle } from '@inttegro/react'
+const [open, setOpen] = useState(false)
 
-const checkout = useRef<CheckoutHandle>(null)
-
-<Checkout
-  ref={checkout}
-  orderId={orderId}
-  onReady={() => checkout.current?.focus()}
-/>
+<button onClick={() => setOpen(true)}>Pay now</button>
+{open ? (
+  <Checkout
+    orderId={orderId}
+    presentation="modal"
+    onCanceled={() => setOpen(false)}
+    onCompleted={() => location.assign('/orders/complete')}
+  />
+) : null}
 ```
+
+The forwarded {@linkcode @inttegro/react!CheckoutHandle:interface | CheckoutHandle} exposes `dismiss()`, `focus()`, and `update()`. Prefer props for ordinary state changes. Use `dismiss()` when host state must close managed modal Checkout programmatically.
 
 ## Events and errors
 
-`onEvent` receives every sanitized {@linkcode @inttegro/react!CheckoutEvent:type | CheckoutEvent}. Use it for complete telemetry and for states without dedicated callback props, including `paymentAttempt`, `confirmationRequired`, `paymentAttemptFailed`, and `canceled`. `onReady` and `onCompleted` are convenient filtered callbacks for their corresponding events.
+`onEvent` receives every sanitized {@linkcode @inttegro/react!CheckoutEvent:type | CheckoutEvent}. Use it for complete telemetry and for states without dedicated callback props, including `paymentAttempt`, `confirmationRequired`, and `paymentAttemptFailed`. `onReady`, `onCompleted`, and `onCanceled` are convenient filtered callbacks for their corresponding events.
 
 `onError` receives one of two shapes:
 

@@ -13,5 +13,5 @@
     "strictInjectionParameters": true,
     "strictTemplates": true
   },
-  "exclude": ["**/*.test.ts"]
+  "exclude": ["dist", "**/*.test.ts"]
 }

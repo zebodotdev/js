@@ -3,7 +3,7 @@
 Controlled-origin loader and TypeScript types for mounting an
 Inttegro-hosted `Checkout` experience. This npm package does not contain the
 executable checkout runtime. `loadInttegro()` downloads it from the fixed,
-Inttegro-controlled URL `https://js.inttegro.com/inttegro.js@0.2.0`.
+Inttegro-controlled URL `https://js.inttegro.com/inttegro.js@0.3.0`.
 
 ```ts
 import { loadInttegro } from '@inttegro/js'
@@ -17,6 +17,16 @@ checkout.on('completed', () => {
 })
 await checkout.mount('#checkout')
 ```
+
+Use the managed modal when Checkout should open above the current page:
+
+```ts
+checkout.on('canceled', () => showPaymentOptions())
+await checkout.present()
+```
+
+No application dialog, modal CSS, focus trap, or scroll locking is required.
+Call `checkout.dismiss()` to close the managed modal programmatically.
 
 The runtime URL is not configurable. Do not bundle, mirror, proxy, or self-host
 it. The mounted iframe is hosted by Inttegro Pages. A restrictive Content

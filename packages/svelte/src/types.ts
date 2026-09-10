@@ -3,14 +3,16 @@ import type {
   CheckoutErrorEvent,
   CheckoutEvent,
   CheckoutFeatures,
+  CheckoutPresentation,
 } from '@inttegro/js'
 
 /**
  * Props accepted by the Inttegro {@link Checkout} component.
  *
- * `features`, `orderId`, `timeout`, and `title` identify a hosted experience;
- * changing one destroys the current controller and mounts a new one.
- * `appearance` and `locale` update the current controller in place.
+ * `features`, `orderId`, `presentation`, `timeout`, and `title` identify a
+ * hosted experience; changing one destroys the current controller and mounts
+ * or presents a new one. `appearance` and `locale` update the current
+ * controller in place.
  *
  * @category Svelte
  */
@@ -23,6 +25,9 @@ export interface CheckoutProps {
   class?: string | undefined
   /** Initial and reactive BCP 47 locale preference. */
   locale?: string | undefined
+  /** Called when a payer dismisses managed modal Checkout before completion. */
+  onCanceled?:
+    ((event: Extract<CheckoutEvent, { type: 'canceled' }>) => void) | undefined
   /**
    * Called after the successful hosted terminal state. Reconcile the Order on
    * your server before fulfillment.
@@ -38,6 +43,8 @@ export interface CheckoutProps {
     ((event: Extract<CheckoutEvent, { type: 'ready' }>) => void) | undefined
   /** Client-safe reference for the finalized Order being paid. */
   orderId: string
+  /** Displays Checkout inline by default or in an Inttegro-managed modal. */
+  presentation?: CheckoutPresentation | undefined
   /** Mount timeout from 1,000–60,000 ms; defaults to 15,000 ms. */
   timeout?: number | undefined
   /** Accessible iframe title; defaults to `Checkout`. */

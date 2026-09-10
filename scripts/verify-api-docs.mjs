@@ -35,11 +35,11 @@ const requiredDocumentation = [
   'Framework adapters',
   'Lifecycle, events, and reconciliation',
   'Security, CSP, and accessibility',
-  'Owns the lifecycle of one embedded hosted Checkout instance',
+  'Owns the lifecycle of one hosted Checkout instance',
   'Loads and validates the Inttegro-hosted Checkout runtime',
   'Emitted when payer input changes the completion state of the form',
-  'Embeds Inttegro-hosted Checkout in a React application',
-  'Embeds Inttegro-hosted Checkout in a Vue application',
+  'Displays Inttegro-hosted Checkout in a React application',
+  'Displays Inttegro-hosted Checkout in a Vue application',
   'Standalone Angular component that embeds Inttegro-hosted Checkout',
 ]
 

@@ -11,7 +11,8 @@ import type { InttegroLoadOptions, InttegroRuntime } from './types'
  *
  * @category Loading Checkout
  */
-export const INTTEGRO_JS_URL = 'https://js.inttegro.com/inttegro.js@0.2.0'
+const INTTEGRO_JS_VERSION = '0.3.0'
+export const INTTEGRO_JS_URL = 'https://js.inttegro.com/inttegro.js@0.3.0'
 
 const LOAD_TIMEOUT_MS = 15_000
 const SCRIPT_MARKER = 'data-inttegro-js'
@@ -89,7 +90,7 @@ async function loadRuntime(
   script.crossOrigin = 'anonymous'
   script.referrerPolicy = 'origin'
   script.src = INTTEGRO_JS_URL
-  script.setAttribute(SCRIPT_MARKER, '0.2.0')
+  script.setAttribute(SCRIPT_MARKER, INTTEGRO_JS_VERSION)
   if (options.nonce) script.nonce = options.nonce
 
   const runtime = waitForRuntime(script, true)
@@ -164,7 +165,7 @@ function readRuntime(): InttegroRuntime | undefined {
   if (
     !runtime ||
     runtime.protocolVersion !== 1 ||
-    typeof runtime.version !== 'string' ||
+    runtime.version !== INTTEGRO_JS_VERSION ||
     typeof runtime.createCheckout !== 'function'
   ) {
     return undefined

@@ -33,7 +33,7 @@ Content-Security-Policy:
   frame-src https://pages.inttegro.com;
   connect-src 'self' https://api.inttegro.com;
   img-src 'self' data:;
-  style-src 'self' 'unsafe-inline';
+  style-src 'self' 'nonce-{RANDOM_PER_RESPONSE_VALUE}';
   frame-ancestors 'self';
   base-uri 'self';
   object-src 'none'
@@ -47,7 +47,7 @@ If your `script-src` requires nonces, generate a cryptographically random value 
 const inttegro = await loadInttegro({ nonce: window.__cspNonce })
 ```
 
-Never hard-code a nonce or reuse it between responses. The nonce is applied only when that call creates the shared runtime script. Framework adapters currently do not expose loader options, so applications with a mandatory script nonce should use `@inttegro/js` directly.
+Never hard-code a nonce or reuse it between responses. The nonce is applied when that call creates the shared runtime script, and the managed modal reuses it for its isolated shell stylesheet. Framework adapters currently do not expose loader options, so applications with mandatory script or style nonces should use `@inttegro/js` directly.
 
 Subresource Integrity is not appropriate for the versioned hosted URL when Inttegro may deploy compatible fixes at that URL. The controlled origin, TLS, strict CSP, loader validation, and Inttegro's release controls form the delivery boundary.
 
@@ -74,7 +74,7 @@ If you add an Order correlation value, prefer your own opaque internal reference
 
 Checkout owns the semantics and keyboard behavior inside its iframe. The host page owns the context around it.
 
-- Provide a visible page or dialog heading that explains the task.
+- Provide a visible page heading for embedded Checkout; managed modal Checkout supplies its own heading.
 - Set `title` to a concise accessible name such as `Payment for your order`.
 - Give the container enough height that controls are not clipped or placed behind a sticky action bar.
 - Do not cover the iframe with loading overlays after `ready`.
@@ -85,14 +85,11 @@ Checkout owns the semantics and keyboard behavior inside its iframe. The host pa
 
 The iframe title is not visible marketing copy. It gives screen-reader and browser tooling a name for the embedded experience.
 
-## Use Checkout in a modal or dialog
+## Use managed modal Checkout
 
-Checkout can be rendered in a modal when the dialog provides a stable, visible container. Mount only after the dialog content exists. Move focus into Checkout after the opening transition, and restore focus to the control that opened the dialog when it closes.
+Call {@linkcode @inttegro/js!CheckoutController.present:member | present()} when payment should open above the current page. The hosted runtime creates an isolated modal shell and manages the backdrop, responsive viewport, scrolling, page scroll lock, close control, focus containment, focus restoration, and teardown. The application supplies no dialog markup or modal CSS.
 
 ```ts
-const opener = document.activeElement as HTMLElement | null
-dialog.showModal()
-
 const inttegro = await loadInttegro()
 if (!inttegro) return
 
@@ -102,19 +99,12 @@ const checkout = inttegro.createCheckout({
   appearance: { theme: 'system' },
 })
 
-checkout.on('ready', () => checkout.focus())
-checkout.on('canceled', closePaymentDialog)
+checkout.on('canceled', showPaymentOptions)
 checkout.on('completed', beginServerReconciliation)
-await checkout.mount(dialog.querySelector('.checkout-target')!)
-
-function closePaymentDialog(): void {
-  checkout.destroy()
-  dialog.close()
-  opener?.focus()
-}
+await checkout.present()
 ```
 
-Do not destroy and recreate Checkout during cosmetic dialog transitions. Ensure the close control remains reachable by keyboard and assistive technology. If the payer closes during a pending attempt, reconcile Order state instead of assuming failure.
+The shell uses native dialog behavior where available and retains an accessible fallback. It is isolated from application selectors, but its generated stylesheet still participates in Content Security Policy; pass the current response nonce to `loadInttegro()` when `style-src` requires one. Call {@linkcode @inttegro/js!CheckoutController.dismiss:member | dismiss()} for application-driven closure. If the payer closes during a pending attempt, reconcile Order state instead of assuming failure.
 
 ## Treat errors according to their boundary
 

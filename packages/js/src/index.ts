@@ -17,6 +17,7 @@ export type {
   CheckoutOptions,
   CheckoutPaymentAttemptEvent,
   CheckoutPaymentAttemptFailedEvent,
+  CheckoutPresentation,
   CheckoutReadyEvent,
   CheckoutState,
   CheckoutTheme,

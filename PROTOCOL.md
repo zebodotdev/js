@@ -1,6 +1,6 @@
 # Checkout frame protocol
 
-The runtime loaded from `https://js.inttegro.com/inttegro.js@0.2.0` and the
+The runtime loaded from `https://js.inttegro.com/inttegro.js@0.3.0` and the
 Inttegro Pages checkout frame communicate through a versioned
 `window.postMessage` protocol. `@inttegro/js` only loads that runtime and
 publishes its TypeScript contract. Every message contains:
@@ -23,6 +23,8 @@ supported, and its `instanceId` matches the current checkout.
 
 - `frame.ready`: the frame can receive initialization.
 - `frame.resize`: requests a clamped iframe height.
+- `frame.dismiss`: requests dismissal after an unhandled Escape key inside a
+  managed modal; embedded Checkout ignores it.
 - `checkout.event`: carries one validated public lifecycle event.
 
 ## Parent to frame

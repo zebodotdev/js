@@ -9,6 +9,9 @@
  */
 export type CheckoutTheme = 'light' | 'dark' | 'system'
 
+/** Ways a framework adapter can display hosted Checkout. */
+export type CheckoutPresentation = 'embedded' | 'modal'
+
 /**
  * Visual preferences applied inside the hosted Checkout frame.
  *
@@ -354,12 +357,13 @@ export type CheckoutEventHandler<Type extends CheckoutEventType> = (
 ) => void
 
 /**
- * Owns the lifecycle of one embedded hosted Checkout instance.
+ * Owns the lifecycle of one hosted Checkout instance.
  *
  * Create a controller with {@link InttegroRuntime.createCheckout}, subscribe to
- * events, and then mount it in an empty HTML element. A controller may be
- * unmounted and mounted again, but cannot be reused after `destroy()`.
- * Framework adapters manage this lifecycle automatically.
+ * events, and then either mount it in an empty HTML element or ask Inttegro to
+ * present it in a managed modal. A controller may be unmounted and mounted
+ * again, but cannot be reused after `destroy()`. Framework adapters manage this
+ * lifecycle automatically.
  *
  * @example Mount, observe, and clean up a controller
  * ```ts
@@ -397,6 +401,28 @@ export interface CheckoutController {
    * `mount_timeout`.
    */
   mount(target: string | HTMLElement): Promise<void>
+  /**
+   * Presents Checkout in an Inttegro-managed modal and waits until it is ready.
+   *
+   * No target element or application modal is required. The runtime owns the
+   * backdrop, responsive sizing, viewport scrolling, close controls, focus
+   * containment and restoration, page scroll lock, and teardown. A payer who
+   * dismisses the modal before completion produces a
+   * {@link CheckoutCanceledEvent}.
+   *
+   * @throws {@link InttegroCheckoutError} with the same initialization errors
+   * as {@link mount}.
+   */
+  present(): Promise<void>
+  /**
+   * Closes a managed modal and returns the controller to `idle`.
+   *
+   * Calling this method for an embedded or already-dismissed Checkout is safe
+   * and has no effect. Dismissing before completion emits one
+   * {@link CheckoutCanceledEvent}; dismissing after completion does not turn a
+   * successful payment into a cancellation.
+   */
+  dismiss(): void
   /**
    * Removes the iframe and browser listeners while keeping the controller reusable.
    *

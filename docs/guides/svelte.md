@@ -114,14 +114,21 @@ independent proof of payment.
 
 The adapter separates controller identity from presentation with two effects:
 
-- The controller effect tracks `orderId`, `timeout`, and `title`. Changing one runs cleanup, destroys the old controller, and creates a new hosted experience.
+- The controller effect tracks `features`, `orderId`, `presentation`, `timeout`, and `title`. Changing one runs cleanup, destroys the old controller, and creates a new embedded or modal experience.
 - The same effect reads initial `appearance` and `locale` with `untrack`, so changing either value does not accidentally replace the controller.
 - A second effect tracks `appearance`, `locale`, and the active controller, applying presentation changes through `update()`.
 - The controller effect returns cleanup that marks asynchronous work inactive, unsubscribes from events, and destroys the instance.
 
 That split is especially useful during SvelteKit navigation. When a page component leaves the route, cleanup owns the frame immediately. If the shared runtime finishes loading later, the inactive effect refuses to create a controller. Keep the component present while payment or confirmation is pending; an `{#if}` branch that removes it deliberately ends the browser experience.
 
-The optional `class` prop is applied to the host `div`, which lets your component own width, height, and surrounding layout without reaching into the hosted frame. The Svelte adapter does not currently expose the controller's imperative `focus()` or `update()` methods through a component ref. Props are the supported update path. Use `@inttegro/js` directly if an imperative focus handoff is essential to a custom dialog.
+The optional `class` prop is applied to the host `div`, which lets your component own width, height, and surrounding layout without reaching into the hosted frame. Set `presentation="modal"` when Checkout should open above the page; Inttegro then supplies the dialog, backdrop, viewport scrolling, close control, and focus behavior. A bound component instance exposes `dismiss()`, `focus()`, and `update()`, although props remain the preferred update path.
+
+```svelte
+<button onclick={() => (open = true)}>Pay now</button>
+{#if open}
+  <Checkout {orderId} presentation="modal" onCanceled={() => (open = false)} />
+{/if}
+```
 
 ## Events and errors
 
@@ -129,10 +136,11 @@ Svelte 5 callback props are used instead of dispatched component events:
 
 - `onEvent` receives every sanitized {@linkcode @inttegro/svelte!CheckoutEvent:type | CheckoutEvent};
 - `onReady` receives the interactive `ready` event;
-- `onCompleted` receives the successful hosted terminal event; and
+- `onCompleted` receives the successful hosted terminal event;
+- `onCanceled` receives a managed-modal dismissal before completion; and
 - `onError` receives loader and mount errors as well as hosted error events.
 
-Use `onEvent` for telemetry and for `paymentAttempt`, `confirmationRequired`, `paymentAttemptFailed`, and `canceled`. Keep telemetry sparse: event type, occurrence time, and an application-owned opaque page correlation value are usually enough.
+Use `onEvent` for telemetry and for `paymentAttempt`, `confirmationRequired`, and `paymentAttemptFailed`. Keep telemetry sparse: event type, occurrence time, and an application-owned opaque page correlation value are usually enough.
 
 The `onError` argument is either an `Error` from initialization or a {@linkcode @inttegro/svelte!CheckoutErrorEvent:interface | CheckoutErrorEvent} from inside hosted Checkout. Show an application fallback only for the first case. Hosted Checkout already knows whether an operational error is recoverable and owns the payment-specific message.
 
@@ -142,7 +150,7 @@ Svelte effects do not run during server rendering. The server and initial client
 
 Return the finalized Order ID from a server `load` function or an authenticated application endpoint, but keep Inttegro secret keys server-only. If the route reuses the component with a different Order ID, the adapter starts a new Checkout intentionally.
 
-The adapter does not currently accept `loadInttegro()` options. Sites whose Content Security Policy requires a per-response script nonce should use `@inttegro/js` directly. Otherwise, the Svelte component is the preferred owner of the hosted lifecycle.
+The adapter does not currently accept `loadInttegro()` options. Sites whose Content Security Policy requires a per-response script or managed-modal style nonce should use `@inttegro/js` directly. Otherwise, the Svelte component is the preferred owner of the hosted lifecycle.
 
 ## Related resources
 

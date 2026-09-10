@@ -32,22 +32,22 @@ Equivalent `yarn add`, `bun add`, and `deno add npm:` commands are supported. Us
 
 Every adapter applies the same controller rules through different framework primitives:
 
-| Change or lifecycle event                | Adapter behavior                                     |
-| ---------------------------------------- | ---------------------------------------------------- |
-| `appearance` or `locale` changes         | Updates the active controller in place               |
-| `orderId`, `timeout`, or `title` changes | Destroys the controller and mounts a new experience  |
-| Component or view is removed             | Unsubscribes from events and destroys the controller |
-| Runtime loading finishes after removal   | Discards the stale result without mounting           |
+| Change or lifecycle event                                | Adapter behavior                                     |
+| -------------------------------------------------------- | ---------------------------------------------------- |
+| `appearance` or `locale` changes                         | Updates the active controller in place               |
+| `orderId`, `presentation`, `timeout`, or `title` changes | Destroys the controller and starts a new experience  |
+| Component or view is removed                             | Unsubscribes from events and destroys the controller |
+| Runtime loading finishes after removal                   | Discards the stale result without mounting           |
 
 That last behavior matters in real applications. Route transitions, conditional rendering, development lifecycle probes, and rapidly changing props can all remove a component while the hosted runtime is still loading. The adapters guard those asynchronous boundaries so a stale Checkout cannot mount into a view that no longer owns it.
 
-Each adapter forwards the complete sanitized {@linkcode @inttegro/js!CheckoutEvent:type | Checkout event stream}, along with convenient `ready`, `completed`, and `error` hooks. The generic event hook is the right place for telemetry and for events such as `paymentAttempt`, `confirmationRequired`, `paymentAttemptFailed`, and `canceled`. Browser completion is useful for navigation, but your server must still verify the Order before fulfillment.
+Each adapter forwards the complete sanitized {@linkcode @inttegro/js!CheckoutEvent:type | Checkout event stream}, along with convenient `ready`, `completed`, `canceled`, and `error` hooks. Set `presentation` to `modal` and the shared runtime supplies the dialog, backdrop, responsive sizing, close controls, scrolling, and focus behavior. The generic event hook remains the right place for telemetry and events such as `paymentAttempt`, `confirmationRequired`, and `paymentAttemptFailed`. Browser completion is useful for navigation, but your server must still verify the Order before fulfillment.
 
 ## Why use an official adapter
 
 Calling `@inttegro/js` directly is deliberately possible, but it makes your application responsible for controller ownership, subscription cleanup, race cancellation, and deciding which prop changes require replacement. The official adapter centralizes those rules in code maintained alongside the core contract.
 
-Prefer the adapter when Checkout lives in a framework-rendered route, component, or dialog. It gives reviewers an integration that looks native to the rest of the application, follows framework teardown automatically, and upgrades with the shared event and option types. You still control the surrounding layout, routing, telemetry, and server reconciliation; Inttegro controls only the hosted payment experience.
+Prefer the adapter when Checkout lives in a framework-rendered route or component. It gives reviewers an integration that looks native to the rest of the application, follows framework teardown automatically, and upgrades with the shared event and option types. For modal Checkout, the framework decides when the component exists while Inttegro owns the modal itself. You still control routing, telemetry, and server reconciliation; Inttegro controls the hosted payment experience and its modal shell.
 
 Use `@inttegro/js` directly when your host is framework-free, you intentionally manage a controller outside the component tree, or your Content Security Policy requires passing a per-response nonce to {@linkcode @inttegro/js!loadInttegro:function | loadInttegro}. The current adapters do not expose loader options.
 

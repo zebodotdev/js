@@ -149,6 +149,21 @@ await checkout.mount('#checkout')
 `loadInttegro()` returns `null` during server-side rendering. Initialize and
 mount Checkout only in browser code.
 
+To open the same Checkout in a responsive modal, call `present()` instead of
+building a dialog and mounting into it:
+
+```ts
+checkout.on('canceled', () => {
+  // The payer closed the modal before payment completed.
+})
+
+await checkout.present()
+```
+
+Inttegro owns the backdrop, close controls, viewport scrolling, focus handling,
+and teardown. Call `checkout.dismiss()` when the application needs to close the
+managed modal programmatically.
+
 ## Framework adapters
 
 The official adapters map Checkout onto each framework's component lifecycle,
@@ -223,5 +238,5 @@ response.
 ## Documentation
 
 Read the [integration guides](https://studio.inttegro.com/web) in Inttegro
-Studio and browse the [generated API reference](https://web.inttegro.dev/v0.2.0/)
+Studio and browse the [generated API reference](https://web.inttegro.dev/v0.3.0/)
 for every JavaScript framework package.

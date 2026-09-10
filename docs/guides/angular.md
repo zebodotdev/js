@@ -23,7 +23,7 @@ Create and finalize the Order in a trusted server process. Resolve or transfer o
 
 ## Add Checkout to a standalone component
 
-Import `CheckoutComponent` directly into the component that owns the payment route or dialog:
+Import `CheckoutComponent` directly into the component that owns the payment route or payment action:
 
 ```ts
 import { ChangeDetectionStrategy, Component, Input } from '@angular/core'
@@ -120,9 +120,9 @@ evidence that funds settled.
 The standalone adapter implements `AfterViewInit`, `OnChanges`, and `OnDestroy`:
 
 - `ngAfterViewInit()` begins loading only after Angular has created the container element.
-- `ngOnChanges()` treats `orderId`, `timeout`, and `title` as controller identity. Changing one destroys the old controller and mounts a new experience.
+- `ngOnChanges()` treats `features`, `orderId`, `presentation`, `timeout`, and `title` as controller identity. Changing one destroys the old controller and starts a new embedded or modal experience.
 - Changes to `appearance` or `locale` call `update()` on the current controller instead.
-- `ngOnDestroy()` unsubscribes and destroys the controller when a route, conditional block, or dialog removes the component.
+- `ngOnDestroy()` unsubscribes and destroys the controller when a route or conditional block removes the component.
 - A generation counter prevents an earlier asynchronous runtime load from claiming a view after a newer mount has started.
 
 Angular reports input changes by reference. Replace the `appearance` object when changing its theme instead of mutating the existing object in place:
@@ -133,13 +133,13 @@ this.appearance = { theme: prefersDark ? 'dark' : 'light' }
 
 Keep `<inttegro-checkout>` mounted while a payment attempt or external confirmation is pending. Removing the component ends the browser experience, although your server must still reconcile any attempt already submitted.
 
-The component exposes public `focus()` and `update()` methods. Bind inputs for normal state. Use a `@ViewChild` reference when focus must move into Checkout after a dialog opens:
+Set `presentation="modal"` when Checkout should open above the page. The shared runtime supplies the dialog, backdrop, responsive sizing, scrolling, close control, and focus behavior. The component exposes `dismiss()`, `focus()`, and `update()`; use a `@ViewChild` reference when host state must close the modal programmatically:
 
 ```ts
 @ViewChild(CheckoutComponent) checkout?: CheckoutComponent
 
-focusCheckout(): void {
-  this.checkout?.focus()
+dismissCheckout(): void {
+  this.checkout?.dismiss()
 }
 ```
 
@@ -149,10 +149,11 @@ The adapter follows Angular output conventions:
 
 - `(event)` emits every sanitized {@linkcode @inttegro/angular!CheckoutEvent:type | CheckoutEvent};
 - `(ready)` emits when the frame becomes interactive;
-- `(completed)` emits at the successful hosted terminal state; and
+- `(completed)` emits at the successful hosted terminal state;
+- `(canceled)` emits when a payer dismisses managed modal Checkout; and
 - `(error)` emits initialization failures and sanitized hosted errors.
 
-Use `(event)` for comprehensive telemetry, including `paymentAttempt`, `confirmationRequired`, `paymentAttemptFailed`, and `canceled`. The generic output fires before the matching specialized output for the same event.
+Use `(event)` for comprehensive telemetry, including `paymentAttempt`, `confirmationRequired`, and `paymentAttemptFailed`. The generic output fires before the matching specialized output for the same event.
 
 An `Error` from `(error)` means the loader, configuration, or mount failed and a host-page fallback is appropriate. A {@linkcode @inttegro/angular!CheckoutErrorEvent:interface | CheckoutErrorEvent} came from hosted Checkout; record its sanitized code and recovery status without duplicating its payer-facing message.
 
@@ -162,7 +163,7 @@ The adapter's template is a stable empty `div`. The core loader returns `null` o
 
 Keep secret credentials on the server and transfer only the finalized Order ID. A new Order ID after navigation creates a fresh controller; a locale or theme change updates the mounted experience.
 
-The current adapter does not expose `loadInttegro()` options. If your Content Security Policy requires a unique script nonce per response, use `@inttegro/js` directly. For ordinary Angular component ownership, the standalone adapter is the preferred integration.
+The current adapter does not expose `loadInttegro()` options. If your Content Security Policy requires a unique script or managed-modal style nonce per response, use `@inttegro/js` directly. For ordinary Angular component ownership, the standalone adapter is the preferred integration.
 
 ## Related resources
 

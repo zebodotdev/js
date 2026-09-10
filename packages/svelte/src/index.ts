@@ -14,6 +14,7 @@
  *
  * <Checkout
  *   {orderId}
+ *   presentation="modal"
  *   appearance={{ theme: 'system' }}
  *   onCompleted={() => location.assign('/orders/complete')}
  *   onError={reportCheckoutError}
@@ -29,5 +30,6 @@ export type {
   CheckoutErrorEvent,
   CheckoutEvent,
   CheckoutFeatures,
+  CheckoutPresentation,
   CheckoutTheme,
 } from '@inttegro/js'

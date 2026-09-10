@@ -113,32 +113,38 @@ The adapter uses Vue primitives intentionally:
 
 - `onMounted` starts browser runtime loading and mounts the controller into the component's `div`.
 - A watcher on `appearance` and `locale` calls `update()` on the active controller. The watcher is deep, so a nested theme change is observed.
-- A watcher on `orderId`, `timeout`, and `title` destroys the controller and starts a new mount because those values identify a hosted experience.
+- A watcher on `features`, `orderId`, `presentation`, `timeout`, and `title` destroys the controller and starts a new embedded or modal experience because those values identify its lifecycle.
 - `onBeforeUnmount` unsubscribes from events and destroys the controller.
 - A generation counter invalidates an older asynchronous load when props change or the view unmounts before loading completes.
 
-This makes the component predictable inside `v-if`, `<RouterView>`, dialogs, and transitions: the Vue view that renders Checkout owns exactly one current controller. Keep that view mounted while payment submission or provider confirmation is pending. Removing it destroys the frame even if the server-side attempt continues.
+This makes the component predictable inside `v-if`, `<RouterView>`, and transitions: the Vue view that renders Checkout owns exactly one current controller. With `presentation="modal"`, the shared runtime owns the dialog itself. Keep the component mounted while payment submission or provider confirmation is pending. Removing it destroys the frame even if the server-side attempt continues.
 
-The component uses Vue emits rather than DOM custom events. It emits `event`, `ready`, `completed`, and `error`. A template ref exposes the {@linkcode @inttegro/vue!CheckoutExposed:interface | CheckoutExposed} interface for focus and presentation updates:
+The component uses Vue emits rather than DOM custom events. It emits `event`, `ready`, `completed`, `canceled`, and `error`. Set `presentation="modal"` to delegate the dialog, backdrop, viewport scrolling, close control, and focus behavior to Inttegro:
 
 ```vue
 <script setup lang="ts">
 import { ref } from 'vue'
-import { Checkout, type CheckoutExposed } from '@inttegro/vue'
+import { Checkout } from '@inttegro/vue'
 
-const checkout = ref<CheckoutExposed>()
+const open = ref(false)
 </script>
 
 <template>
-  <Checkout ref="checkout" :order-id="orderId" @ready="checkout?.focus()" />
+  <button @click="open = true">Pay now</button>
+  <Checkout
+    v-if="open"
+    :order-id="orderId"
+    presentation="modal"
+    @canceled="open = false"
+  />
 </template>
 ```
 
-Prefer reactive props for ordinary application state. Use `focus()` after a payment dialog opens, or `update()` when an imperative host integration cannot express locale or theme as props.
+The {@linkcode @inttegro/vue!CheckoutExposed:interface | CheckoutExposed} template-ref interface provides `dismiss()`, `focus()`, and `update()`. Prefer reactive props for ordinary application state. Use `dismiss()` only when host state must close the managed modal programmatically.
 
 ## Events and errors
 
-The `event` emission receives every sanitized {@linkcode @inttegro/vue!CheckoutEvent:type | CheckoutEvent}. It is the reliable integration point for telemetry and for lifecycle states without a dedicated emission, such as `confirmationRequired`, `paymentAttemptFailed`, and `canceled`.
+The `event` emission receives every sanitized {@linkcode @inttegro/vue!CheckoutEvent:type | CheckoutEvent}. It is the reliable integration point for telemetry and for lifecycle states without a dedicated emission, such as `confirmationRequired` and `paymentAttemptFailed`. Use the dedicated `canceled` emission to update the state that conditionally renders modal Checkout.
 
 The `error` emission receives either a JavaScript `Error` from runtime loading or mounting, or a {@linkcode @inttegro/vue!CheckoutErrorEvent:interface | CheckoutErrorEvent} from hosted Checkout. Test `failure instanceof Error` before choosing the surrounding-page response. Do not replace Checkout merely because a hosted error is recoverable; the frame owns its retry and correction UI.
 
@@ -148,7 +154,7 @@ The adapter renders only its empty container during server rendering. Runtime lo
 
 Pass the Order ID through server-owned page data, but do not render secret credentials into the hydration payload. If route data changes to another Order ID, expect a fresh Checkout by design. A locale or theme change updates the current one instead.
 
-The current adapter does not expose `loadInttegro()` options. If a strict Content Security Policy requires a per-response nonce on the runtime script, integrate with `@inttegro/js` directly. For normal Vue-owned routes and dialogs, the official adapter remains the preferred lifecycle boundary.
+The current adapter does not expose `loadInttegro()` options. If a strict Content Security Policy requires a per-response nonce on the runtime script or managed-modal stylesheet, integrate with `@inttegro/js` directly. For normal Vue-owned routes and managed modals, the official adapter remains the preferred lifecycle boundary.
 
 ## Related resources
 

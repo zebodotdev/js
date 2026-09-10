@@ -1,6 +1,6 @@
 {
   "name": "@inttegro/angular",
-  "version": "0.2.0",
+  "version": "0.3.0",
   "description": "Angular components for Inttegro hosted workflows",
   "type": "module",
   "engines": {
@@ -11,7 +11,7 @@
     "typecheck": "ngc -p tsconfig.lib.json"
   },
   "dependencies": {
-    "@inttegro/js": "0.2.0",
+    "@inttegro/js": "0.3.0",
     "tslib": "^2.8.1"
   },
   "peerDependencies": {

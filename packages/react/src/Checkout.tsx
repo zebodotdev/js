@@ -4,6 +4,7 @@ import {
   type CheckoutErrorEvent,
   type CheckoutEvent,
   type CheckoutOptions,
+  type CheckoutPresentation,
 } from '@inttegro/js'
 import {
   forwardRef,
@@ -16,7 +17,7 @@ import {
 /**
  * Props for {@link Checkout}.
  *
- * `features`, `orderId`, `timeout`, and `title` identify the embedded
+ * `features`, `orderId`, `presentation`, `timeout`, and `title` identify the
  * experience. Changing one replaces the underlying controller. `appearance`
  * and `locale` update the existing controller without discarding payer
  * progress.
@@ -28,6 +29,10 @@ export interface CheckoutProps extends CheckoutOptions {
   className?: string
   /** Inline styles applied to the outer container, never to controls inside Checkout. */
   style?: CSSProperties
+  /** Displays Checkout inline by default or in an Inttegro-managed modal. */
+  presentation?: CheckoutPresentation
+  /** Called when a payer dismisses managed modal Checkout before completion. */
+  onCanceled?: (event: Extract<CheckoutEvent, { type: 'canceled' }>) => void
   /**
    * Called after Checkout reports its successful terminal state.
    * Use this to navigate or refresh server-owned Order state, not as the sole
@@ -55,6 +60,8 @@ export interface CheckoutProps extends CheckoutOptions {
  * @category React
  */
 export interface CheckoutHandle {
+  /** Closes managed modal Checkout when it is open. */
+  dismiss(): void
   /** Moves focus into Checkout when its controller is ready; otherwise does nothing. */
   focus(): void
   /** Applies a new locale or theme when the controller exists. */
@@ -62,36 +69,31 @@ export interface CheckoutHandle {
 }
 
 /**
- * Embeds Inttegro-hosted Checkout in a React application.
+ * Displays Inttegro-hosted Checkout in a React application.
  *
  * The component renders an empty `div`, loads the executable runtime from
  * Inttegro's fixed origin after mount, creates a controller for `orderId`, and
  * destroys it during cleanup. Server rendering is safe because no runtime is
  * loaded until the effect runs in a browser.
  *
- * Changing `features`, `orderId`, `timeout`, or `title` starts a fresh hosted
- * experience. Changing `appearance` or `locale` updates the active experience
- * in place. Keep the component mounted while a payment is pending or
- * confirmation is in progress.
+ * Changing `features`, `orderId`, `presentation`, `timeout`, or `title` starts
+ * a fresh hosted experience. Changing `appearance` or `locale` updates the
+ * active experience in place. Keep the component mounted while a payment is
+ * pending or confirmation is in progress.
  *
- * @example Handle success, failure, and focus in a dialog
+ * @example Present Checkout without building a dialog
  * ```tsx
- * import { useRef } from 'react'
- * import { Checkout, type CheckoutHandle } from '@inttegro/react'
+ * import { Checkout } from '@inttegro/react'
  *
  * function Payment({ orderId }: { orderId: string }) {
- *   const checkout = useRef<CheckoutHandle>(null)
- *
  *   return (
- *     <dialog open onTransitionEnd={() => checkout.current?.focus()}>
- *       <Checkout
- *         ref={checkout}
- *         orderId={orderId}
- *         appearance={{ theme: 'system' }}
- *         onCompleted={() => location.assign(`/orders/${orderId}/complete`)}
- *         onError={(error) => reportCheckoutError(error)}
- *       />
- *     </dialog>
+ *     <Checkout
+ *       orderId={orderId}
+ *       presentation="modal"
+ *       appearance={{ theme: 'system' }}
+ *       onCompleted={() => location.assign(`/orders/${orderId}/complete`)}
+ *       onError={(error) => reportCheckoutError(error)}
+ *     />
  *   )
  * }
  * ```
@@ -105,11 +107,13 @@ export const Checkout = forwardRef<CheckoutHandle, CheckoutProps>(
       className,
       features,
       locale,
+      onCanceled,
       onCompleted,
       onError,
       onEvent,
       onReady,
       orderId,
+      presentation = 'embedded',
       style,
       timeout,
       title,
@@ -118,19 +122,32 @@ export const Checkout = forwardRef<CheckoutHandle, CheckoutProps>(
   ) {
     const containerRef = useRef<HTMLDivElement>(null)
     const checkoutRef = useRef<CheckoutController | null>(null)
-    const callbacksRef = useRef({ onCompleted, onError, onEvent, onReady })
+    const callbacksRef = useRef({
+      onCanceled,
+      onCompleted,
+      onError,
+      onEvent,
+      onReady,
+    })
     const updateOptionsRef = useRef({ appearance, locale })
     const hasFeatureOverrides = features !== undefined
     const showLineItems = features?.showLineItems
     const showInvoiceDownload = features?.showInvoiceDownload
     const showReceiptDownload = features?.showReceiptDownload
     const allowPaymentMethodChange = features?.allowPaymentMethodChange
-    callbacksRef.current = { onCompleted, onError, onEvent, onReady }
+    callbacksRef.current = {
+      onCanceled,
+      onCompleted,
+      onError,
+      onEvent,
+      onReady,
+    }
     updateOptionsRef.current = { appearance, locale }
 
     useImperativeHandle(
       forwardedRef,
       () => ({
+        dismiss: () => checkoutRef.current?.dismiss(),
         focus: () => checkoutRef.current?.focus(),
         update: (options) => checkoutRef.current?.update(options),
       }),
@@ -139,9 +156,10 @@ export const Checkout = forwardRef<CheckoutHandle, CheckoutProps>(
 
     useEffect(() => {
       const target = containerRef.current
-      if (!target) return
+      if (presentation === 'embedded' && !target) return
 
       let active = true
+      let canceled = false
       let checkout: CheckoutController | undefined
       let unsubscribe: (() => void) | undefined
 
@@ -172,15 +190,21 @@ export const Checkout = forwardRef<CheckoutHandle, CheckoutProps>(
           checkoutRef.current = instance
           unsubscribe = instance.onEvent((event) => {
             callbacksRef.current.onEvent?.(event)
+            if (event.type === 'canceled') {
+              canceled = true
+              callbacksRef.current.onCanceled?.(event)
+            }
             if (event.type === 'ready') callbacksRef.current.onReady?.(event)
             if (event.type === 'completed')
               callbacksRef.current.onCompleted?.(event)
             if (event.type === 'error') callbacksRef.current.onError?.(event)
           })
-          await instance.mount(target)
+          if (presentation === 'modal') await instance.present()
+          else await instance.mount(target!)
         })
         .catch((error: unknown) => {
-          if (active) callbacksRef.current.onError?.(asError(error))
+          if (active && !canceled)
+            callbacksRef.current.onError?.(asError(error))
         })
 
       return () => {
@@ -193,6 +217,7 @@ export const Checkout = forwardRef<CheckoutHandle, CheckoutProps>(
       allowPaymentMethodChange,
       hasFeatureOverrides,
       orderId,
+      presentation,
       showInvoiceDownload,
       showLineItems,
       showReceiptDownload,

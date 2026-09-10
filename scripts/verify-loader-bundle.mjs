@@ -1,6 +1,6 @@
 import { access, readdir, readFile } from 'node:fs/promises'
 
-const controlledRuntimeUrl = 'https://js.inttegro.com/inttegro.js@0.2.0'
+const controlledRuntimeUrl = 'https://js.inttegro.com/inttegro.js@0.3.0'
 const forbiddenRuntimeMarkers = [
   '/embed/checkout/',
   'data-inttegro-checkout',
@@ -134,7 +134,7 @@ try {
   const runtime = {
     createCheckout() {},
     protocolVersion: 1,
-    version: 'test',
+    version: '0.3.0',
   }
   globalThis.window.Inttegro = runtime
   script.dispatch('load')
