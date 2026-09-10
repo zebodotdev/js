@@ -1,0 +1,230 @@
+<!DOCTYPE html><html class="default" lang="en" data-base="./"><head><meta charset="utf-8"/><meta http-equiv="x-ua-compatible" content="IE=edge"/><title>Inttegro Web SDKs - v0.3.0</title><meta name="description" content="Documentation for Inttegro Web SDKs"/><meta name="viewport" content="width=device-width, initial-scale=1"/><link rel="stylesheet" href="assets/style.css"/><link rel="stylesheet" href="assets/highlight.css"/><link rel="stylesheet" href="assets/custom.css?v=0d90faffa021"/><script defer src="assets/main.js"></script><script defer src="assets/custom.js?v=b13c8c043231"></script><script async src="assets/icons.js" id="tsd-icons-script"></script><script async src="assets/search.js" id="tsd-search-script"></script><script async src="assets/navigation.js" id="tsd-nav-script"></script></head><body><script>document.documentElement.dataset.theme = localStorage.getItem("tsd-theme") || "os";document.body.style.display="none";setTimeout(() => window.app?app.showPage():document.body.style.removeProperty("display"),500)</script><header class="tsd-page-toolbar">
+<div class="tsd-toolbar-contents container"><a href="index.html" class="title">Inttegro Web SDKs - v0.3.0</a>
+<div id="tsd-toolbar-links"><a href="https://studio.inttegro.com/web">Studio</a><a href="https://github.com/zebodotdev/js">GitHub</a></div><button id="tsd-search-trigger" class="tsd-widget" aria-label="Search"><svg width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true"><use href="assets/icons.svg#icon-search"></use></svg></button><dialog id="tsd-search" aria-label="Search"><input role="combobox" id="tsd-search-input" aria-controls="tsd-search-results" aria-autocomplete="list" aria-expanded="true" autocapitalize="off" autocomplete="off" placeholder="Search the docs" maxLength="100"/>
+<ul role="listbox" id="tsd-search-results"></ul>
+<div id="tsd-search-status" aria-live="polite" aria-atomic="true">
+<div>Preparing search index...</div></div></dialog><a href="#" class="tsd-widget menu" id="tsd-toolbar-menu-trigger" data-toggle="menu" aria-label="Menu"><svg width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true"><use href="assets/icons.svg#icon-menu"></use></svg></a></div></header>
+<div class="container container-main">
+<div class="col-content">
+<div class="tsd-page-title">
+<h1>Inttegro Web SDKs - v0.3.0</h1></div>
+<div class="tsd-panel tsd-typography"><h1 id="inttegro-javascript-sdks" class="tsd-anchor-link">Inttegro JavaScript SDKs<a href="#inttegro-javascript-sdks" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="assets/icons.svg#icon-anchor"></use></svg></a></h1>
+<p>Embed Inttegro Checkout in a website or web application. Use <code>@inttegro/js</code>
+directly, or choose the adapter for your frontend framework.</p>
+<table>
+<thead>
+<tr>
+<th>Package</th>
+<th>Use it with</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>@inttegro/js</code></td>
+<td>Browser JavaScript/TypeScript</td>
+</tr>
+<tr>
+<td><code>@inttegro/react</code></td>
+<td>React</td>
+</tr>
+<tr>
+<td><code>@inttegro/vue</code></td>
+<td>Vue</td>
+</tr>
+<tr>
+<td><code>@inttegro/svelte</code></td>
+<td>Svelte</td>
+</tr>
+<tr>
+<td><code>@inttegro/angular</code></td>
+<td>Angular</td>
+</tr>
+</tbody>
+</table>
+<p>The packages load the sensitive checkout runtime from Inttegro-controlled
+servers. They do not include a copy of that runtime, so payment collection
+always uses the current Inttegro-hosted experience.</p>
+<h2 id="before-you-begin" class="tsd-anchor-link">Before you begin<a href="#before-you-begin" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="assets/icons.svg#icon-anchor"></use></svg></a></h2>
+<p>Create and finalize an Order on your server using an Inttegro server SDK. Send
+only its client-safe Order ID to your web application. Never expose an Inttegro
+secret API key in browser code.</p>
+<h2 id="install" class="tsd-anchor-link">Install<a href="#install" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="assets/icons.svg#icon-anchor"></use></svg></a></h2>
+<p>Install <code>@inttegro/js</code> for a plain JavaScript or TypeScript application. For a
+framework application, install the matching adapter instead; it includes
+<code>@inttegro/js</code> as a dependency.</p>
+<h3 id="npm" class="tsd-anchor-link">npm<a href="#npm" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="assets/icons.svg#icon-anchor"></use></svg></a></h3>
+<pre><code class="bash"><span class="hl-0"># JavaScript or TypeScript</span><br/><span class="hl-1">npm</span><span class="hl-2"> </span><span class="hl-3">install</span><span class="hl-2"> </span><span class="hl-3">@inttegro/js</span><br/><br/><span class="hl-0"># Choose one framework adapter</span><br/><span class="hl-1">npm</span><span class="hl-2"> </span><span class="hl-3">install</span><span class="hl-2"> </span><span class="hl-3">@inttegro/react</span><br/><span class="hl-1">npm</span><span class="hl-2"> </span><span class="hl-3">install</span><span class="hl-2"> </span><span class="hl-3">@inttegro/vue</span><br/><span class="hl-1">npm</span><span class="hl-2"> </span><span class="hl-3">install</span><span class="hl-2"> </span><span class="hl-3">@inttegro/svelte</span><br/><span class="hl-1">npm</span><span class="hl-2"> </span><span class="hl-3">install</span><span class="hl-2"> </span><span class="hl-3">@inttegro/angular</span>
+</code><button type="button">Copy</button></pre>
+
+<p>Import packages by name:</p>
+<pre><code class="ts"><span class="hl-4">import</span><span class="hl-2"> { </span><span class="hl-5">loadInttegro</span><span class="hl-2"> } </span><span class="hl-4">from</span><span class="hl-2"> </span><span class="hl-3">&#39;@inttegro/js&#39;</span>
+</code><button type="button">Copy</button></pre>
+
+<h3 id="yarn" class="tsd-anchor-link">Yarn<a href="#yarn" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="assets/icons.svg#icon-anchor"></use></svg></a></h3>
+<pre><code class="bash"><span class="hl-0"># JavaScript or TypeScript</span><br/><span class="hl-1">yarn</span><span class="hl-2"> </span><span class="hl-3">add</span><span class="hl-2"> </span><span class="hl-3">@inttegro/js</span><br/><br/><span class="hl-0"># Choose one framework adapter</span><br/><span class="hl-1">yarn</span><span class="hl-2"> </span><span class="hl-3">add</span><span class="hl-2"> </span><span class="hl-3">@inttegro/react</span><br/><span class="hl-1">yarn</span><span class="hl-2"> </span><span class="hl-3">add</span><span class="hl-2"> </span><span class="hl-3">@inttegro/vue</span><br/><span class="hl-1">yarn</span><span class="hl-2"> </span><span class="hl-3">add</span><span class="hl-2"> </span><span class="hl-3">@inttegro/svelte</span><br/><span class="hl-1">yarn</span><span class="hl-2"> </span><span class="hl-3">add</span><span class="hl-2"> </span><span class="hl-3">@inttegro/angular</span>
+</code><button type="button">Copy</button></pre>
+
+<p>Import packages by name:</p>
+<pre><code class="ts"><span class="hl-4">import</span><span class="hl-2"> { </span><span class="hl-5">loadInttegro</span><span class="hl-2"> } </span><span class="hl-4">from</span><span class="hl-2"> </span><span class="hl-3">&#39;@inttegro/js&#39;</span>
+</code><button type="button">Copy</button></pre>
+
+<h3 id="bun" class="tsd-anchor-link">Bun<a href="#bun" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="assets/icons.svg#icon-anchor"></use></svg></a></h3>
+<pre><code class="bash"><span class="hl-0"># JavaScript or TypeScript</span><br/><span class="hl-1">bun</span><span class="hl-2"> </span><span class="hl-3">add</span><span class="hl-2"> </span><span class="hl-3">@inttegro/js</span><br/><br/><span class="hl-0"># Choose one framework adapter</span><br/><span class="hl-1">bun</span><span class="hl-2"> </span><span class="hl-3">add</span><span class="hl-2"> </span><span class="hl-3">@inttegro/react</span><br/><span class="hl-1">bun</span><span class="hl-2"> </span><span class="hl-3">add</span><span class="hl-2"> </span><span class="hl-3">@inttegro/vue</span><br/><span class="hl-1">bun</span><span class="hl-2"> </span><span class="hl-3">add</span><span class="hl-2"> </span><span class="hl-3">@inttegro/svelte</span><br/><span class="hl-1">bun</span><span class="hl-2"> </span><span class="hl-3">add</span><span class="hl-2"> </span><span class="hl-3">@inttegro/angular</span>
+</code><button type="button">Copy</button></pre>
+
+<p>Import packages by name:</p>
+<pre><code class="ts"><span class="hl-4">import</span><span class="hl-2"> { </span><span class="hl-5">loadInttegro</span><span class="hl-2"> } </span><span class="hl-4">from</span><span class="hl-2"> </span><span class="hl-3">&#39;@inttegro/js&#39;</span>
+</code><button type="button">Copy</button></pre>
+
+<h3 id="deno" class="tsd-anchor-link">Deno<a href="#deno" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="assets/icons.svg#icon-anchor"></use></svg></a></h3>
+<p>Deno supports the packages through its npm compatibility layer:</p>
+<pre><code class="bash"><span class="hl-0"># JavaScript or TypeScript</span><br/><span class="hl-1">deno</span><span class="hl-2"> </span><span class="hl-3">add</span><span class="hl-2"> </span><span class="hl-3">npm:@inttegro/js</span><br/><br/><span class="hl-0"># Choose one framework adapter</span><br/><span class="hl-1">deno</span><span class="hl-2"> </span><span class="hl-3">add</span><span class="hl-2"> </span><span class="hl-3">npm:@inttegro/react</span><br/><span class="hl-1">deno</span><span class="hl-2"> </span><span class="hl-3">add</span><span class="hl-2"> </span><span class="hl-3">npm:@inttegro/vue</span><br/><span class="hl-1">deno</span><span class="hl-2"> </span><span class="hl-3">add</span><span class="hl-2"> </span><span class="hl-3">npm:@inttegro/svelte</span><br/><span class="hl-1">deno</span><span class="hl-2"> </span><span class="hl-3">add</span><span class="hl-2"> </span><span class="hl-3">npm:@inttegro/angular</span>
+</code><button type="button">Copy</button></pre>
+
+<p>Use an <code>npm:</code> specifier when importing without a package manifest:</p>
+<pre><code class="ts"><span class="hl-4">import</span><span class="hl-2"> { </span><span class="hl-5">loadInttegro</span><span class="hl-2"> } </span><span class="hl-4">from</span><span class="hl-2"> </span><span class="hl-3">&#39;npm:@inttegro/js&#39;</span>
+</code><button type="button">Copy</button></pre>
+
+<h2 id="javascript-and-typescript" class="tsd-anchor-link">JavaScript and TypeScript<a href="#javascript-and-typescript" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="assets/icons.svg#icon-anchor"></use></svg></a></h2>
+<p>Load Inttegro, create Checkout for an Order, and mount it into an empty
+container:</p>
+<pre><code class="html"><span class="hl-6">&lt;</span><span class="hl-7">div</span><span class="hl-2"> </span><span class="hl-8">id</span><span class="hl-2">=</span><span class="hl-9">&quot;checkout&quot;</span><span class="hl-6">&gt;&lt;/</span><span class="hl-7">div</span><span class="hl-6">&gt;</span>
+</code><button type="button">Copy</button></pre>
+
+<pre><code class="ts"><span class="hl-4">import</span><span class="hl-2"> { </span><span class="hl-5">loadInttegro</span><span class="hl-2"> } </span><span class="hl-4">from</span><span class="hl-2"> </span><span class="hl-3">&#39;@inttegro/js&#39;</span><br/><br/><span class="hl-10">const</span><span class="hl-2"> </span><span class="hl-11">inttegro</span><span class="hl-2"> = </span><span class="hl-4">await</span><span class="hl-2"> </span><span class="hl-1">loadInttegro</span><span class="hl-2">()</span><br/><br/><span class="hl-4">if</span><span class="hl-2"> (!</span><span class="hl-5">inttegro</span><span class="hl-2">) {</span><br/><span class="hl-2">  </span><span class="hl-4">throw</span><span class="hl-2"> </span><span class="hl-10">new</span><span class="hl-2"> </span><span class="hl-1">Error</span><span class="hl-2">(</span><span class="hl-3">&#39;Inttegro Checkout must be initialized in a browser&#39;</span><span class="hl-2">)</span><br/><span class="hl-2">}</span><br/><br/><span class="hl-10">const</span><span class="hl-2"> </span><span class="hl-11">checkout</span><span class="hl-2"> = </span><span class="hl-5">inttegro</span><span class="hl-2">.</span><span class="hl-1">createCheckout</span><span class="hl-2">({</span><br/><span class="hl-2">  </span><span class="hl-5">orderId:</span><span class="hl-2"> </span><span class="hl-3">&#39;YOUR_ORDER_ID&#39;</span><span class="hl-2">,</span><br/><span class="hl-2">  </span><span class="hl-5">appearance:</span><span class="hl-2"> { </span><span class="hl-5">theme:</span><span class="hl-2"> </span><span class="hl-3">&#39;system&#39;</span><span class="hl-2"> },</span><br/><span class="hl-2">  </span><span class="hl-5">features:</span><span class="hl-2"> {</span><br/><span class="hl-2">    </span><span class="hl-5">showLineItems:</span><span class="hl-2"> </span><span class="hl-10">true</span><span class="hl-2">,</span><br/><span class="hl-2">    </span><span class="hl-5">showInvoiceDownload:</span><span class="hl-2"> </span><span class="hl-10">true</span><span class="hl-2">,</span><br/><span class="hl-2">    </span><span class="hl-5">showReceiptDownload:</span><span class="hl-2"> </span><span class="hl-10">true</span><span class="hl-2">,</span><br/><span class="hl-2">    </span><span class="hl-5">allowPaymentMethodChange:</span><span class="hl-2"> </span><span class="hl-10">false</span><span class="hl-2">,</span><br/><span class="hl-2">  },</span><br/><span class="hl-2">  </span><span class="hl-5">locale:</span><span class="hl-2"> </span><span class="hl-3">&#39;en-GH&#39;</span><span class="hl-2">,</span><br/><span class="hl-2">})</span><br/><br/><span class="hl-5">checkout</span><span class="hl-2">.</span><span class="hl-1">on</span><span class="hl-2">(</span><span class="hl-3">&#39;completed&#39;</span><span class="hl-2">, () </span><span class="hl-10">=&gt;</span><span class="hl-2"> {</span><br/><span class="hl-2">  </span><span class="hl-5">window</span><span class="hl-2">.</span><span class="hl-5">location</span><span class="hl-2">.</span><span class="hl-1">assign</span><span class="hl-2">(</span><span class="hl-3">&#39;/orders/complete&#39;</span><span class="hl-2">)</span><br/><span class="hl-2">})</span><br/><br/><span class="hl-5">checkout</span><span class="hl-2">.</span><span class="hl-1">on</span><span class="hl-2">(</span><span class="hl-3">&#39;error&#39;</span><span class="hl-2">, (</span><span class="hl-5">event</span><span class="hl-2">) </span><span class="hl-10">=&gt;</span><span class="hl-2"> {</span><br/><span class="hl-2">  </span><span class="hl-5">console</span><span class="hl-2">.</span><span class="hl-1">error</span><span class="hl-2">(</span><span class="hl-5">event</span><span class="hl-2">.</span><span class="hl-5">error</span><span class="hl-2">.</span><span class="hl-5">message</span><span class="hl-2">)</span><br/><span class="hl-2">})</span><br/><br/><span class="hl-4">await</span><span class="hl-2"> </span><span class="hl-5">checkout</span><span class="hl-2">.</span><span class="hl-1">mount</span><span class="hl-2">(</span><span class="hl-3">&#39;#checkout&#39;</span><span class="hl-2">)</span>
+</code><button type="button">Copy</button></pre>
+
+<p><code>loadInttegro()</code> returns <code>null</code> during server-side rendering. Initialize and
+mount Checkout only in browser code.</p>
+<p>To open the same Checkout in a responsive modal, call <code>present()</code> instead of
+building a dialog and mounting into it:</p>
+<pre><code class="ts"><span class="hl-5">checkout</span><span class="hl-2">.</span><span class="hl-1">on</span><span class="hl-2">(</span><span class="hl-3">&#39;canceled&#39;</span><span class="hl-2">, () </span><span class="hl-10">=&gt;</span><span class="hl-2"> {</span><br/><span class="hl-2">  </span><span class="hl-0">// The payer closed the modal before payment completed.</span><br/><span class="hl-2">})</span><br/><br/><span class="hl-4">await</span><span class="hl-2"> </span><span class="hl-5">checkout</span><span class="hl-2">.</span><span class="hl-1">present</span><span class="hl-2">()</span>
+</code><button type="button">Copy</button></pre>
+
+<p>Inttegro owns the backdrop, close controls, viewport scrolling, focus handling,
+and teardown. Call <code>checkout.dismiss()</code> when the application needs to close the
+managed modal programmatically.</p>
+<h2 id="framework-adapters" class="tsd-anchor-link">Framework adapters<a href="#framework-adapters" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="assets/icons.svg#icon-anchor"></use></svg></a></h2>
+<p>The official adapters map Checkout onto each framework's component lifecycle,
+reactivity model, events, and cleanup conventions. Start with the adapter
+overview, then follow the guide for your application:</p>
+<ul>
+<li><a href="documents/Framework_adapters.html">Framework adapter overview</a></li>
+<li><a href="documents/React.html">React</a></li>
+<li><a href="documents/Vue.html">Vue</a></li>
+<li><a href="documents/Svelte.html">Svelte</a></li>
+<li><a href="documents/Angular.html">Angular</a></li>
+<li><a href="documents/Inertia.html">Inertia</a></li>
+</ul>
+<p>Inertia uses the official adapter for its configured client framework; it does
+not require a separate Inttegro package.</p>
+<h2 id="checkout-options" class="tsd-anchor-link">Checkout options<a href="#checkout-options" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="assets/icons.svg#icon-anchor"></use></svg></a></h2>
+<p>All integrations accept these options:</p>
+<table>
+<thead>
+<tr>
+<th>Option</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>appearance</code></td>
+<td>Sets the <code>light</code>, <code>dark</code>, or <code>system</code> theme.</td>
+</tr>
+<tr>
+<td><code>features</code></td>
+<td>Controls line items, document downloads, and method changes.</td>
+</tr>
+<tr>
+<td><code>locale</code></td>
+<td>Sets a BCP 47 locale preference, such as <code>en-GH</code>.</td>
+</tr>
+<tr>
+<td><code>orderId</code></td>
+<td>Identifies the finalized Order to collect payment for.</td>
+</tr>
+<tr>
+<td><code>timeout</code></td>
+<td>Sets how long Checkout waits to become ready.</td>
+</tr>
+<tr>
+<td><code>title</code></td>
+<td>Provides an accessible title for the hosted experience.</td>
+</tr>
+</tbody>
+</table>
+<p>Hosted Checkout keeps its existing behavior when <code>features</code> is omitted: line
+items are hidden, invoice and receipt actions are offered after successful
+payment, and the payer may replace an attached payment method. A document
+action is rendered only when Checkout returns that document's link.</p>
+<p>The framework adapters also provide <code>completed</code>, <code>error</code>, <code>event</code>, and <code>ready</code>
+callbacks or events using each framework's native conventions.</p>
+<p>With <code>@inttegro/js</code>, subscribe to a single event with <code>checkout.on(type, handler)</code>, or observe the full lifecycle with <code>checkout.onEvent(handler)</code>. Both
+methods return an unsubscribe function.</p>
+<h2 id="content-security-policy" class="tsd-anchor-link">Content Security Policy<a href="#content-security-policy" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="assets/icons.svg#icon-anchor"></use></svg></a></h2>
+<p>If your application uses Content Security Policy, allow Inttegro's script and
+hosted checkout origins:</p>
+<pre><code class="text">script-src https://js.inttegro.com;
+frame-src https://pages.inttegro.com;
+</code><button type="button">Copy</button></pre>
+
+<p>When your script policy uses a nonce, pass it to the loader:</p>
+<pre><code class="ts"><span class="hl-10">const</span><span class="hl-2"> </span><span class="hl-11">inttegro</span><span class="hl-2"> = </span><span class="hl-4">await</span><span class="hl-2"> </span><span class="hl-1">loadInttegro</span><span class="hl-2">({ </span><span class="hl-5">nonce:</span><span class="hl-2"> </span><span class="hl-5">requestNonce</span><span class="hl-2"> })</span>
+</code><button type="button">Copy</button></pre>
+
+<p>Keep the nonce private to the rendered page and generate a new value for every
+response.</p>
+<h2 id="security" class="tsd-anchor-link">Security<a href="#security" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="assets/icons.svg#icon-anchor"></use></svg></a></h2>
+<ul>
+<li>Never include an Inttegro secret API key in browser code.</li>
+<li>Treat an Order ID as a payment capability. Do not record it in analytics,
+exception reports, or DOM logs.</li>
+<li>Do not download, copy, mirror, proxy, bundle, or self-host the Inttegro
+checkout runtime. Load it through these packages from Inttegro-controlled
+servers.</li>
+<li>Payment details are collected within the Inttegro-hosted experience and are
+not included in lifecycle events delivered to your application.</li>
+</ul>
+<h2 id="documentation" class="tsd-anchor-link">Documentation<a href="#documentation" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="assets/icons.svg#icon-anchor"></use></svg></a></h2>
+<p>Read the <a href="https://studio.inttegro.com/web">integration guides</a> in Inttegro
+Studio and browse the <a href="https://web.inttegro.dev/v0.3.0/">generated API reference</a>
+for every JavaScript framework package.</p>
+</div></div>
+<div class="col-sidebar">
+<div class="page-menu">
+<div class="tsd-navigation settings">
+<details class="tsd-accordion"><summary class="tsd-accordion-summary"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" aria-hidden="true"><use href="assets/icons.svg#icon-chevronDown"></use></svg>
+<h3>Settings</h3></summary>
+<div class="tsd-accordion-details">
+<div class="tsd-filter-visibility"><span class="settings-label">Member Visibility</span>
+<ul id="tsd-filter-options">
+<li class="tsd-filter-item"><label class="tsd-filter-input"><input type="checkbox" id="tsd-filter-protected" name="protected"/><svg width="32" height="32" viewBox="0 0 32 32" aria-hidden="true"><rect class="tsd-checkbox-background" width="30" height="30" x="1" y="1" rx="6" fill="none"></rect><path class="tsd-checkbox-checkmark" d="M8.35422 16.8214L13.2143 21.75L24.6458 10.25" stroke="none" stroke-width="3.5" stroke-linejoin="round" fill="none"></path></svg><span>Protected</span></label></li>
+<li class="tsd-filter-item"><label class="tsd-filter-input"><input type="checkbox" id="tsd-filter-inherited" name="inherited" checked/><svg width="32" height="32" viewBox="0 0 32 32" aria-hidden="true"><rect class="tsd-checkbox-background" width="30" height="30" x="1" y="1" rx="6" fill="none"></rect><path class="tsd-checkbox-checkmark" d="M8.35422 16.8214L13.2143 21.75L24.6458 10.25" stroke="none" stroke-width="3.5" stroke-linejoin="round" fill="none"></path></svg><span>Inherited</span></label></li>
+<li class="tsd-filter-item"><label class="tsd-filter-input"><input type="checkbox" id="tsd-filter-external" name="external"/><svg width="32" height="32" viewBox="0 0 32 32" aria-hidden="true"><rect class="tsd-checkbox-background" width="30" height="30" x="1" y="1" rx="6" fill="none"></rect><path class="tsd-checkbox-checkmark" d="M8.35422 16.8214L13.2143 21.75L24.6458 10.25" stroke="none" stroke-width="3.5" stroke-linejoin="round" fill="none"></path></svg><span>External</span></label></li></ul></div>
+<div class="tsd-theme-toggle"><label class="settings-label" for="tsd-theme">Theme</label><select id="tsd-theme"><option value="os">OS</option><option value="light">Light</option><option value="dark">Dark</option></select></div></div></details></div>
+<details open class="tsd-accordion tsd-page-navigation"><summary class="tsd-accordion-summary"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" aria-hidden="true"><use href="assets/icons.svg#icon-chevronDown"></use></svg>
+<h3>On This Page</h3></summary>
+<div class="tsd-accordion-details"><a href="#inttegro-javascript-sdks"><span>Inttegro <wbr/>Java<wbr/>Script <wbr/>SD<wbr/>Ks</span></a>
+<ul>
+<li><a href="#before-you-begin"><span>Before you begin</span></a></li>
+<li><a href="#install"><span>Install</span></a></li>
+<li>
+<ul>
+<li><a href="#npm"><span>npm</span></a></li>
+<li><a href="#yarn"><span>Yarn</span></a></li>
+<li><a href="#bun"><span>Bun</span></a></li>
+<li><a href="#deno"><span>Deno</span></a></li></ul></li>
+<li><a href="#javascript-and-typescript"><span>Java<wbr/>Script and <wbr/>Type<wbr/>Script</span></a></li>
+<li><a href="#framework-adapters"><span>Framework adapters</span></a></li>
+<li><a href="#checkout-options"><span>Checkout options</span></a></li>
+<li><a href="#content-security-policy"><span>Content <wbr/>Security <wbr/>Policy</span></a></li>
+<li><a href="#security"><span>Security</span></a></li>
+<li><a href="#documentation"><span>Documentation</span></a></li></ul></div></details></div>
+<div class="site-menu">
+<nav id="tsd-sidebar-links" class="tsd-navigation"><a href="https://studio.inttegro.com/web" class="tsd-nav-link">Studio</a><a href="https://github.com/zebodotdev/js" class="tsd-nav-link">GitHub</a></nav>
+<nav class="tsd-navigation"><a href="modules.html">Inttegro Web SDKs - v0.3.0</a>
+<ul class="tsd-small-nested-navigation" id="tsd-nav-container">
+<li>Loading...</li></ul></nav></div></div></div><footer>
+<p class="tsd-generator">Generated using <a href="https://typedoc.org/" target="_blank">TypeDoc</a></p></footer>
+<div class="overlay"></div></body></html>
