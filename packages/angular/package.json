@@ -20,7 +20,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/zebodotdev/js.git",
+    "url": "git+https://github.com/inttegro/js.git",
     "directory": "packages/angular"
   },
   "homepage": "https://studio.inttegro.com/web/angular",

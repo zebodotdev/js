@@ -15,7 +15,7 @@
   "projectDocuments": ["docs/guides/*.md"],
   "customCss": "docs/typedoc.css",
   "customJs": "docs/typedoc.js",
-  "sourceLinkTemplate": "https://github.com/zebodotdev/js/blob/{gitRevision}/{path}#L{line}",
+  "sourceLinkTemplate": "https://github.com/inttegro/js/blob/{gitRevision}/{path}#L{line}",
   "githubPages": true,
   "treatWarningsAsErrors": true,
   "validation": {
@@ -50,6 +50,6 @@
   },
   "navigationLinks": {
     "Studio": "https://studio.inttegro.com/web",
-    "GitHub": "https://github.com/zebodotdev/js"
+    "GitHub": "https://github.com/inttegro/js"
   }
 }

@@ -1,4 +1,4 @@
-const documentationOrigin = 'https://zebodotdev.github.io/js'
+const documentationOrigin = 'https://inttegro.github.io/js'
 
 export default {
   async fetch(request: Request): Promise<Response> {
