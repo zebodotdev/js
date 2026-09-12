@@ -69,7 +69,7 @@ for (const route of stableDocumentRoutes) {
 }
 
 if (
-  !/https:\/\/github\.com\/zebodotdev\/js\/blob\/[0-9a-f]{40}\/packages\/.+?#L\d+/.test(
+  !/https:\/\/github\.com\/inttegro\/js\/blob\/[0-9a-f]{40}\/packages\/.+?#L\d+/.test(
     generatedHtml,
   )
 ) {
